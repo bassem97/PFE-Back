@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,8 @@ public class User {
 
     private String name;
     private String gender;
-    private Date birthDay;
-    private Date hireDay;
+    private Date birthDate;
+    private LocalDate hireDay;
 
     @Column(unique = true)
     private long phone;
@@ -43,7 +44,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnoreProperties(value ="addresses" , allowSetters = true)
+    @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -52,17 +53,23 @@ public class User {
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Department department;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "USER_ROLES", joinColumns = {
+            @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "role_id") })
+    @JsonIgnoreProperties("users")
+    private List<Role> roles = new ArrayList<>();
 
 
 
     public User() {
     }
 
-    public User(String name, String gender, Date birthDay, Date hireDay, long phone, String email, String CIN, String password) {
+    public User(String name, String gender, Date birthDay, long phone, String email, String CIN, String password) {
         this.name = name;
         this.gender = gender;
-        this.birthDay = birthDay;
-        this.hireDay = hireDay;
+        this.birthDate = birthDay;
+        this.hireDay = LocalDate.now();
         this.phone = phone;
         this.email = email;
         this.CIN = CIN;
@@ -93,20 +100,16 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public Date getHireDay() {
+    public LocalDate getHireDay() {
         return hireDay;
-    }
-
-    public void setHireDay(Date hireDay) {
-        this.hireDay = hireDay;
     }
 
     public long getPhone() {
@@ -148,4 +151,31 @@ public class User {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+//    public int getAge(){
+//        long ageInMillis = new Date().getTime() - getBirthDate().getTime();
+//        Date age = new Date(ageInMillis);
+//        return age.getYear();
+//    }
+//    public int getWorkPeriod(){
+//        long ageInMillis = new Date().getYear() - getHireDay().getYear();
+//        Date age = new Date(ageInMillis);
+//        return age.getYear();
+//    }
 }

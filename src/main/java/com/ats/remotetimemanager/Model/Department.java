@@ -23,12 +23,14 @@ public class Department {
     @JoinColumn(name = "supDep", referencedColumnName = "dep_Id")
     private Department supDep;
 
+    @OneToMany(mappedBy = "supDep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Department> departments;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chef_dep_id")
     private User chefDep;
 
-    @OneToMany(mappedBy = "supDep", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Department> departments;
+
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
