@@ -5,7 +5,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -38,11 +40,19 @@ public class User {
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Post post;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties(value ="addresses" , allowSetters = true)
+    private List<Address> addresses = new ArrayList<>() ;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "dep_id", nullable = false)
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Department department;
+
+
 
 
     public User() {
