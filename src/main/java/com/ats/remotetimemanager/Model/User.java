@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -27,22 +27,36 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column(unique = true)
+    private String CIN;
+
+    private String password;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "post_id", nullable = false)
+    @JsonIgnoreProperties(value ="users" , allowSetters = true)
+    private Post post;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "dep_id", nullable = false)
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Department department;
 
+
     public User() {
     }
 
-    public User(String name, String gender, Date birthDay, Date hireDay, long phone, String email) {
+    public User(String name, String gender, Date birthDay, Date hireDay, long phone, String email, String CIN, String password) {
         this.name = name;
         this.gender = gender;
         this.birthDay = birthDay;
         this.hireDay = hireDay;
         this.phone = phone;
         this.email = email;
+        this.CIN = CIN;
+        this.password = password;
     }
 
     public Long getUserId() {
@@ -99,6 +113,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCIN() {
+        return CIN;
+    }
+
+    public void setCIN(String CIN) {
+        this.CIN = CIN;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Department getDepartment() {

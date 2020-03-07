@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Departments")
+@Table(name = "DEPARTMENTS")
 public class Department {
 
     @Id
