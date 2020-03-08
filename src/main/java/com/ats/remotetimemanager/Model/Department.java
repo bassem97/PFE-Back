@@ -21,9 +21,11 @@ public class Department {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supDep", referencedColumnName = "dep_Id")
+    @JsonIgnoreProperties(value ="departments" , allowSetters = true)
     private Department supDep;
 
     @OneToMany(mappedBy = "supDep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value ="supDep" , allowSetters = true)
     private List<Department> departments;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -51,7 +53,7 @@ public class Department {
     }
 
     public void setDepId(long depId) {
-        depId = depId;
+        this.depId = depId;
     }
 
     public String getDepName() {
@@ -59,7 +61,7 @@ public class Department {
     }
 
     public void setDepName(String depName) {
-        depName = depName;
+        this.depName = depName;
     }
 
     public Department getSupDep() {
@@ -67,7 +69,7 @@ public class Department {
     }
 
     public void setSupDep(Department supDep) {
-        supDep = supDep;
+        this.supDep = supDep;
     }
 
     public List<Department> getDepartments() {

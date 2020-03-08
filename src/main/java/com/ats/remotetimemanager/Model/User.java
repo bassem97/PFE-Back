@@ -168,7 +168,16 @@ public class User {
         this.addresses = addresses;
     }
 
-//    public int getAge(){
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    //    public int getAge(){
 //        long ageInMillis = new Date().getTime() - getBirthDate().getTime();
 //        Date age = new Date(ageInMillis);
 //        return age.getYear();
