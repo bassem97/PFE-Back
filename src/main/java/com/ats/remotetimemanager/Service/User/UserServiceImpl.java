@@ -55,10 +55,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User user) {
-        if(!userRepository.findById(user.getUserId()).isPresent()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepository.save(user);
-        }else return null;
+     return userRepository.save(user);
+
     }
 
     @Override

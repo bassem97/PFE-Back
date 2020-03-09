@@ -21,9 +21,7 @@ public class UserController {
     public List<User> getAll(){ return userService.findAll(); }
 
     @PostMapping("add")
-    public User add(@RequestBody User user) {
-        return userService.add(user);
-    }
+    public User add(@RequestBody User user) { return userService.add(user); }
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     public User findById(@PathVariable(value = "id") Long id){

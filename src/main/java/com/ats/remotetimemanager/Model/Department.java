@@ -21,11 +21,11 @@ public class Department {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supDep", referencedColumnName = "dep_Id")
-    @JsonIgnoreProperties(value ="departments" , allowSetters = true)
+    @JsonIgnoreProperties(value ={"departments","users"} , allowSetters = true)
     private Department supDep;
 
     @OneToMany(mappedBy = "supDep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value ="supDep" , allowSetters = true)
+    @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
     private List<Department> departments;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -34,11 +34,11 @@ public class Department {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnoreProperties(value ="department" , allowSetters = true)
+    @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
+
 
     public Department() {
     }

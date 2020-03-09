@@ -20,12 +20,11 @@ public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     private String name;
     private String gender;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
     private String birthDate;
 
     private LocalDate hireDay;
@@ -53,10 +52,9 @@ public class User  {
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "dep_id", nullable = false)
-    @JsonIgnoreProperties(value ="users" , allowSetters = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dep_id")
+    @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
     private Department department;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -71,8 +69,7 @@ public class User  {
     public User() {
     }
 
-    public User(Long userId, String name, String gender, String birthDate, long phone, String email, String CIN, String password,Post post, Department department) {
-        this.userId = userId;
+    public User( String name, String gender, String birthDate, long phone, String email, String CIN, String password,Post post, Department department) {
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -85,13 +82,10 @@ public class User  {
         this.department = department;
     }
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;

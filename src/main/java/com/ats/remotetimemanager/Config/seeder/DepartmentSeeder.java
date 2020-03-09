@@ -12,11 +12,12 @@ public class DepartmentSeeder {
     private DepartmentRepository departmentRepository ;
     Department info = new Department("informatique", null);
     Department security = new Department("security", info);
+    Department khra = new Department("khra", security);
     Department mark = new Department("marketing", null);
     public  void seed(){
 
         if(departmentRepository.findAll().isEmpty()){
-            departmentRepository.save(info);
+            departmentRepository.save(khra);
             departmentRepository.save(mark);
         }
     }

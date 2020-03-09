@@ -27,6 +27,7 @@ public class Address {
     @JsonIgnoreProperties(value ="addresses" , allowSetters = true)
     private User user;
 
+
     public Address() {
 
     }

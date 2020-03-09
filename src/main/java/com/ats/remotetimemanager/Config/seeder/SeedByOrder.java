@@ -19,14 +19,15 @@ public class SeedByOrder {
     UsersSeeder usersSeeder;
     @Autowired
     PostSeeder postSeeder;
-    @Autowired
-    AddressSeeder addressSeeder;
+
 
     public void init()  {
+
         departmentSeeder.seed();
         roleSeeder.seed();
         postSeeder.seed();
         usersSeeder.seed();
+
 
 
     }
