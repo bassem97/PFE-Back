@@ -1,10 +1,12 @@
 package com.ats.remotetimemanager.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,16 +14,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User  {
+
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
     private String name;
     private String gender;
-    private Date birthDate;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private String birthDate;
+
     private LocalDate hireDay;
 
     @Column(unique = true)
@@ -47,7 +53,7 @@ public class User {
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "dep_id", nullable = false)
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
@@ -65,15 +71,18 @@ public class User {
     public User() {
     }
 
-    public User(String name, String gender, Date birthDay, long phone, String email, String CIN, String password) {
+    public User(Long userId, String name, String gender, String birthDate, long phone, String email, String CIN, String password,Post post, Department department) {
+        this.userId = userId;
         this.name = name;
         this.gender = gender;
-        this.birthDate = birthDay;
+        this.birthDate = birthDate;
         this.hireDay = LocalDate.now();
         this.phone = phone;
         this.email = email;
         this.CIN = CIN;
         this.password = password;
+        this.post = post;
+        this.department = department;
     }
 
     public Long getUserId() {
@@ -100,11 +109,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

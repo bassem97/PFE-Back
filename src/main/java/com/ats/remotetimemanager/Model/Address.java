@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Address {
     @Id
     @Column(name = "address_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long addressId;
     
     private String streetName;
@@ -19,6 +19,7 @@ public class Address {
     private String state;
     private String governorate;
     private long zipCode;
+
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -29,12 +30,14 @@ public class Address {
     public Address() {
 
     }
-    public Address(String streetName, String streetNumber, String state, String governorate, long zipCode) {
+
+    public Address(String streetName, String streetNumber, String state, String governorate, long zipCode, User user) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.state = state;
         this.governorate = governorate;
         this.zipCode = zipCode;
+        this.user = user;
     }
 
     public long getAddressId() {

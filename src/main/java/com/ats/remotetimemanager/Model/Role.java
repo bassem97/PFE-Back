@@ -18,7 +18,7 @@ public class Role {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {
             @JoinColumn(name = "role_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "ussr_id") })
+            @JoinColumn(name = "user_id") })
     private List<Role> users = new ArrayList<>();
 
 
