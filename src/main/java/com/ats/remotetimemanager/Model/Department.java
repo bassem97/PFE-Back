@@ -5,8 +5,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "DEPARTMENTS")
@@ -28,14 +30,14 @@ public class Department {
     @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
     private List<Department> departments;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chef_dep_id")
-    private User chefDep;
+
+    private long chefDep;
 
 
-
+//, orphanRemoval = true
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
@@ -80,11 +82,11 @@ public class Department {
         this.departments = departments;
     }
 
-    public User getChefDep() {
+    public long getChefDep() {
         return chefDep;
     }
 
-    public void setChefDep(User chefDep) {
+    public void setChefDep(long chefDep) {
         this.chefDep = chefDep;
     }
 
@@ -94,5 +96,16 @@ public class Department {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "depId=" + depId +
+                ", depName='" + depName + '\'' +
+                ", supDep=" + supDep +
+                ", departments=" + departments +
+                ", chefDep=" + chefDep +
+                '}';
     }
 }

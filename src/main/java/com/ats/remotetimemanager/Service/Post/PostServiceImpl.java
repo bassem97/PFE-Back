@@ -40,4 +40,9 @@ public class PostServiceImpl implements PostService{
         return postRepository.findById(id).isPresent()?
                 postRepository.findById(id).get() : null;
     }
+    @Override
+    public Post findByPostName(String name) {
+        return postRepository.findById(postRepository.findByPostName(name).getPostId()).isPresent()?
+                postRepository.findByPostName(name) : null;
+    }
 }

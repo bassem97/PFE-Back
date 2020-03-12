@@ -16,17 +16,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public Department add(Department department) { return departmentRepository.save(department);}
+    public Department add(Department department) {
+        return departmentRepository.save(department);}
 
     @Override
     public Department update(Department department, Long id) {
         if(departmentRepository.findById(id).isPresent()){
             Department dep= departmentRepository.findById(id).get();
-            dep.setDepName(dep.getDepName());
-            dep.setChefDep(dep.getChefDep());
-            dep.setDepartments(dep.getDepartments());
-            dep.setSupDep(dep.getSupDep());
-            dep.setUsers(dep.getUsers());
+            dep.setDepName(department.getDepName());
+            dep.setChefDep(department.getChefDep());
+            dep.setDepartments(department.getDepartments());
+            dep.setSupDep(department.getSupDep());
+            dep.setUsers(department.getUsers());
             return departmentRepository.saveAndFlush(dep);
         }else return null;
 
@@ -43,4 +44,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(Long id) {return departmentRepository.findById(id).get() ;}
+
+    @Override
+    public Department setChefDep(Department department) {
+//        department.getUsers().forEach(user -> {
+////            if(user.getPost().getPostName().equals("CHEF_DEPARTMENT")){
+////
+////            }
+////        });
+        return update(department,1L);
+    }
 }

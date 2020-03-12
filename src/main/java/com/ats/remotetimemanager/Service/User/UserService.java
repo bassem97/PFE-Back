@@ -11,6 +11,7 @@ public interface UserService {
     User update(User user, Long id);
     void delete(long id);
     List<User> findAll();
+
     User findByCIN(String CIN);
     User findById(Long id);
     public boolean changePassword(ChangePasswordVM vm, String CIN);

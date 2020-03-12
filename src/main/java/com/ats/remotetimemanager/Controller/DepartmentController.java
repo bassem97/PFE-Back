@@ -28,12 +28,16 @@ public class DepartmentController {
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable("id") long id) { departmentService.delete(id);}
 
-    @GetMapping("findByName/{name}")
+    @GetMapping("findByDepName/{name}")
     public Department findByName(@PathVariable("name") String name) { return departmentService.findByName(name);}
 
     @GetMapping("findById/{id}")
     public Department findById(@PathVariable("id") Long id) {return departmentService.findById(id) ;}
 
+    @PutMapping("setChefDep")
+    public Department setChefDep(@Valid @RequestBody Department department){
+        return departmentService.setChefDep(department);
+    }
 
 
 }

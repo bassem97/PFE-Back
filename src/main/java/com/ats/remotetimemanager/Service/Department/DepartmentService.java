@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Service.Department;
 
 import com.ats.remotetimemanager.Model.Department;
+import com.ats.remotetimemanager.Model.User;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface DepartmentService {
     List<Department> findAll();
     Department findByName(String name);
     Department findById(Long id);
+    User setChefDep(Department department, User user);
+    User getChefDep(Department department, User user);
 }

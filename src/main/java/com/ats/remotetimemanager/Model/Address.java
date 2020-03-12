@@ -24,7 +24,7 @@ public class Address {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnoreProperties(value ="addresses" , allowSetters = true)
+    @JsonIgnoreProperties(value ={"addresses"} , allowSetters = true)
     private User user;
 
 

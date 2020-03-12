@@ -38,15 +38,16 @@ public class UserController {
         userService.delete(id);
     }
 
-    @RequestMapping(value="/update", method = RequestMethod.PUT)
-    public User modifyUser(@RequestBody User user){
-        return userService.update(user,user.getUserId());
+    @RequestMapping(value="/update/{id}", method = RequestMethod.PUT)
+    public User modify(@RequestBody User user,@PathVariable(value = "id") Long id){
+        return userService.update(user,id);
     }
+
     @RequestMapping(value = "changePassword/{CIN}", method = RequestMethod.POST)
     public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "CIN") String username){
         return userService.changePassword(user, username);
     }
-    @RequestMapping(value = "/userByUsername/{CIN}", method = RequestMethod.GET)
+    @RequestMapping(value = "/userByUserCIN/{CIN}", method = RequestMethod.GET)
     public User findByCIN(@PathVariable(value = "CIN") String us){
         return userService.findByCIN(us);
     }

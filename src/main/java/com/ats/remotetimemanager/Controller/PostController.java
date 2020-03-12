@@ -31,4 +31,7 @@ public class PostController {
     @GetMapping("findById/{id}")
     public Post findById(@PathVariable("id") Long id) {return postService.findById(id) ;}
 
+    @GetMapping("findByPostName/{name}")
+    public Post findByPostName(@PathVariable("name") String name) {return postService.findByPostName(name) ;}
+
 }

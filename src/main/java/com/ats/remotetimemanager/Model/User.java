@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "USERS")
 public class User  {
 
-
+    private static Long count = 0L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -40,22 +40,28 @@ public class User  {
 
     private String password;
 
+
+
+
+
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "post_id", nullable = false)
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Post post;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "dep_id", nullable = false)
+    @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
+    private Department department;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dep_id")
-    @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
-    private Department department;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {
@@ -80,12 +86,17 @@ public class User  {
         this.password = password;
         this.post = post;
         this.department = department;
+        this.userId = ++count;
+
     }
 
     public long getUserId() {
         return userId;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getName() {
         return name;
@@ -101,6 +112,10 @@ public class User  {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setHireDay(LocalDate hireDay) {
+        this.hireDay = hireDay;
     }
 
     public String getBirthDate() {
@@ -178,6 +193,25 @@ public class User  {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", hireDay=" + hireDay +
+                ", phone=" + phone +
+                ", email='" + email + '\'' +
+                ", CIN='" + CIN + '\'' +
+                ", password='" + password + '\'' +
+                ", post=" + post +
+                ", department=" + department.toString() +
+                ", addresses=" + addresses +
+                ", roles=" + roles +
+                '}';
     }
 
     //    public int getAge(){
