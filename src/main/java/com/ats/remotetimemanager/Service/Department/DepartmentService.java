@@ -13,6 +13,5 @@ public interface DepartmentService {
     List<Department> findAll();
     Department findByName(String name);
     Department findById(Long id);
-    User setChefDep(Department department, User user);
-    User getChefDep(Department department, User user);
+    User getChefDep(Department department);
 }

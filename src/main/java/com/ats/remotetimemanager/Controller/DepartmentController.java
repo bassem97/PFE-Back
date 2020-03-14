@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Controller;
 
 import com.ats.remotetimemanager.Model.Department;
+import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,9 @@ public class DepartmentController {
     @GetMapping("findById/{id}")
     public Department findById(@PathVariable("id") Long id) {return departmentService.findById(id) ;}
 
-    @PutMapping("setChefDep")
-    public Department setChefDep(@Valid @RequestBody Department department){
-        return departmentService.setChefDep(department);
+    @GetMapping("getChefDep")
+    public User getChefDep(@Valid @RequestBody Department department){
+        return departmentService.getChefDep(department);
     }
 
 

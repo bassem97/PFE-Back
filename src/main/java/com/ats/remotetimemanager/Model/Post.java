@@ -11,6 +11,9 @@ import java.util.List;
 @Entity
 @Table(name = "POSTS")
 public class Post {
+//    private static Long count = 0L;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -29,6 +32,7 @@ public class Post {
 
     public Post(String postName) {
         this.postName = postName;
+//        this.postId = ++count;
     }
 
     public long getPostId() {
@@ -53,5 +57,13 @@ public class Post {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "postId=" + postId +
+                ", postName='" + postName + '\'' +
+                '}';
     }
 }

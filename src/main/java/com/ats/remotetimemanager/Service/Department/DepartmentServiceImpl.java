@@ -4,6 +4,7 @@ import com.ats.remotetimemanager.Model.Department;
 
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
+import com.ats.remotetimemanager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Department add(Department department) {
@@ -47,13 +51,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department findById(Long id) {return departmentRepository.findById(id).get() ;}
 
     @Override
-    public User setChefDep(Department department, User user) {
-        return null;
+    public User getChefDep(Department department) {
+        return userRepository.findById(department.getChefDep());
     }
 
-    @Override
-    public User getChefDep(Department department, User user) {
-        return null;
-    }
-    
 }

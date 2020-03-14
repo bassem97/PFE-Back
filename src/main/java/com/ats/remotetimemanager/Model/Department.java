@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "DEPARTMENTS")
 public class Department {
-
+    private static Long count = 0L;
     @Id
     @Column(name = "dep_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +48,7 @@ public class Department {
     public Department(String depName, Department supDep) {
         this.depName = depName;
         this.supDep = supDep;
+        this.depId = ++count;
     }
 
     public long getDepId() {

@@ -5,6 +5,7 @@ import com.ats.remotetimemanager.Model.Department;
 import com.ats.remotetimemanager.Model.Role;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
+import com.ats.remotetimemanager.Repository.PostRepository;
 import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     public UserDetails loadUserByCIN(String CIN) throws UsernameNotFoundException {
@@ -71,9 +75,9 @@ public class UserServiceImpl implements UserService {
         Long id =user.getUserId();
         if(userRepository.findById(id).isPresent())
             return null;
-        else{
+        else {
             User newUser = new User();
-            if(user.getUserId() != 0)
+            if (user.getUserId() != 0)
                 newUser.setUserId(user.getUserId());
             newUser.setName(user.getName());
             newUser.setGender(user.getGender());
@@ -85,30 +89,30 @@ public class UserServiceImpl implements UserService {
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
-            if(user.getPost().getPostId() == 3){
-                Department dep=  user.getDepartment();
+            newUser.setPost(user.getPost());
+            if (user.getPost().getPostId() == 3) {
+//            if (postRepository.findByPostName(newUser.getPost().getPostName()).equals("CHEF_DEPARTMENT")) {
+                Department dep = departmentRepository.findById(user.getDepartment().getDepId()).get();
                 dep.setChefDep(user.getUserId());
                 departmentRepository.save(dep);
 
             }
 
-            if( user.getRoles() != null){
-                for (Role role: user.getRoles()) {
+//            if(user.getPost().getPostId() == 3){
+//                System.out.print("ahaaddddddddddddddd ");
+//                Department dep=  user.getDepartment();
+//                dep.setChefDep(user.getUserId());
+//                departmentService.update(dep,dep.getDepId());
+
+            if (user.getRoles() != null) {
+                for (Role role : user.getRoles()) {
                     newUser.getRoles().add(roleRepository.findByRoleName(role.getRoleName()));
                 }
-            }
-            else{
+            } else {
                 newUser.getRoles().add(roleRepository.findByRoleName("USER"));
             }
-            newUser.setPost(user.getPost());
-            if(user.getPost().getPostId() == 3){
-                System.out.print("ahaaddddddddddddddd ");
-                Department dep=  user.getDepartment();
-                dep.setChefDep(user.getUserId());
-                departmentService.update(dep,dep.getDepId());
-
-            }
-            return userRepository.saveAndFlush(newUser);
+            System.out.println(newUser);
+            return userRepository.save(newUser);
         }
     }
 
@@ -124,13 +128,13 @@ public class UserServiceImpl implements UserService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCIN(user.getCIN());
-            newUser.setDepartment(user.getDepartment());
+            newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
+            newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
                 newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             else
                 newUser.setPassword(user.getPassword());
 //            newUser.setAddresses(user.getAddresses());
-            newUser.setDepartment(user.getDepartment());
             if( user.getRoles() != null){
 
                 for (Role role: user.getRoles()) {
@@ -140,15 +144,16 @@ public class UserServiceImpl implements UserService {
             else{
                 newUser.getRoles().add(roleRepository.findByRoleName("USER"));
             }
-            newUser.setPost(user.getPost());
-            if(newUser.getPost().getPostId() == 3){
+
+//            if(newUser.getPost().getPostName().equals("CHEF_DEPARTMENT")){
+            if(postRepository.findByPostName(user.getPost().getPostName()) .getPostId()== 3){
+                System.out.println("USER ID L9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH 33333333");
 //                System.out.print(newUser.toString());
-                Department dep=  user.getDepartment();
+                Department dep=  departmentRepository.findById(user.getDepartment().getDepId()).get();
                 dep.setChefDep(newUser.getUserId());
                 departmentService.update(dep,dep.getDepId());
             }
-
-
+            System.out.println("BESH YA3MALLOU SAAAAAAAAAAAAAAAVE");
             return userRepository.save(newUser);
         }else return null ;
 //        return userRepository.save(user);

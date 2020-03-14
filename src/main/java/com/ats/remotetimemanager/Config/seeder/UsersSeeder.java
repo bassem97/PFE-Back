@@ -38,10 +38,21 @@ public class UsersSeeder {
 
 
 
+
+
     public void print(User user){
         System.out.println(user.toString());
     }
     public void seed(){
+        User user1= new User("bassem  jadoui", "male",
+                "1997/05/05",55135774,
+                "bassemjadoui1996@gmail.com", "05796481", "123456",postSeeder.employer, departmentSeeder.info);
+        User user2 = new User("khaili med amine ", "male",
+                "1997/02/04",24222365,
+                "medamine@gmail.com", "12545852", "123456",postSeeder.chef_department, departmentSeeder.mark);
+        User user3 = new User("test test", "female",
+                "2020/03/09",20000000,
+                "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);
             if(userRepository.findAll().isEmpty()){
                 ArrayList<Role> rolesAdmin = new ArrayList<>();
                 rolesAdmin.add(roleSeeder.admin);
@@ -52,27 +63,23 @@ public class UsersSeeder {
 //            rolesBoth.add(user);
 
 
-                User user1= new User("bassem  jadoui", "male",
-                        "1997/05/05",55135774,
-                        "bassemjadoui1996@gmail.com", "05796481", "123456",postSeeder.employer, departmentSeeder.info);
+
                 user1.setRoles(rolesAdmin);
                 print(user1);
                 userService.add(user1);
-                User user2 = new User("khaili med amine ", "male",
-                        "1997/02/04",24222365,
-                        "medamine@gmail.com", "12545852", "123456",postSeeder.chef_department, departmentSeeder.mark);
+
                 user2.setRoles(rolesAdmin);
                 print(user2);
                 userService.add(user2);
-                User user3 = new User("test test", "female",
-                        "2020/03/09",20000000,
-                        "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);
+
 //                user3.setRoles(rolesUser);
                 userService.add(user3);
-//                User user33 = new User("test test", "female",
-//                        "2020/03/09",20000000,
-//                        "test@gmail.com", "12345678", "123456",postSeeder.chef_department, departmentSeeder.security);
-//                userService.update(user33,user3.getUserId());
+
+//                user3.setPost(postSeeder.chef_department);
+//                System.out.println("BDEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//                userService.update(user3,user3.getUserId());
+//                System.out.println("WWWFFFEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+
 
                 User user4 = new User("erreur", "erreur",
                         "2020/03/09",205000000,
@@ -95,6 +102,14 @@ public class UsersSeeder {
                     addressRepository.save(ad3);
                 }
             }
+//            user3.setPost(postSeeder.chef_department);
+//            System.out.println("BDEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//            userService.update(user3,user3.getUserId());
+//            System.out.println("WWWFFFEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//
+//            user1.setPost(postSeeder.chef_department);
+//            userService.update(user1,user1.getUserId());
+
 
         }
     }

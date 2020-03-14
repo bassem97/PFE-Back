@@ -16,6 +16,9 @@ public class PostSeeder {
     public  void seed(){
 
         if(postRepository.findAll().isEmpty()){
+            System.out.println(employer);
+            System.out.println(employee);
+            System.out.println(chef_department);
             postRepository.save(employee);
             postRepository.save(employer);
             postRepository.save(chef_department);

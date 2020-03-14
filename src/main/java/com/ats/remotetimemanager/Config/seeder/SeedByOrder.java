@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Config.seeder;
 
 import com.ats.remotetimemanager.Repository.RoleRepository;
+import com.ats.remotetimemanager.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,8 @@ public class SeedByOrder {
     @Autowired
     PostSeeder postSeeder;
 
+    @Autowired
+    private UserService userService;
 
     public void init()  {
 
@@ -27,6 +30,9 @@ public class SeedByOrder {
         roleSeeder.seed();
         postSeeder.seed();
         usersSeeder.seed();
+
+
+
 
 
 
