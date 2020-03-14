@@ -35,9 +35,9 @@ public class DepartmentController {
     @GetMapping("findById/{id}")
     public Department findById(@PathVariable("id") Long id) {return departmentService.findById(id) ;}
 
-    @GetMapping("getChefDep")
-    public User getChefDep(@Valid @RequestBody Department department){
-        return departmentService.getChefDep(department);
+    @GetMapping("getChefDep/{idDep}")
+    public User getChefDep(@PathVariable("idDep")Long idDep){
+        return departmentService.getChefDep(idDep);
     }
 
 

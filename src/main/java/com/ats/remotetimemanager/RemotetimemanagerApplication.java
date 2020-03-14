@@ -12,7 +12,7 @@ public class RemotetimemanagerApplication  {
     @Autowired
     private SeedByOrder seedByOrder;
 
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         SpringApplication.run(RemotetimemanagerApplication.class, args);
     }
 

@@ -51,8 +51,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department findById(Long id) {return departmentRepository.findById(id).get() ;}
 
     @Override
-    public User getChefDep(Department department) {
-        return userRepository.findById(department.getChefDep());
+    public User getChefDep(Long idDep) {
+        return userRepository.findById(departmentRepository.findById(idDep).get().getChefDep());
     }
 
 }
