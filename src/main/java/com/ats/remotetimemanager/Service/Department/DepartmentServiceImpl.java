@@ -22,7 +22,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department add(Department department) {
-        return departmentRepository.save(department);}
+
+        Department newDep = new Department();
+        if(department.getDepId() != 0)
+            newDep.setDepId(department.getDepId());
+        newDep.setDepName(department.getDepName());
+        newDep.setChefDep(department.getChefDep());
+        newDep.setSupDep(department.getSupDep());
+        newDep.setDepartments(department.getDepartments());
+        newDep.setUsers(department.getUsers());
+        return departmentRepository.save(department);
+    }
+
+
 
     @Override
     public Department update(Department department, Long id) {
