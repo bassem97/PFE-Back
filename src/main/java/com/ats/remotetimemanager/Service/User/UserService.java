@@ -12,7 +12,7 @@ public interface UserService {
     void delete(long id);
     List<User> findAll();
 
-    User findByCIN(String CIN);
+    User findByUserCIN(String CIN);
     User findById(Long id);
     public boolean changePassword(ChangePasswordVM vm, String CIN);
 }

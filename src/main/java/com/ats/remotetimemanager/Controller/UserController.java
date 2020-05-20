@@ -30,7 +30,7 @@ public class UserController {
 
 //    @RequestMapping(value = "/auth", method = RequestMethod.GET)
 //    public User getUserByAuth() {
-//        return userService.findByCIN(SecurityContextHolder.getContext().getAuthentication().getName());
+//        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
@@ -43,13 +43,13 @@ public class UserController {
         return userService.update(user,id);
     }
 
-    @RequestMapping(value = "changePassword/{CIN}", method = RequestMethod.POST)
+    @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
     public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "CIN") String username){
         return userService.changePassword(user, username);
     }
-    @RequestMapping(value = "/userByUserCIN/{CIN}", method = RequestMethod.GET)
+    @RequestMapping(value = "/userByUserCIN/{UserCIN}", method = RequestMethod.GET)
     public User findByCIN(@PathVariable(value = "CIN") String us){
-        return userService.findByCIN(us);
+        return userService.findByUserCIN(us);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Model;
 
-import com.ats.remotetimemanager.Model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +29,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getCIN();
+        return user.getUserCIN();
     }
 
     @Override
