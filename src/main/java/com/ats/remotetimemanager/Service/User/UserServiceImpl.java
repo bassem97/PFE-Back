@@ -105,13 +105,7 @@ public class UserServiceImpl implements UserService {
 //                dep.setChefDep(user.getUserId());
 //                departmentService.update(dep,dep.getDepId());
 
-            if (user.getRoles() != null) {
-                for (Role role : user.getRoles()) {
-                    newUser.getRoles().add(roleRepository.findByRoleName(role.getRoleName()));
-                }
-            } else {
-                newUser.getRoles().add(roleRepository.findByRoleName("USER"));
-            }
+
             System.out.println(newUser);
             return userRepository.save(newUser);
         }

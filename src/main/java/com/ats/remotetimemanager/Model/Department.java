@@ -13,22 +13,24 @@ import java.util.List;
 @Entity
 @Table(name = "DEPARTMENTS")
 public class Department {
-    private static Long count = 0L;
+//    private static Long count = 0L;
     @Id
     @Column(name = "dep_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long depId;
-
     private String depName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "supDep", referencedColumnName = "dep_Id")
     @JsonIgnoreProperties(value ={"departments","users"} , allowSetters = true)
     private Department supDep;
 
-    @OneToMany(mappedBy = "supDep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    mappedBy = "supDep",
+    @OneToMany( orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
-    private List<Department> departments;
+    private List<Department> departments = new ArrayList<>() ;
 
 
     private long chefDep;
@@ -49,7 +51,7 @@ public class Department {
     public Department(String depName, Department supDep) {
         this.depName = depName; 
         this.supDep = supDep;
-        this.depId = ++count;
+//        this.depId = ++count;
     }
 
     public long getDepId() {
