@@ -51,9 +51,9 @@ public class User  {
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Post post;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "dep_id", nullable = false)
+    @JoinColumn(name = "dep_id")
     @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
     private Department department;
 

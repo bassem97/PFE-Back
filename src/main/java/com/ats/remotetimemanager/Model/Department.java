@@ -27,8 +27,7 @@ public class Department {
     private Department supDep;
 
 //    mappedBy = "supDep",
-    @OneToMany( orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
 
@@ -39,7 +38,7 @@ public class Department {
 //, orphanRemoval = true
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
