@@ -46,8 +46,9 @@ public class Department {
     public Department() {
     }
 
+
     public Department(String depName, Department supDep) {
-        this.depName = depName;
+        this.depName = depName; 
         this.supDep = supDep;
 //        this.depId = ++count;
     }

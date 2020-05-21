@@ -1,15 +1,12 @@
 package com.ats.remotetimemanager.Model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,8 +18,8 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
-
     private String name;
+    private String firstName;
     private String gender;
 
     private String birthDate;
@@ -36,7 +33,7 @@ public class User  {
     private String email;
 
     @Column(unique = true)
-    private String CIN;
+    private String userCIN;
 
     private String password;
 
@@ -75,19 +72,28 @@ public class User  {
     public User() {
     }
 
-    public User( String name, String gender, String birthDate, long phone, String email, String CIN, String password,Post post, Department department) {
+    public User( String name, String firstName, String gender, String birthDate, long phone, String email, String userCIN, String password,Post post, Department department) {
         this.name = name;
+        this.firstName = firstName;
         this.gender = gender;
         this.birthDate = birthDate;
         this.hireDay = LocalDate.now();
         this.phone = phone;
         this.email = email;
-        this.CIN = CIN;
+        this.userCIN = userCIN;
         this.password = password;
         this.post = post;
         this.department = department;
         this.userId = ++count;
 
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public long getUserId() {
@@ -146,12 +152,12 @@ public class User  {
         this.email = email;
     }
 
-    public String getCIN() {
-        return CIN;
+    public String getUserCIN() {
+        return userCIN;
     }
 
-    public void setCIN(String CIN) {
-        this.CIN = CIN;
+    public void setUserCIN(String userCIN) {
+        this.userCIN = userCIN;
     }
 
     public String getPassword() {
@@ -200,12 +206,13 @@ public class User  {
         return "User{" +
                 "userId=" + userId +
                 ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", hireDay=" + hireDay +
                 ", phone=" + phone +
                 ", email='" + email + '\'' +
-                ", CIN='" + CIN + '\'' +
+                ", user CIN='" + userCIN + '\'' +
                 ", password='" + password + '\'' +
                 ", post=" + post +
                 ", department=" + department.toString() +

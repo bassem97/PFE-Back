@@ -21,7 +21,7 @@ public class UserServiceDetails implements UserDetailsService {
     UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return new MyUserDetails(userRepository.findByCIN(s));
+        return new MyUserDetails(userRepository.findByUserCIN(s));
     }
 
     @Bean

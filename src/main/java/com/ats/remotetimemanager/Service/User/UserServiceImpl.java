@@ -46,12 +46,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public UserDetails loadUserByCIN(String CIN) throws UsernameNotFoundException {
-        User user = userRepository.findByCIN(CIN);
+    public UserDetails loadUserByUserCIN(String userCIN) throws UsernameNotFoundException {
+        User user = userRepository.findByUserCIN(userCIN);
         if(user == null){
             throw new UsernameNotFoundException("Invalid CIN or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getCIN(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getUserCIN(), user.getPassword(), getAuthority(user));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
@@ -80,12 +80,13 @@ public class UserServiceImpl implements UserService {
             if (user.getUserId() != 0)
                 newUser.setUserId(user.getUserId());
             newUser.setName(user.getName());
+            newUser.setFirstName(user.getFirstName());
             newUser.setGender(user.getGender());
             newUser.setBirthDate(user.getBirthDate());
             newUser.setHireDay(LocalDate.now());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setCIN(user.getCIN());
+            newUser.setUserCIN(user.getUserCIN());
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
@@ -116,12 +117,13 @@ public class UserServiceImpl implements UserService {
             User newUser =userRepository.findById(id).get();
 //            newUser.setUserId(user.getUserId());
             newUser.setName(user.getName());
+            newUser.setFirstName(user.getFirstName());
             newUser.setGender(user.getGender());
             newUser.setBirthDate(user.getBirthDate());
 //            newUser.setHireDay(user.getHireDay());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setCIN(user.getCIN());
+            newUser.setUserCIN(user.getUserCIN());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
@@ -159,7 +161,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByCIN(String CIN) {  return userRepository.findByCIN(CIN);}
+    public User findByUserCIN(String UserCIN) {  return userRepository.findByUserCIN(UserCIN);}
 
 
     @Override
@@ -169,8 +171,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(ChangePasswordVM vm , String CIN){
-        User user = findByCIN(CIN);
+    public boolean changePassword(ChangePasswordVM vm , String userCIN){
+        User user = findByUserCIN(userCIN);
         System.out.println("----------------"+ passwordEncoder.encode(vm.getOldPassword()) + "--------------------" + user.getPassword());
         System.out.println("------" + vm.getOldPassword());
 
