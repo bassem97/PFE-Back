@@ -14,7 +14,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public void addRoleToUser(String UserCIN, String roleName) {
-        User user = userRepository.findByUserCIN(UserCIN);
+        User user = userRepository.findByCIN(UserCIN);
         Role role = roleRepository.findByRoleName(roleName);
         user.getRoles().add(role);
     }

@@ -20,7 +20,7 @@ public class Department {
     private long depId;
     private String depName;
 
-    @ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "supDep", referencedColumnName = "dep_Id")
     @JsonIgnoreProperties(value ={"departments","users"} , allowSetters = true)
@@ -28,6 +28,7 @@ public class Department {
 
 //    mappedBy = "supDep",
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "supDep")
     @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
 

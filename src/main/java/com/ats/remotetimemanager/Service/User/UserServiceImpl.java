@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Service.User;
 
-import ch.qos.logback.classic.joran.action.LoggerAction;
 import com.ats.remotetimemanager.Model.Department;
 import com.ats.remotetimemanager.Model.Role;
 import com.ats.remotetimemanager.Model.User;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -47,11 +45,11 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     public UserDetails loadUserByUserCIN(String userCIN) throws UsernameNotFoundException {
-        User user = userRepository.findByUserCIN(userCIN);
+        User user = userRepository.findByCIN(userCIN);
         if(user == null){
             throw new UsernameNotFoundException("Invalid CIN or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUserCIN(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getCIN(), user.getPassword(), getAuthority(user));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
@@ -86,7 +84,7 @@ public class UserServiceImpl implements UserService {
             newUser.setHireDay(LocalDate.now());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setUserCIN(user.getUserCIN());
+            newUser.setCIN(user.getCIN());
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
@@ -123,7 +121,7 @@ public class UserServiceImpl implements UserService {
 //            newUser.setHireDay(user.getHireDay());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setUserCIN(user.getUserCIN());
+            newUser.setCIN(user.getCIN());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
@@ -161,7 +159,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByUserCIN(String UserCIN) {  return userRepository.findByUserCIN(UserCIN);}
+    public User findByUserCIN(String UserCIN) {  return userRepository.findByCIN(UserCIN);}
 
 
     @Override
