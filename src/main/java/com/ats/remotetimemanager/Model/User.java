@@ -27,7 +27,7 @@ public class User  {
     private LocalDate hireDay;
 
     @Column(unique = true)
-    private long phone;
+    private String phone;
 
     @Column(unique = true)
     private String email;
@@ -72,7 +72,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, long phone, String email, String CIN, String password, Post post, Department department) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String CIN, String password, Post post, Department department) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -136,11 +136,11 @@ public class User  {
         return hireDay;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
