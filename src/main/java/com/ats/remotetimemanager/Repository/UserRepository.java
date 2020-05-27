@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository  extends JpaRepository<User,Long> {
-    User findByCIN(String CIN);
+    User findByCin(String cin);
     User findById(long id);
 }

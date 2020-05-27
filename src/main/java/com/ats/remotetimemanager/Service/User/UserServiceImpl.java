@@ -45,11 +45,11 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     public UserDetails loadUserByUserCIN(String userCIN) throws UsernameNotFoundException {
-        User user = userRepository.findByCIN(userCIN);
+        User user = userRepository.findByCin(userCIN);
         if(user == null){
             throw new UsernameNotFoundException("Invalid CIN or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getCIN(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getCin(), user.getPassword(), getAuthority(user));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
@@ -84,8 +84,8 @@ public class UserServiceImpl implements UserService {
             newUser.setHireDay(LocalDate.now());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setCIN(user.getCIN());
-            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            newUser.setCin(user.getCin());
+            newUser.setPassword(passwordEncoder.encode(user.getName()+user.getFirstName()+user.getCin()));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
             newUser.setPost(user.getPost());
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
 //            newUser.setHireDay(user.getHireDay());
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
-            newUser.setCIN(user.getCIN());
+            newUser.setCin(user.getCin());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByUserCIN(String UserCIN) {  return userRepository.findByCIN(UserCIN);}
+    public User findByUserCIN(String UserCin) {  return userRepository.findByCin(UserCin);}
 
 
     @Override

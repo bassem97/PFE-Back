@@ -33,7 +33,7 @@ public class User  {
     private String email;
 
     @Column(unique = true)
-    private String CIN;
+    private String cin;
 
     private String password;
 
@@ -72,7 +72,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String CIN, String password, Post post, Department department) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -80,7 +80,7 @@ public class User  {
         this.hireDay = LocalDate.now();
         this.phone = phone;
         this.email = email;
-        this.CIN = CIN;
+        this.cin = cin;
         this.password = password;
         this.post = post;
         this.department = department;
@@ -152,12 +152,12 @@ public class User  {
         this.email = email;
     }
 
-    public String getCIN() {
-        return CIN;
+    public String getCin() {
+        return cin;
     }
 
-    public void setCIN(String CIN) {
-        this.CIN = CIN;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getPassword() {
@@ -212,7 +212,7 @@ public class User  {
                 ", hireDay=" + hireDay +
                 ", phone=" + phone +
                 ", email='" + email + '\'' +
-                ", user CIN='" + CIN + '\'' +
+                ", user cin='" + cin + '\'' +
                 ", password='" + password + '\'' +
                 ", post=" + post +
                 ", department=" + department.toString() +

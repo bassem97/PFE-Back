@@ -21,9 +21,9 @@ public class Address {
     private long zipCode;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ={"addresses"} , allowSetters = true)
     private User user;
 
@@ -32,19 +32,17 @@ public class Address {
 
     }
 
-    public Address(String streetName, String streetNumber, String state, String governorate, long zipCode, User user) {
+    public Address(String streetName, String streetNumber, String state, String governorate, long zipCode) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.state = state;
         this.governorate = governorate;
         this.zipCode = zipCode;
-        this.user = user;
-    }
 
+    }
     public long getAddressId() {
         return addressId;
     }
-
     public void setAddressId(long addressId) {
         this.addressId = addressId;
     }
