@@ -126,8 +126,8 @@ public class UserServiceImpl implements UserService {
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
                 newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            else
-                newUser.setPassword(user.getPassword());
+//            else
+//                newUser.setPassword(user.getPassword());
 //            newUser.setAddresses(user.getAddresses());
             if( user.getRoles() != null){
 
