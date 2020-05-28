@@ -30,8 +30,16 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address update(Address Address) {
-        return addressRepository.save(Address);
+    public Address update(Address address, Long id) {
+        if(addressRepository.findById(id).isPresent()){
+            Address ad = addressRepository.findById(id).get();
+            ad.setGovernorate(address.getGovernorate());
+            ad.setState(address.getState());
+            ad.setStreetName(address.getStreetName());
+            ad.setStreetNumber(address.getStreetNumber());
+            ad.setZipCode(address.getZipCode());
+            return addressRepository.save(ad);
+        }else return null;
     }
 
     @Override

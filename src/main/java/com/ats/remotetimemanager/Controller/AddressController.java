@@ -22,10 +22,12 @@ public class AddressController {
     public List<Address> getAll() { return addressService.findAll() ;}
 
     @PostMapping("add")
-    public Address add(@RequestBody Address address) { return addressService.add(address);}
+    public Address add(@RequestBody Address address) {
+        return addressService.add(address);}
 
-    @PutMapping("update")
-    public Address update(@Valid @RequestBody Address address){ return addressService.update(address);}
+    @PutMapping("update/{id}")
+    public Address update(@Valid @RequestBody Address address,  @PathVariable("id") Long id){
+        return addressService.update(address,id);}
 
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable("id") long id) { addressService.delete(id);}
