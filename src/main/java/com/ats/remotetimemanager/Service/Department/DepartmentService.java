@@ -14,4 +14,5 @@ public interface DepartmentService {
     Department findByName(String name);
     Department findById(Long id);
     User getChefDep(Long idDep);
+    Department getSupDep(Long idDep);
 }

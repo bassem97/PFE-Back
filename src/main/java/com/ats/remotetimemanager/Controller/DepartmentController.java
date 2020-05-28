@@ -40,5 +40,9 @@ public class DepartmentController {
         return departmentService.getChefDep(idDep);
     }
 
+    @GetMapping("getSupDep/{idDep}")
+    public Department getSupDep(@PathVariable("idDep")Long idDep){
+        return departmentService.getSupDep(idDep);
+    }
 
 }

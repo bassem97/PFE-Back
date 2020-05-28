@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
             newUser.setPost(user.getPost());
             if (user.getPost().getPostId() == 3) {
 //            if (postRepository.findByPostName(newUser.getPost().getPostName()).equals("CHEF_DEPARTMENT")) {
-                Department dep = departmentRepository.findById(user.getDepartment().getDepId()).get();
+                Department dep = departmentRepository.findById(user.getDepartment().getDepId());
                 dep.setChefDep(user.getUserId());
                 departmentRepository.save(dep);
 
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
             if(postRepository.findByPostName(user.getPost().getPostName()) .getPostId()== 3){
                 System.out.println("USER ID L9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH 33333333");
 //                System.out.print(newUser.toString());
-                Department dep=  departmentRepository.findById(user.getDepartment().getDepId()).get();
+                Department dep=  departmentRepository.findById(user.getDepartment().getDepId());
                 dep.setChefDep(newUser.getUserId());
                 departmentService.update(dep,dep.getDepId());
             }

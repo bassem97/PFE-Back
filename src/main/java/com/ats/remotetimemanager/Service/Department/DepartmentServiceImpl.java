@@ -40,11 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department update(Department department, Long id) {
         if(departmentRepository.findById(id).isPresent()){
             Department dep = departmentRepository.findById(id).get();
-            dep.setChefDep(department.getChefDep());
-            dep.setSupDep(department.getSupDep());
             dep.setDepName(department.getDepName());
-            dep.setDepartments(department.getDepartments());
-            dep.setUsers(department.getUsers());
             return departmentRepository.save(dep);
         }else return null;
 
@@ -67,4 +63,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         return userRepository.findById(departmentRepository.findById(idDep).get().getChefDep());
     }
 
+    @Override
+    public Department getSupDep(Long idDep) {
+        return departmentRepository.findById(idDep).get().getSupDep();
+    }
 }
