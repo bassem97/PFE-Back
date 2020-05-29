@@ -10,6 +10,7 @@ public interface DepartmentService {
     Department add(Department department);
     Department update(Department department, Long id);
     void delete(long id);
+    Department removeChefDep (Long id);
     List<Department> findAll();
     Department findByName(String name);
     Department findById(Long id);

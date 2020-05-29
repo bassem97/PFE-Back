@@ -41,9 +41,19 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(departmentRepository.findById(id).isPresent()){
             Department dep = departmentRepository.findById(id).get();
             dep.setDepName(department.getDepName());
+            dep.setChefDep(department.getChefDep());
             return departmentRepository.save(dep);
         }else return null;
 
+    }
+
+    @Override
+    public Department removeChefDep(Long id) {
+        if(departmentRepository.findById(id).isPresent()){
+            Department dep = departmentRepository.findById(id).get();
+            dep.setChefDep(0);
+            return departmentRepository.save(dep);
+        }else return null;
     }
 
     @Override
