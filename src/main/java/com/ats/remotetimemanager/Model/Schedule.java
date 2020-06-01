@@ -19,14 +19,16 @@ public class Schedule {
     private String[] scheduleDays;
     private int repeatCycle;
     private String color;
+    private String colorIcon;
     private Boolean pauseTime;
     private int pauseStart;
     private int pauseEnd;
+    private boolean showSch;
 
     public Schedule() {
     }
 
-    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, String[] scheduleDays, int repeatCycle, String color, Boolean pauseTime, int pauseStart, int pauseEnd) {
+    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, String[] scheduleDays, int repeatCycle, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
         this.scheduleName = scheduleName;
         this.scheduleDescription = scheduleDescription;
         this.startHour = startHour;
@@ -34,10 +36,13 @@ public class Schedule {
         this.scheduleDays = scheduleDays;
         this.repeatCycle = repeatCycle;
         this.color = color;
+        this.colorIcon = colorIcon;
         this.pauseTime = pauseTime;
         this.pauseStart = pauseStart;
         this.pauseEnd = pauseEnd;
+        this.showSch = showSch;
     }
+
 
     public long getScheduleId() {
         return scheduleId;
@@ -127,6 +132,22 @@ public class Schedule {
         this.pauseEnd = pauseEnd;
     }
 
+    public String getColorIcon() {
+        return colorIcon;
+    }
+
+    public void setColorIcon(String colorIcon) {
+        this.colorIcon = colorIcon;
+    }
+
+    public boolean getShowSch() {
+        return showSch;
+    }
+
+    public void setShowSch(boolean showSch) {
+        this.showSch = showSch;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
@@ -138,9 +159,11 @@ public class Schedule {
                 ", scheduleDays=" + Arrays.toString(scheduleDays) +
                 ", repeatCycle=" + repeatCycle +
                 ", color='" + color + '\'' +
+                ", colorIcon='" + colorIcon + '\'' +
                 ", pauseTime=" + pauseTime +
                 ", pauseStart=" + pauseStart +
                 ", pauseEnd=" + pauseEnd +
+                ", showSch=" + showSch +
                 '}';
     }
 }
