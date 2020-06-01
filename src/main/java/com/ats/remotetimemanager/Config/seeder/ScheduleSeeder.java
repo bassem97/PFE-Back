@@ -20,9 +20,11 @@ public class ScheduleSeeder{
             weekDays,
             5,
             "#1AAA56",
+            "green",
             true,
             12,
-            14
+            14,
+            true
     );
     String weekEnd[] = {"Saturday"} ;
     Schedule saturdayTime = new Schedule(
@@ -33,9 +35,11 @@ public class ScheduleSeeder{
             weekEnd,
             5,
             "#0A4422",
+            "green ghame9",
             false,
             0,
-            0
+            0,
+            false
     );
 
     public void seed(){
@@ -43,7 +47,7 @@ public class ScheduleSeeder{
            System.out.println(normalTime);
            System.out.println(saturdayTime);
            scheduleRepository.save(normalTime);
-           scheduleRepository.save(saturdayTime);
+               scheduleRepository.save(saturdayTime);
        }
     }
 }
