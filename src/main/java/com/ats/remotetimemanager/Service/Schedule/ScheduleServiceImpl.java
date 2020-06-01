@@ -15,7 +15,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Schedule add(Schedule schedule) {
-        return schedule.getScheduleId() != 0 ? scheduleRepository.save(schedule) : null;
+       return  scheduleRepository.save(schedule) ;
     }
 
     @Override
@@ -24,7 +24,6 @@ public class ScheduleServiceImpl implements ScheduleService {
             Schedule sch = scheduleRepository.findByScheduleId(id);
             sch.setScheduleName(schedule.getScheduleName());
             sch.setScheduleDescription(schedule.getScheduleDescription());
-            sch.setScheduleDays(schedule.getScheduleDays());
             sch.setColor(schedule.getColor());
             sch.setStartHour(schedule.getStartHour());
             sch.setEndHour(schedule.getEndHour());
