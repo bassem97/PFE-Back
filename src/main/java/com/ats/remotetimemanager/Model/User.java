@@ -14,10 +14,10 @@ import java.util.List;
 public class User  {
 
     private static Long count = 0L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long userId;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "user_id")
+        private long userId;
     private String name;
     private String firstName;
     private String gender;

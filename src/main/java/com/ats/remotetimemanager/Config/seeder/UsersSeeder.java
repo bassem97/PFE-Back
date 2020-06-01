@@ -47,16 +47,16 @@ public class UsersSeeder {
     }
     public void seed(){
         User user1= new User("bassem", "jadoui", "male",
-                "1997-05-05","55135774",
+                "1997-05-05","+21655135774",
                 "bassemjadoui1996@gmail.com", "05796481", "123456",postSeeder.employer, departmentSeeder.info);
         User user2 = new User(" Med Amine ", "Khaili", "male",
-                "1997-02-04","24222365",
+                "1997-02-04","+21624222365",
                 "medamine@gmail.com", "12545852", "123456",postSeeder.chef_department, departmentSeeder.mark);
         User user3 = new User("test", "test", "female",
-                "2020-03-09","20000000",
+                "2020-03-09","+21620000000",
                 "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);
         User user4 = new User("erreur", "test", "erreur",
-                "2020-03-09","205000000",
+                "2020-03-09","+21620500000",
                 "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);
 
         Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
