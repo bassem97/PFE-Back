@@ -1,7 +1,13 @@
 package com.ats.remotetimemanager.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "SCHEDULES")
@@ -16,7 +22,6 @@ public class Schedule {
     private String scheduleDescription;
     private int startHour;
     private int endHour;
-    private String[] scheduleDays;
     private int repeatCycle;
     private String color;
     private String colorIcon;
@@ -25,15 +30,20 @@ public class Schedule {
     private int pauseEnd;
     private boolean showSch;
 
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties(value ="schedule" , allowSetters = true)
+    private List<Planning> plannings = new ArrayList<>() ;
+
     public Schedule() {
     }
 
-    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, String[] scheduleDays, int repeatCycle, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
+    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, int repeatCycle, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
         this.scheduleName = scheduleName;
         this.scheduleDescription = scheduleDescription;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.scheduleDays = scheduleDays;
         this.repeatCycle = repeatCycle;
         this.color = color;
         this.colorIcon = colorIcon;
@@ -42,7 +52,6 @@ public class Schedule {
         this.pauseEnd = pauseEnd;
         this.showSch = showSch;
     }
-
 
     public long getScheduleId() {
         return scheduleId;
@@ -84,13 +93,6 @@ public class Schedule {
         this.endHour = endHour;
     }
 
-    public String[] getScheduleDays() {
-        return scheduleDays;
-    }
-
-    public void setScheduleDays(String[] scheduleDays) {
-        this.scheduleDays = scheduleDays;
-    }
 
     public int getRepeatCycle() {
         return repeatCycle;
@@ -148,6 +150,18 @@ public class Schedule {
         this.showSch = showSch;
     }
 
+    public boolean isShowSch() {
+        return showSch;
+    }
+
+    public List<Planning> getPlannings() {
+        return plannings;
+    }
+
+    public void setPlannings(List<Planning> plannings) {
+        this.plannings = plannings;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
@@ -156,7 +170,6 @@ public class Schedule {
                 ", scheduleDescription='" + scheduleDescription + '\'' +
                 ", startHour=" + startHour +
                 ", endHour=" + endHour +
-                ", scheduleDays=" + Arrays.toString(scheduleDays) +
                 ", repeatCycle=" + repeatCycle +
                 ", color='" + color + '\'' +
                 ", colorIcon='" + colorIcon + '\'' +
@@ -164,6 +177,7 @@ public class Schedule {
                 ", pauseStart=" + pauseStart +
                 ", pauseEnd=" + pauseEnd +
                 ", showSch=" + showSch +
+                ", plannings=" + plannings +
                 '}';
     }
 }
