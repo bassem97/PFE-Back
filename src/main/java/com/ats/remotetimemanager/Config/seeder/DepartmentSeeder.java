@@ -20,7 +20,7 @@ public class DepartmentSeeder {
 
     Department info = new Department("informatique", null);
     Department security = new Department("security", info);
-    Department khra = new Department("khra", security);
+    Department khra = new Department("Resources humaines", security);
 
 
     Department mark = new Department("marketing", null);
