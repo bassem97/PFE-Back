@@ -20,7 +20,6 @@ public class ScheduleSeeder{
             "Normal time monday to friday",
             8,
             17,
-            5,
             "btn btn-success",
             "btn btn-outline-success",
             true,
@@ -34,7 +33,6 @@ public class ScheduleSeeder{
             "only on saturday",
             8,
             13,
-            5,
             "btn btn-info",
             "btn btn-outline-info",
             false,
@@ -42,8 +40,8 @@ public class ScheduleSeeder{
             0,
             false
     );
-    Planning plan1 = new Planning(weekDays,"25-05-2020","05-06-2020");
-    Planning plan2 = new Planning(weekEnd,"25-05-2020","05-06-2020");
+    Planning plan1 = new Planning(weekDays,5,"25-05-2020","05-06-2020");
+    Planning plan2 = new Planning(weekEnd,5,"25-05-2020","05-06-2020");
 
     public void seed(){
        if(scheduleRepository.findAll().isEmpty()){

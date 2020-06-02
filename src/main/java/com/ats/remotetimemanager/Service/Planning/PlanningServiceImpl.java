@@ -24,6 +24,7 @@ public class PlanningServiceImpl implements PlanningService {
             plan.setPlanningId(planning.getPlanningId());
             plan.setStartDate(planning.getStartDate());
             plan.setEndDate(planning.getEndDate());
+            plan.setRepeatCycle(plan.getRepeatCycle());
             plan.setScheduleDays(planning.getScheduleDays());
             plan.setSchedule(planning.getSchedule());
             return planningRepository.save(plan);

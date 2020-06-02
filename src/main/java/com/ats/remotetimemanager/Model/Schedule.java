@@ -22,7 +22,6 @@ public class Schedule {
     private String scheduleDescription;
     private int startHour;
     private int endHour;
-    private int repeatCycle;
     private String color;
     private String colorIcon;
     private Boolean pauseTime;
@@ -39,12 +38,11 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, int repeatCycle, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
+    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
         this.scheduleName = scheduleName;
         this.scheduleDescription = scheduleDescription;
         this.startHour = startHour;
         this.endHour = endHour;
-        this.repeatCycle = repeatCycle;
         this.color = color;
         this.colorIcon = colorIcon;
         this.pauseTime = pauseTime;
@@ -91,15 +89,6 @@ public class Schedule {
 
     public void setEndHour(int endHour) {
         this.endHour = endHour;
-    }
-
-
-    public int getRepeatCycle() {
-        return repeatCycle;
-    }
-
-    public void setRepeatCycle(int repeatCycle) {
-        this.repeatCycle = repeatCycle;
     }
 
     public String getColor() {
@@ -170,7 +159,6 @@ public class Schedule {
                 ", scheduleDescription='" + scheduleDescription + '\'' +
                 ", startHour=" + startHour +
                 ", endHour=" + endHour +
-                ", repeatCycle=" + repeatCycle +
                 ", color='" + color + '\'' +
                 ", colorIcon='" + colorIcon + '\'' +
                 ", pauseTime=" + pauseTime +

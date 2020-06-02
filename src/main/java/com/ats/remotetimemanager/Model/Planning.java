@@ -16,7 +16,7 @@ public class Planning {
     private Long planningId;
 
     private String[] scheduleDays;
-
+    private int repeatCycle;
     private String startDate;
     private String endDate;
 
@@ -29,8 +29,9 @@ public class Planning {
     public Planning() {
     }
 
-    public Planning(String[] scheduleDays, String startDate, String endDate) {
+    public Planning(String[] scheduleDays, int repeatCycle, String startDate, String endDate) {
         this.scheduleDays = scheduleDays;
+        this.repeatCycle = repeatCycle;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -75,11 +76,20 @@ public class Planning {
         this.schedule = schedule;
     }
 
+    public int getRepeatCycle() {
+        return repeatCycle;
+    }
+
+    public void setRepeatCycle(int repeatCycle) {
+        this.repeatCycle = repeatCycle;
+    }
+
     @Override
     public String toString() {
         return "Planning{" +
-                "PlanningId=" + planningId +
+                "planningId=" + planningId +
                 ", scheduleDays=" + Arrays.toString(scheduleDays) +
+                ", repeatCycle=" + repeatCycle +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", schedule=" + schedule +

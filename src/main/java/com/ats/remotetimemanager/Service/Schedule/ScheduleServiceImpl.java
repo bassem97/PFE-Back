@@ -30,7 +30,6 @@ public class ScheduleServiceImpl implements ScheduleService {
             sch.setPauseTime(schedule.getPauseTime());
             sch.setPauseStart(schedule.getPauseStart());
             sch.setPauseEnd(schedule.getPauseEnd());
-            sch.setRepeatCycle(schedule.getRepeatCycle());
             sch.setColorIcon(schedule.getColorIcon());
             sch.setShowSch(schedule.getShowSch());
             return scheduleRepository.save(sch);
