@@ -18,21 +18,21 @@ public class ScheduleSeeder{
     Schedule normalTime = new Schedule(
             "NORMAL TIME",
             "Normal time monday to friday",
-            8,
-            17,
+            480,
+            1020,
             "btn btn-success",
             "btn btn-outline-success",
             true,
-            12,
-            14,
+            720,
+            840,
             true
     );
     String weekEnd[] = {"Saturday"} ;
     Schedule saturdayTime = new Schedule(
             "SATURDAY TIME",
             "only on saturday",
-            8,
-            13,
+            480,
+            780,
             "btn btn-info",
             "btn btn-outline-info",
             false,
