@@ -8,5 +8,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
     Schedule findByScheduleId(Long id);
-    Schedule findByScheduleName(String name);
 }

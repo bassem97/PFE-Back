@@ -16,9 +16,14 @@ public class Planning {
     private Long planningId;
 
     private String[] scheduleDays;
+    private String planningName;
+    private String planningDescription;
+    private boolean showPl;
     private int repeatCycle;
     private String startDate;
     private String endDate;
+    private String color;
+    private String colorIcon;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -31,8 +36,13 @@ public class Planning {
     public Planning() {
     }
 
-    public Planning(String[] scheduleDays, int repeatCycle, String startDate, String endDate) {
+    public Planning(String[] scheduleDays, String planningName, String planningDescription, boolean showPl, String colorIcon, String color, int repeatCycle, String startDate, String endDate) {
         this.scheduleDays = scheduleDays;
+        this.planningName = planningName;
+        this.planningDescription = planningDescription;
+        this.showPl = showPl;
+        this.color = color;
+        this.colorIcon = colorIcon;
         this.repeatCycle = repeatCycle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -44,6 +54,47 @@ public class Planning {
 
     public void setPlanningId(Long planningId) {
         this.planningId = planningId;
+    }
+
+    public String getPlanningName() {
+        return planningName;
+    }
+
+    public void setPlanningName(String planningName) {
+        this.planningName = planningName;
+    }
+
+    public String getPlanningDescription() {
+        return planningDescription;
+    }
+
+    public void setPlanningDescription(String planningDescription) {
+        this.planningDescription = planningDescription;
+    }
+
+    public boolean getShowPl() {
+        return showPl;
+    }
+
+    public void setShowPl(boolean showPl) {
+        this.showPl = showPl;
+    }
+
+    public String getColorIcon() {
+        return colorIcon;
+    }
+
+    public void setColorIcon(String colorIcon) {
+        this.colorIcon = colorIcon;
+    }
+
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String[] getScheduleDays() {
@@ -91,9 +142,14 @@ public class Planning {
         return "Planning{" +
                 "planningId=" + planningId +
                 ", scheduleDays=" + Arrays.toString(scheduleDays) +
+                ", planningName='" + planningName + '\'' +
+                ", planningDescription='" + planningDescription + '\'' +
+                ", showPl=" + showPl +
                 ", repeatCycle=" + repeatCycle +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
+                ", color='" + color + '\'' +
+                ", colorIcon='" + colorIcon + '\'' +
                 ", schedule=" + schedule +
                 '}';
     }
