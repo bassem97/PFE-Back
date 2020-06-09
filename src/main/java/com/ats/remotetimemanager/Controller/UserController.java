@@ -23,6 +23,11 @@ public class UserController {
     @PostMapping("add")
     public User add(@RequestBody User user) { return userService.add(user); }
 
+    @RequestMapping(value = "auth", method = RequestMethod.GET)
+    public User getUserByAuth() {
+        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     public User findById(@PathVariable(value = "id") Long id){
          return userService.findById(id);
@@ -32,6 +37,7 @@ public class UserController {
 //    public User getUserByAuth() {
 //        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
+
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id){
@@ -51,5 +57,6 @@ public class UserController {
     public User findByCIN(@PathVariable(value = "CIN") String us){
         return userService.findByUserCIN(us);
     }
+
 
 }

@@ -1,5 +1,7 @@
 package com.ats.remotetimemanager.Service;
 import com.ats.remotetimemanager.Model.MyUserDetails;
+import com.ats.remotetimemanager.Model.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -15,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class UserServiceDetails implements UserDetailsService {
     @Autowired
@@ -25,7 +30,7 @@ public class UserServiceDetails implements UserDetailsService {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 }

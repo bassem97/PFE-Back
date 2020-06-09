@@ -48,7 +48,7 @@ public class UsersSeeder {
     public void seed(){
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",
-                "bassemjadoui1996@gmail.com", "05796481", "123456",postSeeder.employer, departmentSeeder.info);
+                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info);
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
                 "medamine@gmail.com", "12545852", "123456",postSeeder.chef_department, departmentSeeder.mark);

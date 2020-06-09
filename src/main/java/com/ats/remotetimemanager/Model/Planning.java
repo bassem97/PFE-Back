@@ -20,11 +20,13 @@ public class Planning {
     private String startDate;
     private String endDate;
 
-    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "schedule_id")
     @JsonIgnoreProperties(value ={"plannings"} , allowSetters = true)
     private Schedule schedule;
+
+
 
     public Planning() {
     }

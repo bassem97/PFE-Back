@@ -1,23 +1,24 @@
 package com.ats.remotetimemanager.utill;
 
 public class LoginModel {
-    private String username;
+    private String cin;
     private String password;
 
     public LoginModel() {
     }
 
-    public LoginModel(String username, String password) {
-        this.username = username;
+
+    public LoginModel(String cin, String password) {
+        this.cin = cin;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getCin() {
+        return cin;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getPassword() {

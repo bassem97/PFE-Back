@@ -29,9 +29,8 @@ public class Schedule {
     private int pauseEnd;
     private boolean showSch;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ="schedule" , allowSetters = true)
     private List<Planning> plannings = new ArrayList<>() ;
 

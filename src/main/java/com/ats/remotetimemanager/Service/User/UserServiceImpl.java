@@ -10,9 +10,12 @@ import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Autowired
@@ -41,25 +44,29 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
-    public UserDetails loadUserByUserCIN(String userCIN) throws UsernameNotFoundException {
-        User user = userRepository.findByCin(userCIN);
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByCin(username);
         if(user == null){
-            throw new UsernameNotFoundException("Invalid CIN or password.");
+            throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getCin(), user.getPassword(), getAuthority(user));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        user.getRoles().forEach(role -> {
-            //authorities.add(new SimpleGrantedAuthority(role.getName()));
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
-        });
-        return authorities;
-        //return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return null;
+//        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+//        user.getRoles().forEach(role -> {
+//            //authorities.add(new SimpleGrantedAuthority(role.getName()));
+//            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+//        });
+//        return authorities;
+//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
     @Override
     public List<User> findAll() {
@@ -85,7 +92,8 @@ public class UserServiceImpl implements UserService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
-            newUser.setPassword(passwordEncoder.encode(user.getName()+user.getFirstName()+user.getCin()));
+            newUser.setPassword(bcryptEncoder.encode(user.getName()+user.getFirstName()+user.getCin())
+            );
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
             newUser.setPost(user.getPost());
@@ -125,7 +133,7 @@ public class UserServiceImpl implements UserService {
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
-                newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+                newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 //            else
 //                newUser.setPassword(user.getPassword());
 //            newUser.setAddresses(user.getAddresses());
@@ -177,15 +185,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean changePassword(ChangePasswordVM vm , String userCIN){
         User user = findByUserCIN(userCIN);
-        System.out.println("----------------"+ passwordEncoder.encode(vm.getOldPassword()) + "--------------------" + user.getPassword());
+        System.out.println("----------------"+ bcryptEncoder.encode(vm.getOldPassword()) + "--------------------" + user.getPassword());
         System.out.println("------" + vm.getOldPassword());
 
-        if (passwordEncoder.matches(vm.getOldPassword(),user.getPassword())){
-            user.setPassword(passwordEncoder.encode(vm.getNewPassword()));
+        if (bcryptEncoder.matches(vm.getOldPassword(),user.getPassword())){
+            user.setPassword(bcryptEncoder.encode(vm.getNewPassword()));
             userRepository.save(user);
             return true;
         }
         else return false;
 
     }
+
+
 }
