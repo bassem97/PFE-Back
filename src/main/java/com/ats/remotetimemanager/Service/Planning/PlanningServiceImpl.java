@@ -22,7 +22,12 @@ public class PlanningServiceImpl implements PlanningService {
         if(planningRepository.findById(id).isPresent()){
             Planning plan= planningRepository.findByPlanningId(id);
             plan.setPlanningId(planning.getPlanningId());
+            plan.setPlanningName(planning.getPlanningName());
+            plan.setPlanningDescription(planning.getPlanningDescription());
+            plan.setShowPl(planning.getShowPl());
             plan.setStartDate(planning.getStartDate());
+            plan.setColor(planning.getColor());
+            plan.setColorIcon(planning.getColorIcon());
             plan.setEndDate(planning.getEndDate());
             plan.setRepeatCycle(plan.getRepeatCycle());
             plan.setScheduleDays(planning.getScheduleDays());

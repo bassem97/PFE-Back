@@ -9,6 +9,5 @@ public interface ScheduleService {
     Schedule update(Schedule schedule, Long id);
     void delete(long id);
     List<Schedule> findAll();
-    Schedule findByName(String name);
     Schedule findById(Long id);
 }

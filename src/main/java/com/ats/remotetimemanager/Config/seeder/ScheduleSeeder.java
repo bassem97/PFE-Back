@@ -16,32 +16,31 @@ public class ScheduleSeeder{
 
     String weekDays[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"} ;
     Schedule normalTime = new Schedule(
-            "NORMAL TIME",
-            "Normal time monday to friday",
+
             480,
             1020,
-            "btn btn-success",
-            "btn btn-outline-success",
             true,
             720,
-            840,
-            true
+            840
     );
     String weekEnd[] = {"Saturday"} ;
     Schedule saturdayTime = new Schedule(
-            "SATURDAY TIME",
-            "only on saturday",
             480,
             780,
-            "btn btn-info",
-            "btn btn-outline-info",
             false,
             0,
-            0,
-            false
+            0
     );
-    Planning plan1 = new Planning(weekDays,5,"25-05-2020","05-06-2020");
-    Planning plan2 = new Planning(weekEnd,5,"25-05-2020","05-06-2020");
+    Planning plan1 = new Planning(weekDays, "NORMAL TIME",
+            "Normal time monday to friday",
+            true,
+            "btn btn-outline-success",
+            "btn btn-success",5,"25-05-2020","05-06-2020");
+    Planning plan2 = new Planning(weekEnd, "SATURDAY TIME",
+            "only on saturday",
+            false,
+            "btn btn-outline-info",
+            "btn btn-info",5,"25-05-2020","05-06-2020");
 
     public void seed(){
        if(scheduleRepository.findAll().isEmpty()){

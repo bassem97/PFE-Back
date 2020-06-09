@@ -22,16 +22,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Schedule update(Schedule schedule, Long id) {
         if (scheduleRepository.findById(id).isPresent()) {
             Schedule sch = scheduleRepository.findByScheduleId(id);
-            sch.setScheduleName(schedule.getScheduleName());
-            sch.setScheduleDescription(schedule.getScheduleDescription());
-            sch.setColor(schedule.getColor());
             sch.setStartHour(schedule.getStartHour());
             sch.setEndHour(schedule.getEndHour());
             sch.setPauseTime(schedule.getPauseTime());
             sch.setPauseStart(schedule.getPauseStart());
             sch.setPauseEnd(schedule.getPauseEnd());
-            sch.setColorIcon(schedule.getColorIcon());
-            sch.setShowSch(schedule.getShowSch());
+            sch.setPlannings(schedule.getPlannings());
             return scheduleRepository.save(sch);
         }else return null;
     }
@@ -44,11 +40,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> findAll() {
         return scheduleRepository.findAll();
-    }
-
-    @Override
-    public Schedule findByName(String name) {
-        return scheduleRepository.findByScheduleName(name);
     }
 
     @Override

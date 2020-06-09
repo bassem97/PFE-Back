@@ -18,37 +18,26 @@ public class Schedule {
     @Column(name = "scheduleId")
     private long scheduleId;
 
-    private String scheduleName;
-    private String scheduleDescription;
-    private int startHour;
+   private int startHour;
     private int endHour;
-    private String color;
-    private String colorIcon;
     private Boolean pauseTime;
     private int pauseStart;
     private int pauseEnd;
-    private boolean showSch;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ="schedule" , allowSetters = true)
     private List<Planning> plannings = new ArrayList<>() ;
 
     public Schedule() {
     }
 
-    public Schedule(String scheduleName, String scheduleDescription, int startHour, int endHour, String color, String colorIcon, Boolean pauseTime, int pauseStart, int pauseEnd, boolean showSch) {
-        this.scheduleName = scheduleName;
-        this.scheduleDescription = scheduleDescription;
+    public Schedule(int startHour, int endHour, Boolean pauseTime, int pauseStart, int pauseEnd) {
         this.startHour = startHour;
         this.endHour = endHour;
-        this.color = color;
-        this.colorIcon = colorIcon;
         this.pauseTime = pauseTime;
         this.pauseStart = pauseStart;
         this.pauseEnd = pauseEnd;
-        this.showSch = showSch;
     }
 
     public long getScheduleId() {
@@ -57,22 +46,6 @@ public class Schedule {
 
     public void setScheduleId(long scheduleId) {
         this.scheduleId = scheduleId;
-    }
-
-    public String getScheduleName() {
-        return scheduleName;
-    }
-
-    public void setScheduleName(String scheduleName) {
-        this.scheduleName = scheduleName;
-    }
-
-    public String getScheduleDescription() {
-        return scheduleDescription;
-    }
-
-    public void setScheduleDescription(String scheduleDescription) {
-        this.scheduleDescription = scheduleDescription;
     }
 
     public int getStartHour() {
@@ -89,14 +62,6 @@ public class Schedule {
 
     public void setEndHour(int endHour) {
         this.endHour = endHour;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public Boolean getPauseTime() {
@@ -123,25 +88,6 @@ public class Schedule {
         this.pauseEnd = pauseEnd;
     }
 
-    public String getColorIcon() {
-        return colorIcon;
-    }
-
-    public void setColorIcon(String colorIcon) {
-        this.colorIcon = colorIcon;
-    }
-
-    public boolean getShowSch() {
-        return showSch;
-    }
-
-    public void setShowSch(boolean showSch) {
-        this.showSch = showSch;
-    }
-
-    public boolean isShowSch() {
-        return showSch;
-    }
 
     public List<Planning> getPlannings() {
         return plannings;
@@ -155,16 +101,11 @@ public class Schedule {
     public String toString() {
         return "Schedule{" +
                 "scheduleId=" + scheduleId +
-                ", scheduleName='" + scheduleName + '\'' +
-                ", scheduleDescription='" + scheduleDescription + '\'' +
                 ", startHour=" + startHour +
                 ", endHour=" + endHour +
-                ", color='" + color + '\'' +
-                ", colorIcon='" + colorIcon + '\'' +
                 ", pauseTime=" + pauseTime +
                 ", pauseStart=" + pauseStart +
                 ", pauseEnd=" + pauseEnd +
-                ", showSch=" + showSch +
                 ", plannings=" + plannings +
                 '}';
     }
