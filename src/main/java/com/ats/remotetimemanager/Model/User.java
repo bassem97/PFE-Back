@@ -73,6 +73,7 @@ public class User  {
 
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
     private UserConfig userConfig;
 
 

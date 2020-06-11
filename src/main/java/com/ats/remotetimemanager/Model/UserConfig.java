@@ -24,6 +24,7 @@ public class UserConfig {
     @OneToOne
 //    @MapsId
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("userConfig")
     private User user;
 
     @ManyToMany( cascade = CascadeType.MERGE)
