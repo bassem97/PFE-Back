@@ -34,7 +34,7 @@ public class TokenProvider {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private boolean isTokenExpired(String token){
+    public boolean isTokenExpired(String token){
         return extractExpiration(token).before(new Date());
     }
     private Claims extractAllClaims(String token) {
