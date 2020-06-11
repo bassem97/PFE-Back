@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Service.UserConfig;
 
+import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Model.UserConfig;
 import com.ats.remotetimemanager.Repository.UserConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class UserConfigServiceImpl implements  UserConfigService {
             newUserConfig.setPlannings(userConfig.getPlannings());
             return userConfigRepository.save(newUserConfig);
         }else return null;
+    }
+
+    @Override
+    public UserConfig findByUser(User user) {
+        return userConfigRepository.findByUser(user);
     }
 
 }
