@@ -24,8 +24,9 @@ public class UserConfigController {
     public UserConfig update(@RequestBody UserConfig userConfig, @PathVariable(value = "id") Long id){
         return userConfigService.update(userConfig,id);
     }
-    @GetMapping("/findByUser")
-    public UserConfig update(@RequestBody User user){
-        return userConfigService.findByUser(user);
+    @GetMapping("/findByUserId/{id}")
+    public UserConfig update(@PathVariable(value = "id") Long id){
+
+        return userConfigService.findByUserId(id);
     }
 }

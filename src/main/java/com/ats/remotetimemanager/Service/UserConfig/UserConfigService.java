@@ -6,5 +6,5 @@ import com.ats.remotetimemanager.Model.UserConfig;
 public interface UserConfigService  {
     UserConfig add(UserConfig userConfig);
     UserConfig update(UserConfig userConfig, Long id);
-    UserConfig findByUser(User user);
+    UserConfig findByUserId(Long id);
 }

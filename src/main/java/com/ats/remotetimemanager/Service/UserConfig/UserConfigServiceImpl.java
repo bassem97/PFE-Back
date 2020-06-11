@@ -3,6 +3,7 @@ package com.ats.remotetimemanager.Service.UserConfig;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Model.UserConfig;
 import com.ats.remotetimemanager.Repository.UserConfigRepository;
+import com.ats.remotetimemanager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,9 @@ public class UserConfigServiceImpl implements  UserConfigService {
 
     @Autowired
     UserConfigRepository userConfigRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public UserConfig add(UserConfig userConfig) {
@@ -29,7 +33,8 @@ public class UserConfigServiceImpl implements  UserConfigService {
     }
 
     @Override
-    public UserConfig findByUser(User user) {
+    public UserConfig findByUserId(Long id) {
+        User user = userRepository.findByUserId(id);
         return userConfigRepository.findByUser(user);
     }
 
