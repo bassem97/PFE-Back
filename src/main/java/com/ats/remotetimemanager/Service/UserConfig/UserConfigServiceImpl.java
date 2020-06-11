@@ -21,7 +21,6 @@ public class UserConfigServiceImpl implements  UserConfigService {
     public UserConfig update(UserConfig userConfig, Long id) {
         if(userConfigRepository.findById(id).isPresent()){
             UserConfig newUserConfig = userConfigRepository.findByConfigId(id);
-            newUserConfig.setSideBar(userConfig.getSideBar());
             newUserConfig.setTheme(userConfig.getTheme());
             newUserConfig.setUser(userConfig.getUser());
             newUserConfig.setPlannings(userConfig.getPlannings());

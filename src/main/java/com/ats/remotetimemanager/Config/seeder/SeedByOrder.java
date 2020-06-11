@@ -22,6 +22,8 @@ public class SeedByOrder {
     PostSeeder postSeeder;
     @Autowired
     ScheduleSeeder scheduleSeeder;
+    @Autowired
+    UserConfigSeeder userConfigSeeder;
 
     @Autowired
     private UserService userService;
@@ -33,6 +35,7 @@ public class SeedByOrder {
         postSeeder.seed();
         usersSeeder.seed();
         scheduleSeeder.seed();
+        userConfigSeeder.seed();
 
 
 

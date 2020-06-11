@@ -19,8 +19,7 @@ public class UserConfig {
     @Column(name = "config_id")
     private long configId;
 
-    private String theme;
-    private boolean sideBar;
+    private boolean theme;
 
     @OneToOne
 //    @MapsId
@@ -37,10 +36,10 @@ public class UserConfig {
     public UserConfig() {
     }
 
-    public UserConfig(String theme, boolean sideBar, User user) {
+    public UserConfig(boolean theme, User user, List<Planning> plannings) {
         this.theme = theme;
-        this.sideBar = sideBar;
         this.user = user;
+        this.plannings = plannings;
     }
 
     public long getConfigId() {
@@ -51,21 +50,14 @@ public class UserConfig {
         this.configId = configId;
     }
 
-    public String getTheme() {
+    public boolean getTheme() {
         return theme;
     }
 
-    public void setTheme(String theme) {
+    public void setTheme(boolean theme) {
         this.theme = theme;
     }
 
-    public boolean getSideBar() {
-        return sideBar;
-    }
-
-    public void setSideBar(boolean sideBar) {
-        this.sideBar = sideBar;
-    }
 
     public User getUser() {
         return user;
@@ -89,7 +81,6 @@ public class UserConfig {
         return "UserConfig{" +
                 "configId=" + configId +
                 ", theme='" + theme + '\'' +
-                ", sideBar=" + sideBar +
                 ", user=" + user +
                 ", plannings=" + plannings +
                 '}';
