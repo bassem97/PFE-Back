@@ -35,12 +35,12 @@ public class ScheduleSeeder{
             "Normal time monday to friday",
             true,
             "btn btn-outline-success",
-            "btn btn-success",5,"25-05-2020","05-06-2020");
+            "btn btn-success",5,"2020-06-20T23:00:00.000Z","2020-06-06T23:00:00.000Z");
     Planning plan2 = new Planning(weekEnd, "SATURDAY TIME",
             "only on saturday",
             false,
             "btn btn-outline-info",
-            "btn btn-info",5,"25-05-2020","05-06-2020");
+            "btn btn-info",5,"2020-06-06T23:00:00.000Z","2020-06-06T23:00:00.000Z");
 
     public void seed(){
        if(scheduleRepository.findAll().isEmpty()){
