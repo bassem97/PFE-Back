@@ -163,8 +163,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void delete(long id) {
-        if (userRepository.findById(id).getDepartment().getChefDep() == id) {
-            departmentService.removeChefDep(userRepository.findById(id).getDepartment().getDepId());
+        if (userRepository.findByUserId(id).getDepartment().getChefDep() == id) {
+            departmentService.removeChefDep(userRepository.findByUserId(id).getDepartment().getDepId());
         }
         userRepository.deleteById(id);
 

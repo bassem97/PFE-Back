@@ -5,7 +5,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Planning {
@@ -30,6 +32,12 @@ public class Planning {
     @JoinColumn(name = "schedule_id")
     @JsonIgnoreProperties(value ={"plannings"} , allowSetters = true)
     private Schedule schedule;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "planning_Id")
+    @JsonIgnoreProperties(value ={"planning"} , allowSetters = true)
+    private List<Department> departments = new ArrayList<>() ;
+
 
 
 
@@ -88,6 +96,17 @@ public class Planning {
         this.colorIcon = colorIcon;
     }
 
+    public boolean isShowPl() {
+        return showPl;
+    }
+
+    public List<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
 
     public String getColor() {
         return color;

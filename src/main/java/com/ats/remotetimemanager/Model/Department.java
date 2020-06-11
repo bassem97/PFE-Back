@@ -43,6 +43,11 @@ public class Department {
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "planning_id")
+    @JsonIgnoreProperties(value ={"plannings","departments"} , allowSetters = true)
+    private Planning planning;
 
     public Department() {
     }
@@ -100,6 +105,14 @@ public class Department {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public Planning getPlanning() {
+        return planning;
+    }
+
+    public void setPlanning(Planning planning) {
+        this.planning = planning;
     }
 
     @Override

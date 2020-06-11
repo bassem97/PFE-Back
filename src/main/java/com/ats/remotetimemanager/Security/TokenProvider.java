@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class TokenProvider {
 
-    private static final long VALIDITY_TIME = 1000*60*60*24 ;
+    private long tokenHours;
     private String SECRET_KEY= "wecode";
+
+    public long validityTime(){
+        return 1000*60*60* this.tokenHours;
+    }
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -42,13 +46,15 @@ public class TokenProvider {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis() ))
-                .setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME))
+                .setExpiration(new Date(System.currentTimeMillis() + validityTime()))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails, long tokenDays){
         Map<String, Object> claims = new HashMap<>();
+        this.setTokenHours(tokenDays);
         return createToken(claims, userDetails.getUsername());
+
     }
 
     public Boolean validateToken(String token, UserDetails userDetails){
@@ -69,5 +75,13 @@ public class TokenProvider {
                         .collect(Collectors.toList());
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", null);
+    }
+
+    public void setTokenHours(long tokenHours) {
+        this.tokenHours = tokenHours;
+    }
+
+    public long getTokenHours() {
+        return tokenHours;
     }
 }

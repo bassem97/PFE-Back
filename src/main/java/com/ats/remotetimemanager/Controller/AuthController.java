@@ -27,8 +27,8 @@ public class AuthController {
     @Autowired
     private UserServiceDetails userDetailsService;
 
-    @PostMapping("login")
-    public ResponseEntity<?> authenticate(@RequestBody LoginModel loginModel){
+    @PostMapping("login/{isRemembered}")
+    public ResponseEntity<?> authenticate(@RequestBody LoginModel loginModel, @PathVariable("isRemembered") boolean isRemembered){
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginModel.getCin(),
@@ -36,9 +36,15 @@ public class AuthController {
                 )
         );
 
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginModel.getCin());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = tokenProvider.generateToken(userDetails);
+        final String token;
+        if (!isRemembered)
+             token = tokenProvider.generateToken(userDetails,1);
+        else token = tokenProvider.generateToken(userDetails,99999);
+
+        System.out.println("GHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+tokenProvider.getTokenHours());
         return ResponseEntity.ok(new JwtRespone(token));
     }
 
