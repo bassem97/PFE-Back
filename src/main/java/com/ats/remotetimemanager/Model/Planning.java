@@ -1,6 +1,8 @@
 package com.ats.remotetimemanager.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -37,6 +39,14 @@ public class Planning {
     @JoinColumn(name = "planning_Id")
     @JsonIgnoreProperties(value ={"planning"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "PLANNING_CONFIGS", joinColumns = {
+            @JoinColumn(name = "planning_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "config_id") })
+    @JsonIgnoreProperties("plannings")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<UserConfig> userConfigs = new ArrayList<>();
 
 
 
@@ -156,6 +166,14 @@ public class Planning {
         this.repeatCycle = repeatCycle;
     }
 
+    public List<UserConfig> getUserConfigs() {
+        return userConfigs;
+    }
+
+    public void setUserConfigs(List<UserConfig> userConfigs) {
+        this.userConfigs = userConfigs;
+    }
+
     @Override
     public String toString() {
         return "Planning{" +
@@ -170,6 +188,8 @@ public class Planning {
                 ", color='" + color + '\'' +
                 ", colorIcon='" + colorIcon + '\'' +
                 ", schedule=" + schedule +
+                ", departments=" + departments +
+                ", userConfigs=" + userConfigs +
                 '}';
     }
 }

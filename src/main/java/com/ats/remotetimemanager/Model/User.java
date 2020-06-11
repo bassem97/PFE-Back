@@ -1,6 +1,8 @@
 package com.ats.remotetimemanager.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -66,6 +68,12 @@ public class User  {
             @JoinColumn(name = "role_id") })
     @JsonIgnoreProperties("users")
     private List<Role> roles = new ArrayList<>();
+
+
+
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserConfig userConfig;
 
 
 
@@ -201,6 +209,14 @@ public class User  {
         this.roles = roles;
     }
 
+    public UserConfig getUserConfig() {
+        return userConfig;
+    }
+
+    public void setUserConfig(UserConfig userConfig) {
+        this.userConfig = userConfig;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -210,14 +226,15 @@ public class User  {
                 ", gender='" + gender + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", hireDay=" + hireDay +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", user cin='" + cin + '\'' +
+                ", cin='" + cin + '\'' +
                 ", password='" + password + '\'' +
                 ", post=" + post +
-                ", department=" + department.toString() +
+                ", department=" + department +
                 ", addresses=" + addresses +
                 ", roles=" + roles +
+                ", userConfig=" + userConfig +
                 '}';
     }
 
