@@ -33,22 +33,15 @@ public class UserConfigSeeder {
         User user3 = userRepository.findByUserId(3);
         User user4 = userRepository.findByUserId(4);
 
-        Planning plan1 = planningRepository.findByPlanningId(1);
-        Planning plan2 = planningRepository.findByPlanningId(2);
-        Planning plan3 = planningRepository.findByPlanningId(3);
-        Planning plan4 = planningRepository.findByPlanningId(4);
 
-        ArrayList<Planning> l = new ArrayList<>();
 
-        l.add(plan1);
-        l.add(plan2);
-        l.add(plan3);
-        l.add(plan4);
+        int[] l = {1,2,3,4};
 
-        UserConfig userConfig1 = new UserConfig(true , user1 , l );
-        UserConfig userConfig2 = new UserConfig(false , user2 , l );
-        UserConfig userConfig3 = new UserConfig(true , user3 , l );
-        UserConfig userConfig4 = new UserConfig(false , user4 , l );
+
+        UserConfig userConfig1 = new UserConfig(true , user1,l );
+        UserConfig userConfig2 = new UserConfig(false , user2, l );
+        UserConfig userConfig3 = new UserConfig(true , user3, l  );
+        UserConfig userConfig4 = new UserConfig(false , user4 ,l);
 
         if(userConfigRepository.findAll().isEmpty()){
             userConfigRepository.save(userConfig1);

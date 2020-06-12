@@ -40,13 +40,6 @@ public class Planning {
     @JsonIgnoreProperties(value ={"planning"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "PLANNING_CONFIGS", joinColumns = {
-            @JoinColumn(name = "planning_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "config_id") })
-    @JsonIgnoreProperties("plannings")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<UserConfig> userConfigs = new ArrayList<>();
 
 
 
@@ -166,13 +159,6 @@ public class Planning {
         this.repeatCycle = repeatCycle;
     }
 
-    public List<UserConfig> getUserConfigs() {
-        return userConfigs;
-    }
-
-    public void setUserConfigs(List<UserConfig> userConfigs) {
-        this.userConfigs = userConfigs;
-    }
 
     @Override
     public String toString() {
@@ -189,7 +175,6 @@ public class Planning {
                 ", colorIcon='" + colorIcon + '\'' +
                 ", schedule=" + schedule +
                 ", departments=" + departments +
-                ", userConfigs=" + userConfigs +
                 '}';
     }
 }
