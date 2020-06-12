@@ -44,8 +44,7 @@ public class Planning {
     @JoinTable(name = "PLANNING_CONFIGS", joinColumns = {
             @JoinColumn(name = "planning_id") }, inverseJoinColumns = {
             @JoinColumn(name = "config_id") })
-    @JsonIgnoreProperties("plannings")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties("shownPlannings")
     private List<UserConfig> userConfigs = new ArrayList<>();
 
 

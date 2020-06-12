@@ -31,7 +31,6 @@ public class UserConfig {
     @JoinTable(name = "PLANNING_CONFIGS", joinColumns = {
             @JoinColumn(name = "config_id") }, inverseJoinColumns = {
             @JoinColumn(name = "planning_id") })
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Planning> shownPlannings = new ArrayList<>();
 
     public UserConfig() {
