@@ -27,7 +27,7 @@ public class UserConfigServiceImpl implements  UserConfigService {
             UserConfig newUserConfig = userConfigRepository.findByConfigId(id);
             newUserConfig.setTheme(userConfig.getTheme());
             newUserConfig.setUser(userConfig.getUser());
-            newUserConfig.setPlannings(userConfig.getPlannings());
+            newUserConfig.setshownPlannings(userConfig.getshownPlannings());
             return userConfigRepository.save(newUserConfig);
         }else return null;
     }
