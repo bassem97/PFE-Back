@@ -32,15 +32,15 @@ public class UserConfig {
             @JoinColumn(name = "config_id") }, inverseJoinColumns = {
             @JoinColumn(name = "planning_id") })
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Planning> plannings = new ArrayList<>();
+    private List<Planning> shownPlannings = new ArrayList<>();
 
     public UserConfig() {
     }
 
-    public UserConfig(boolean theme, User user, List<Planning> plannings) {
+    public UserConfig(boolean theme, User user, List<Planning> shownPlannings) {
         this.theme = theme;
         this.user = user;
-        this.plannings = plannings;
+        this.shownPlannings = shownPlannings;
     }
 
     public long getConfigId() {
@@ -69,12 +69,12 @@ public class UserConfig {
     }
 
 
-    public List<Planning> getPlannings() {
-        return plannings;
+    public List<Planning> getshownPlannings() {
+        return shownPlannings;
     }
 
-    public void setPlannings(List<Planning> plannings) {
-        this.plannings = plannings;
+    public void setshownPlannings(List<Planning> shownPlannings) {
+        this.shownPlannings = shownPlannings;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class UserConfig {
                 "configId=" + configId +
                 ", theme='" + theme + '\'' +
                 ", user=" + user +
-                ", plannings=" + plannings +
+                ", plannings=" + shownPlannings +
                 '}';
     }
 }
