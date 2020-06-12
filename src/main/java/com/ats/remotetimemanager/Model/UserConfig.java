@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,7 @@ public class UserConfig {
     @Column(name = "config_id")
     private long configId;
 
+    private int[] shownPlannings;
     private boolean theme;
 
     @OneToOne
@@ -27,19 +29,15 @@ public class UserConfig {
     @JsonIgnoreProperties("userConfig")
     private User user;
 
-    @ManyToMany( cascade = CascadeType.MERGE)
-    @JoinTable(name = "PLANNING_CONFIGS", joinColumns = {
-            @JoinColumn(name = "config_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "planning_id") })
-    private List<Planning> shownPlannings = new ArrayList<>();
+
 
     public UserConfig() {
     }
 
-    public UserConfig(boolean theme, User user, List<Planning> shownPlannings) {
+    public UserConfig(boolean theme, User user, int[] shownPlannings) {
         this.theme = theme;
         this.user = user;
-        this.shownPlannings = shownPlannings;
+        this.shownPlannings = shownPlannings ;
     }
 
     public long getConfigId() {
@@ -67,12 +65,11 @@ public class UserConfig {
         this.user = user;
     }
 
-
-    public List<Planning> getshownPlannings() {
+    public int[] getShownPlannings() {
         return shownPlannings;
     }
 
-    public void setshownPlannings(List<Planning> shownPlannings) {
+    public void setShownPlannings(int[] shownPlannings) {
         this.shownPlannings = shownPlannings;
     }
 
@@ -80,9 +77,9 @@ public class UserConfig {
     public String toString() {
         return "UserConfig{" +
                 "configId=" + configId +
-                ", theme='" + theme + '\'' +
+                ", shownPlannings=" + Arrays.toString(shownPlannings) +
+                ", theme=" + theme +
                 ", user=" + user +
-                ", plannings=" + shownPlannings +
                 '}';
     }
 }
