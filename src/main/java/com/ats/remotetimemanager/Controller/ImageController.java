@@ -25,8 +25,8 @@ public class ImageController {
         @Autowired
         ImageService imageService;
 
-        @PostMapping(name = "upload")
-        public ResponseEntity.BodyBuilder uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+        @PostMapping("upload")
+        public ResponseEntity uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
                 return this.imageService.uploadImage(file);
         }
 
