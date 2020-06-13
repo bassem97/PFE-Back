@@ -21,11 +21,13 @@ public class Address {
     private long zipCode;
 
 
-    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ={"addresses"} , allowSetters = true)
     private User user;
+
+
 
 
     public Address() {

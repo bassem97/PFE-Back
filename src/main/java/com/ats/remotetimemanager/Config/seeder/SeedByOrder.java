@@ -35,7 +35,6 @@ public class SeedByOrder {
         postSeeder.seed();
         usersSeeder.seed();
         scheduleSeeder.seed();
-        userConfigSeeder.seed();
 
 
 

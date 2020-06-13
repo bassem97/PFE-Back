@@ -42,7 +42,7 @@ public class AuthController {
         final String token;
         if (!isRemembered)
              token = tokenProvider.generateToken(userDetails,1);
-        else token = tokenProvider.generateToken(userDetails,99999);
+        else token = tokenProvider.generateToken(userDetails,9999);
 
         System.out.println("GHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+tokenProvider.getTokenHours());
         return ResponseEntity.ok(new JwtRespone(token));

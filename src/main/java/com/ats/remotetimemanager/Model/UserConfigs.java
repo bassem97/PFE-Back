@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table(name = "user_Config")
-public class UserConfig {
+@Table(name = "user_Configs")
+public class UserConfigs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,20 +23,21 @@ public class UserConfig {
     private int[] shownPlannings;
     private boolean theme;
 
-    @OneToOne
-//    @MapsId
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("userConfig")
+    @JsonIgnoreProperties(value = {"userConfigs"}, allowSetters = true)
     private User user;
 
 
 
-    public UserConfig() {
+    public UserConfigs() {
     }
 
-    public UserConfig(boolean theme, User user, int[] shownPlannings) {
+    public UserConfigs(boolean theme, int[] shownPlannings) {
         this.theme = theme;
-        this.user = user;
         this.shownPlannings = shownPlannings ;
     }
 
@@ -75,7 +76,7 @@ public class UserConfig {
 
     @Override
     public String toString() {
-        return "UserConfig{" +
+        return "UserConfigs{" +
                 "configId=" + configId +
                 ", shownPlannings=" + Arrays.toString(shownPlannings) +
                 ", theme=" + theme +
