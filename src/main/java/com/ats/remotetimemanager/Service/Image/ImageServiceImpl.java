@@ -36,6 +36,14 @@ public class ImageServiceImpl implements ImageService {
                 decompressBytes(retrievedImage.getPicByte()));
     }
 
+    @Override
+    public Image findImageById(long imageId) throws IOException {
+        final Image retrievedImage = imageRepository.findById(imageId);
+        return new Image(retrievedImage.getName(),
+                retrievedImage.getType(),
+                decompressBytes(retrievedImage.getPicByte()));
+    }
+
     // compress the image bytes before storing it in the database
     @Override
     public byte[] compressBytes(byte[] data) {

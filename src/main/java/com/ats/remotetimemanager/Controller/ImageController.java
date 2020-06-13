@@ -30,9 +30,14 @@ public class ImageController {
                 return this.imageService.uploadImage(file);
         }
 
-        @GetMapping(path = { "get/{imageName}" })
+        @GetMapping(path = {"get/{imageName}"})
         public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
                 return this.imageService.getImage(imageName);
+        }
+
+        @GetMapping(path = {"findById/{id}"})
+        public Image findImageById(@PathVariable("id") long id) throws IOException {
+                return this.imageService.findImageById(id);
         }
 
 }

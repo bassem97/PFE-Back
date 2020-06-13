@@ -11,6 +11,7 @@ import java.io.IOException;
 public interface ImageService {
     ResponseEntity uploadImage( MultipartFile file) throws IOException;
     Image getImage(String imageName) throws IOException;
+    Image findImageById(long imageId) throws IOException;
     byte[] compressBytes(byte[] data);
     byte[] decompressBytes(byte[] data);
 }
