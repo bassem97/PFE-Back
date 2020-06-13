@@ -41,7 +41,7 @@ public class Department {
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
-
+    ;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)

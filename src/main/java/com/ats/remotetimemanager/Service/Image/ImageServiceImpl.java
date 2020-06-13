@@ -21,11 +21,11 @@ public class ImageServiceImpl implements ImageService {
     ImageRepository imageRepository;
 
     @Override
-    public ResponseEntity.BodyBuilder uploadImage(MultipartFile file) throws IOException {
-//        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+    public ResponseEntity uploadImage(MultipartFile file) throws IOException {
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
         Image img = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
         imageRepository.save(img);
-        return ResponseEntity.status(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @Override

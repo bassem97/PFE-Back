@@ -56,6 +56,8 @@ public class User  {
 
 
 
+
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
