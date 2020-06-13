@@ -3,6 +3,7 @@ package com.ats.remotetimemanager.Config.seeder;
 import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Role;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Model.UserConfigs;
 import com.ats.remotetimemanager.Repository.AddressRepository;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 @Component
 public class UsersSeeder {
@@ -63,6 +63,11 @@ public class UsersSeeder {
         Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
         Address ad3 = new Address("test","203","test","test", 1111);
 
+        int[] l = {1,2,3,4};
+        UserConfigs userConfigs1 = new UserConfigs(true ,l );
+        UserConfigs userConfigs2 = new UserConfigs(false , l );
+        UserConfigs userConfigs3 = new UserConfigs(true , l  );
+        UserConfigs userConfigs4 = new UserConfigs(false , l);
         if(userRepository.findAll().isEmpty()){
                 ArrayList<Role> rolesAdmin = new ArrayList<>();
                 rolesAdmin.add(roleSeeder.admin);
@@ -77,15 +82,18 @@ public class UsersSeeder {
                 user1.setRoles(rolesAdmin);
                 print(user1);
             user1.setAddresses(Arrays.asList(ad1));
+            user1.setUserConfigs(Arrays.asList(userConfigs1));
             userService.add(user1);
 
                 user2.setRoles(rolesAdmin);
                 print(user2);
             user2.setAddresses(Arrays.asList(ad2));
+            user2.setUserConfigs(Arrays.asList(userConfigs2));
             userService.add(user2);
 
 //                user3.setRoles(rolesUser);
             user3.setAddresses(Arrays.asList(ad3));
+            user3.setUserConfigs(Arrays.asList(userConfigs3));
             userService.add(user3);
 
 //                user3.setPost(postSeeder.chef_department);
@@ -96,6 +104,7 @@ public class UsersSeeder {
 
                user4.setRoles(rolesUser);
 //            user4.setAddresses(Arrays.asList(ad3));
+            user4.setUserConfigs(Arrays.asList(userConfigs4));
             userService.add(user4);
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,

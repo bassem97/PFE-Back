@@ -19,7 +19,7 @@ public class TokenProvider {
     private String SECRET_KEY= "wecode";
 
     public long validityTime(){
-        return 1000*60*60* this.tokenHours;
+        return 1000*60*180* this.tokenHours;
     }
 
     public String extractUsername(String token){

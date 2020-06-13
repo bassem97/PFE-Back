@@ -1,8 +1,6 @@
 package com.ats.remotetimemanager.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -56,11 +54,14 @@ public class User  {
     @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
     private Department department;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
+
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {
@@ -72,9 +73,10 @@ public class User  {
 
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private UserConfig userConfig;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
+    private List<UserConfigs> userConfigs = new ArrayList<>();
 
 
 
@@ -210,12 +212,12 @@ public class User  {
         this.roles = roles;
     }
 
-    public UserConfig getUserConfig() {
-        return userConfig;
+    public List<UserConfigs> getUserConfigs() {
+        return userConfigs;
     }
 
-    public void setUserConfig(UserConfig userConfig) {
-        this.userConfig = userConfig;
+    public void setUserConfigs(List<UserConfigs> userConfigs) {
+        this.userConfigs = userConfigs;
     }
 
     @Override
@@ -235,7 +237,6 @@ public class User  {
                 ", department=" + department +
                 ", addresses=" + addresses +
                 ", roles=" + roles +
-                ", userConfig=" + userConfig +
                 '}';
     }
 

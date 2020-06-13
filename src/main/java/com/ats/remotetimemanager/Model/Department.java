@@ -36,12 +36,12 @@ public class Department {
     private long chefDep;
 
 
-//, orphanRemoval = true
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
+
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)

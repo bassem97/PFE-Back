@@ -10,18 +10,15 @@ import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -82,7 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return null;
         else {
             User newUser = new User();
-            if (user.getUserId() != 0)
+            if  (user.getUserId() != 0)
                 newUser.setUserId(user.getUserId());
             newUser.setName(user.getName());
             newUser.setFirstName(user.getFirstName());
@@ -92,6 +89,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
+            newUser.setUserConfigs(user.getUserConfigs());
             newUser.setPassword(bcryptEncoder.encode(user.getName()+user.getFirstName()+user.getCin())
             );
             newUser.setAddresses(user.getAddresses());
@@ -130,6 +128,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
+            newUser.setUserConfigs(user.getUserConfigs());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
