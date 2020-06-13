@@ -92,6 +92,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
+            newUser.setUserConfig(user.getUserConfig());
             newUser.setPassword(bcryptEncoder.encode(user.getName()+user.getFirstName()+user.getCin())
             );
             newUser.setAddresses(user.getAddresses());
