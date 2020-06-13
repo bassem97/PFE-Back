@@ -51,7 +51,7 @@ public class UsersSeeder {
                 "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info);
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
-                "medamine@gmail.com", "12545852", "123456",postSeeder.chef_department, departmentSeeder.mark);
+                "medamine@gmail.com", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark);
         User user3 = new User("test", "test", "female",
                 "2020-03-09","+21620000000",
                 "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);

@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return null;
         else {
             User newUser = new User();
-            if  (user.getUserId() != 0)
+            if (user.getUserId() != 0)
                 newUser.setUserId(user.getUserId());
             newUser.setName(user.getName());
             newUser.setFirstName(user.getFirstName());
