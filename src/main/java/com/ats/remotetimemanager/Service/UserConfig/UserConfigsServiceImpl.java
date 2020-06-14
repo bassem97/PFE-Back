@@ -7,6 +7,9 @@ import com.ats.remotetimemanager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
+import java.util.Random;
+
 @Service("userConfigService")
 public class UserConfigsServiceImpl implements UserConfigsService {
 
@@ -36,5 +39,4 @@ public class UserConfigsServiceImpl implements UserConfigsService {
         User user = userRepository.findByUserId(id);
         return userConfigsRepository.findByUser(user);
     }
-
 }

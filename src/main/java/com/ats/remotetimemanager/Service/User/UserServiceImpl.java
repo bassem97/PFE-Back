@@ -8,8 +8,10 @@ import com.ats.remotetimemanager.Repository.PostRepository;
 import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
+import com.ats.remotetimemanager.Service.Notification.NotificationService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,9 +19,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @Service(value = "userService")
@@ -45,6 +50,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -90,8 +97,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
-            newUser.setPassword(bcryptEncoder.encode(user.getName()+user.getFirstName()+user.getCin())
-            );
+
+            //password
+            String generatedPassword = randomPassword();
+            newUser.setPassword(bcryptEncoder.encode(generatedPassword));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
             newUser.setPost(user.getPost());
@@ -108,7 +117,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                Department dep=  user.getDepartment();
 //                dep.setChefDep(user.getUserId());
 //                departmentService.update(dep,dep.getDepId());
-
+            // send notification
+            try{
+                notificationService.sendNotification(newUser, generatedPassword);
+            }catch (MailException ex){
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: "+ex.getMessage());
+            }
+            //return confirmation
 
             System.out.println(newUser);
             return userRepository.save(newUser);
@@ -195,6 +210,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         else return false;
 
     }
+
+    // function to generate a random string of length n
+    static String randomPassword()
+    {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(8);
+
+        for (int i = 0; i < 8; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
+
 
 
 }
