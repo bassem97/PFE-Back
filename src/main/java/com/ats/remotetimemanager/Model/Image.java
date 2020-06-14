@@ -14,10 +14,11 @@ public class Image {
     private String type;
 
     @Column(name = "picByte", length = 1000)
+    @Lob
     private byte[] picByte;
 
     public Image() {
-        super();
+        super(); 
     }
 
     public Image(String name, String type, byte[] picByte) {
