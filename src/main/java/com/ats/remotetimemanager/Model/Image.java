@@ -14,6 +14,7 @@ public class Image {
     private String type;
 
     @Column(name = "picByte", length = 1000)
+    @Lob
     private byte[] picByte;
 
     public Image() {
