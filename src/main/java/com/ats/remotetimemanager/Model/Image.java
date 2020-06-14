@@ -18,7 +18,7 @@ public class Image {
     private byte[] picByte;
 
     public Image() {
-        super();
+        super(); 
     }
 
     public Image(String name, String type, byte[] picByte) {
