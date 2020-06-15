@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -36,6 +37,8 @@ public class User  {
     private String cin;
 
     private String password;
+
+    private String[] image;
 
 
 
@@ -85,7 +88,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String[] image) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -97,6 +100,7 @@ public class User  {
         this.password = password;
         this.post = post;
         this.department = department;
+        this.image = image;
         this.userId = ++count;
 
     }
@@ -222,6 +226,14 @@ public class User  {
         this.userConfigs = userConfigs;
     }
 
+    public String[] getImage() {
+        return image;
+    }
+
+    public void setImage(String[] image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -235,10 +247,12 @@ public class User  {
                 ", email='" + email + '\'' +
                 ", cin='" + cin + '\'' +
                 ", password='" + password + '\'' +
+                ", image=" + Arrays.toString(image) +
                 ", post=" + post +
                 ", department=" + department +
                 ", addresses=" + addresses +
                 ", roles=" + roles +
+                ", userConfigs=" + userConfigs +
                 '}';
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.zip.DataFormatException;
@@ -25,14 +26,14 @@ public class ImageController {
         @Autowired
         ImageService imageService;
 
-        @PostMapping("upload")
-        public ResponseEntity uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-                return this.imageService.uploadImage(file);
+        @PostMapping("upload/{id}")
+        public ResponseEntity uploadImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") long id ) throws IOException {
+                return this.imageService.uploadImage(file,id);
         }
 
-        @GetMapping(path = {"get/{imageName}"})
-        public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
-                return this.imageService.getImage(imageName);
+        @GetMapping(path = {"get/{id}"})
+        public Image getImage(@PathVariable("id") long id) throws IOException {
+                return this.imageService.getImage(id);
         }
 
         @GetMapping(path = {"findById/{id}"})

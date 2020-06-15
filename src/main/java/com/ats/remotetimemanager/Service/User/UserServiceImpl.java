@@ -10,15 +10,22 @@ import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import com.ats.remotetimemanager.Service.Notification.NotificationService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -79,6 +86,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return list;
     }
 
+    public String[] editImage(String[] image, long id) throws IOException {
+        System.out.println(image[0]+"  "+image[1]);
+        File filePath = new File(image[0]+image[1]);
+        FileInputStream input = new FileInputStream(filePath);
+        String type = filePath.getName().substring(filePath.getName().lastIndexOf(".")+1);
+        MultipartFile file = new MockMultipartFile("file", filePath.getName(),type, IOUtils.toByteArray(input));
+        String name = file.getContentType().replaceAll("image/", id + type);
+        String path = "C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-back\\src\\main\\resources\\Images\\"+ name;
+        file.transferTo(filePath);
+        return  new String[] {path,name};
+
+    }
+
     @Override
     public User add(User user) {
         Long id =user.getUserId();
@@ -97,7 +117,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
-
+//            newUser.setImage(user.getImage());
             //password
             String generatedPassword = randomPassword();
             newUser.setPassword(bcryptEncoder.encode(generatedPassword));
@@ -125,8 +145,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
             //return confirmation
 
-            System.out.println(newUser);
-            return userRepository.save(newUser);
+            User u = userRepository.save(newUser);
+            try {
+                newUser.setImage(editImage(user.getImage(),u.getUserId()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("newUser"+newUser);
+            return update(newUser,u.getUserId()) ;
+//            return userRepository.save(newUser);
         }
     }
 
@@ -144,6 +171,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
+            newUser.setImage(user.getImage());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
@@ -180,6 +208,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (userRepository.findByUserId(id).getDepartment().getChefDep() == id) {
             departmentService.removeChefDep(userRepository.findByUserId(id).getDepartment().getDepId());
         }
+        File file = new File(userRepository.findByUserId(id).getImage()[0]);
+        file.delete();
         userRepository.deleteById(id);
 
     }
