@@ -45,19 +45,19 @@ public class UsersSeeder {
     public void print(User user){
         System.out.println(user.toString());
     }
-    public void seed(){
+    public void seed() throws Exception {
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",
                 "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info);
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
-                "medamine@gmail.com", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark);
+                "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark);
         User user3 = new User("test", "test", "female",
                 "2020-03-09","+21620000000",
-                "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);
+                "test@kjk.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security);
         User user4 = new User("erreur", "test", "erreur",
                 "2020-03-09","+21620500000",
-                "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);
+                "erreru@jkhj.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);
 
         Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
         Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
@@ -83,7 +83,8 @@ public class UsersSeeder {
                 print(user1);
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
-            userService.add(user1);
+                userService.add(user1);
+
 
                 user2.setRoles(rolesAdmin);
                 print(user2);
@@ -105,7 +106,13 @@ public class UsersSeeder {
                user4.setRoles(rolesUser);
 //            user4.setAddresses(Arrays.asList(ad3));
             user4.setUserConfigs(Arrays.asList(userConfigs4));
-            userService.add(user4);
+            for (int i=0;i<50;i++) {
+                user4.setCin(i+"545485");
+                user4.setEmail("qsd"+i+"@qsdqs.fqs");
+                user4.setPhone("55545"+i);
+                user4.setUserId(user4.getUserId()+1);
+                userService.add(user4);
+            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);

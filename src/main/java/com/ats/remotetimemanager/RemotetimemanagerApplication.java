@@ -20,16 +20,17 @@ public class RemotetimemanagerApplication  {
     }
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
         seedByOrder.init();
     }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
+        return new WebMvcConfigurer () {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
+                        .allowedOrigins("*");
             }
         };
     }

@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Controller;
 
 import com.ats.remotetimemanager.Model.Planning;
+import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Service.Planning.PlanningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,19 +16,31 @@ public class PlanningController {
     @Autowired
     private PlanningService planningService;
 
+    @Autowired
+    private WebSocketController webSocketController;
+
     @GetMapping("list")
     public List<Planning> getAll() { return planningService.findAll() ;}
 
     @PostMapping("add")
-    public Planning add(@RequestBody Planning planning) {
-        return planningService.add(planning);}
+    public Planning add(@RequestBody Planning planning) throws Exception {
+        Planning pl3 = planningService.add(planning);
+        webSocketController.sendMessage(new WebSocketMessage("timetable"));
+        return pl3;
+    }
 
     @PutMapping("update/{id}")
-    public Planning update(@Valid @RequestBody Planning planning, @PathVariable("id") Long id){
-        return planningService.update(planning,id);}
+    public Planning update(@Valid @RequestBody Planning planning, @PathVariable("id") Long id) throws Exception {
+        Planning pl3 = planningService.update(planning,id);
+        webSocketController.sendMessage(new WebSocketMessage("timetable"));
+        return pl3;
+    }
 
     @DeleteMapping("delete/{id}")
-    public void delete(@PathVariable("id") long id) { planningService.delete(id);}
+    public void delete(@PathVariable("id") long id) throws Exception {
+        planningService.delete(id);
+        webSocketController.sendMessage(new WebSocketMessage("timetable"));
+    }
 
     @GetMapping("findById/{id}")
     public Planning findById(@PathVariable("id") Long id) {return planningService.findById(id) ;}

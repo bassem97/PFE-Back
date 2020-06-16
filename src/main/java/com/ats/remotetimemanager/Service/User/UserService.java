@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface UserService {
-    User add(User user);
+    User add(User user) throws Exception;
     User update(User user, Long id);
     void delete(long id);
     List<User> findAll();

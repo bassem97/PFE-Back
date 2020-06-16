@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Service.User;
 
 import com.ats.remotetimemanager.Model.Department;
+import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Model.Role;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
@@ -9,6 +10,7 @@ import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import com.ats.remotetimemanager.Service.Notification.NotificationService;
+import com.ats.remotetimemanager.Service.WebSocket.WebSocketService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -19,12 +21,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 @Service(value = "userService")
@@ -53,6 +52,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private WebSocketService webSocketService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByCin(username);
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User add(User user) {
+    public User add(User user) throws Exception {
         Long id =user.getUserId();
         if(userRepository.findById(id).isPresent())
             return null;
@@ -126,6 +128,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             //return confirmation
 
             System.out.println(newUser);
+
+            webSocketService.sendWebSocketMessage(new WebSocketMessage("sqdqs"));
+
             return userRepository.save(newUser);
         }
     }

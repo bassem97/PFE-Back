@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Controller;
 
 
+import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Model.UserConfigs;
 import com.ats.remotetimemanager.Service.UserConfig.UserConfigsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,23 @@ public class UserConfigsController {
     @Autowired
     UserConfigsService userConfigsService;
 
+    @Autowired
+    WebSocketController webSocketController;
+
     @PostMapping("add")
     public UserConfigs add(@RequestBody UserConfigs userConfigs){
         return userConfigsService.add(userConfigs);
     }
 
     @PutMapping("/update/{id}")
-    public UserConfigs update(@RequestBody UserConfigs userConfigs, @PathVariable(value = "id") Long id){
-        return userConfigsService.update(userConfigs,id);
+    public UserConfigs update(@RequestBody UserConfigs userConfigs, @PathVariable(value = "id") Long id) throws Exception {
+        UserConfigs userConfigs3 = userConfigsService.update(userConfigs,id);
+        webSocketController.sendMessage(new WebSocketMessage("userConfig", userConfigs3.getUser().getUserId(), userConfigs3.getTheme()));
+        return userConfigs3;
+
     }
     @GetMapping("/findByUserId/{id}")
-    public UserConfigs update(@PathVariable(value = "id") Long id){
+    public UserConfigs findByUserId(@PathVariable(value = "id") Long id){
 
         return userConfigsService.findByUserId(id);
     }

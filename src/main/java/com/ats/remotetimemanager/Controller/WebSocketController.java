@@ -1,23 +1,24 @@
 package com.ats.remotetimemanager.Controller;
 
-import com.ats.remotetimemanager.Model.Greeting;
-import com.ats.remotetimemanager.Model.HelloMessage;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import com.ats.remotetimemanager.Model.WebSocketMessage;
+import com.ats.remotetimemanager.Service.WebSocket.WebSocketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.HtmlUtils;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("/ws")
+@RequestMapping("http://localhost:81/ws")
 public class WebSocketController {
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message) throws Exception {
-        Thread.sleep(1000); // simulated delay
-        return new Greeting("terma , " + HtmlUtils.htmlEscape(message.getName()) + "!");
+    @Autowired
+    WebSocketService webSocketService;
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
+
+    public void sendMessage(WebSocketMessage message) throws Exception {
+        this.simpMessagingTemplate.convertAndSend("/topic/greetings", message);
     }
 }

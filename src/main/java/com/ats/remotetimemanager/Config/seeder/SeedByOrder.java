@@ -28,7 +28,7 @@ public class SeedByOrder {
     @Autowired
     private UserService userService;
 
-    public void init()  {
+    public void init() throws Exception {
 
         departmentSeeder.seed();
         roleSeeder.seed();
