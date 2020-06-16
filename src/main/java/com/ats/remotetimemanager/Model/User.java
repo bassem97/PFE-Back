@@ -38,7 +38,7 @@ public class User  {
 
     private String password;
 
-    private String[] image;
+    private String image;
 
 
 
@@ -88,7 +88,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String[] image) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String image) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -226,11 +226,11 @@ public class User  {
         this.userConfigs = userConfigs;
     }
 
-    public String[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(String[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -247,7 +247,7 @@ public class User  {
                 ", email='" + email + '\'' +
                 ", cin='" + cin + '\'' +
                 ", password='" + password + '\'' +
-                ", image=" + Arrays.toString(image) +
+                ", image='" + image + '\'' +
                 ", post=" + post +
                 ", department=" + department +
                 ", addresses=" + addresses +

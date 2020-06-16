@@ -21,17 +21,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 @Service(value = "userService")
@@ -59,6 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private NotificationService notificationService;
+    private final Path root = Paths.get("Images");
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -84,19 +82,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<User> list = new ArrayList<>();
         userRepository.findAll().iterator().forEachRemaining(list::add);
         return list;
-    }
-
-    public String[] editImage(String[] image, long id) throws IOException {
-        System.out.println(image[0]+"  "+image[1]);
-        File filePath = new File(image[0]);
-        FileInputStream input = new FileInputStream(filePath);
-        String type = filePath.getName().substring(filePath.getName().lastIndexOf(".")+1);
-        MultipartFile file = new MockMultipartFile("file", filePath.getName(),type, IOUtils.toByteArray(input));
-        String name = file.getContentType().replaceAll("image/", id + type);
-        String path = "C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-back\\src\\main\\resources\\Images\\"+ name;
-        file.transferTo(filePath);
-        return  new String[] {path,name};
-
     }
 
     @Override
@@ -144,16 +129,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: "+ex.getMessage());
             }
             //return confirmation
-            User u = userRepository.save(newUser);
-            if(u.getImage() == null){
-                try {
-                newUser.setImage(editImage(user.getImage(),u.getUserId()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("newUser"+newUser);
-            return update(newUser,u.getUserId()) ;
-            }else  return userRepository.save(newUser);
+//            User u = userRepository.save(newUser);
+//            if(u.getImage() == null){
+//                try {
+//                newUser.setImage(editImage(user.getImage();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println("newUser"+newUser);
+//            return update(newUser,u.getUserId()) ;
+//            }else
+            return userRepository.save(newUser);
         }
     }
 
@@ -209,15 +195,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             departmentService.removeChefDep(userRepository.findByUserId(id).getDepartment().getDepId());
         }
         User user = userRepository.findByUserId(id);
-        if(user.getImage().length != 0){
-            File file = new File(user.getImage()[0]);
-            file.delete();
+        File dir = new File(root.toUri());
+        File[] list = dir.listFiles();
+        for(File file: list){
+            if(file.getName().equals(user.getImage())){
+                System.out.println("________________DELETING__________________ :"+ file.getName());
+                file.delete();
+            }
         }
-
         userRepository.deleteById(id);
-
     }
-
 
 
     @Override

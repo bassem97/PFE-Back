@@ -1,11 +1,15 @@
 package com.ats.remotetimemanager.Config.seeder;
 
 import com.ats.remotetimemanager.Model.Department;
-import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Component
 public class DepartmentSeeder {
@@ -15,8 +19,7 @@ public class DepartmentSeeder {
     @Autowired
     private DepartmentService departmentService;
 
-    @Autowired
-    private PostSeeder postSeeder;
+    private final Path root = Paths.get("Images");
 
     Department info = new Department("informatique", null);
     Department security = new Department("security", info);
@@ -29,6 +32,12 @@ public class DepartmentSeeder {
 
     public  void seed(){
         if(departmentRepository.findAll().isEmpty()){
+            try {
+                if(!Files.exists(root)) Files.createDirectory(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             departmentService.add(info);
             departmentService.add(security );
             departmentService.add(khra);

@@ -3,12 +3,9 @@ package com.ats.remotetimemanager.Config.seeder;
 import com.ats.remotetimemanager.Model.Planning;
 import com.ats.remotetimemanager.Model.Schedule;
 import com.ats.remotetimemanager.Repository.ScheduleRepository;
-import com.ats.remotetimemanager.Service.Schedule.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component

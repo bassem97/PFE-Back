@@ -4,6 +4,7 @@ import com.ats.remotetimemanager.Model.Image;
 import com.ats.remotetimemanager.Repository.ImageRepository;
 import com.ats.remotetimemanager.Service.Image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,9 @@ public class ImageController {
                 return this.imageService.uploadImage(file,id);
         }
 
-        @GetMapping(path = {"get/{id}"})
-        public Image getImage(@PathVariable("id") long id) throws IOException {
-                return this.imageService.getImage(id);
-        }
-
-        @GetMapping(path = {"findById/{id}"})
-        public Image findImageById(@PathVariable("id") long id) throws IOException {
-                return this.imageService.findImageById(id);
+        @GetMapping(path = {"load/{name}"})
+        public Image load(@PathVariable("name") String name) throws IOException {
+                return imageService.load(name);
         }
 
 }

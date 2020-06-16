@@ -10,7 +10,12 @@ import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,27 +47,25 @@ public class UsersSeeder {
 
 
 
+
+
     public void print(User user){
         System.out.println(user.toString());
     }
     public void seed(){
-        String[] img1 = new String[]{"src/main/resources/Images/1.jpg","1.jpg"};
-        String[] img2 = new String[]{"src/main/resources/Images/2.png","2.png"};
-        String[] img3 = new String[]{"src/main/resources/Images/3.jpg","3.jpg"};
-        String[] img4 = new String[]{"src/main/resources/Images/4.png","4.png"};
 
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",
-                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info,img1);
+                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info,"1.jpg");
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
-                "medamine@gmail.com", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark,img2);
+                "medamine@gmail.com", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark,"2.png");
         User user3 = new User("test", "test", "female",
                 "2020-03-09","+21620000000",
-                "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security,img3);
+                "test@gmail.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security,"3.jpg");
         User user4 = new User("erreur", "test", "erreur",
                 "2020-03-09","+21620500000",
-                "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info,img4);
+                "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info,"4.png");
 
         Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
         Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
@@ -74,7 +77,7 @@ public class UsersSeeder {
         UserConfigs userConfigs3 = new UserConfigs(true , l  );
         UserConfigs userConfigs4 = new UserConfigs(false , l);
         if(userRepository.findAll().isEmpty()){
-                ArrayList<Role> rolesAdmin = new ArrayList<>();
+            ArrayList<Role> rolesAdmin = new ArrayList<>();
                 rolesAdmin.add(roleSeeder.admin);
                 ArrayList<Role> rolesUser = new ArrayList<>();
                 rolesUser.add(roleSeeder.user);
