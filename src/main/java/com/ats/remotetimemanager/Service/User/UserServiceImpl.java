@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public String[] editImage(String[] image, long id) throws IOException {
         System.out.println(image[0]+"  "+image[1]);
-        File filePath = new File(image[0]+image[1]);
+        File filePath = new File(image[0]);
         FileInputStream input = new FileInputStream(filePath);
         String type = filePath.getName().substring(filePath.getName().lastIndexOf(".")+1);
         MultipartFile file = new MockMultipartFile("file", filePath.getName(),type, IOUtils.toByteArray(input));
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
-//            newUser.setImage(user.getImage());
+            newUser.setImage(user.getImage());
             //password
             String generatedPassword = randomPassword();
             newUser.setPassword(bcryptEncoder.encode(generatedPassword));
@@ -144,16 +144,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: "+ex.getMessage());
             }
             //return confirmation
-
             User u = userRepository.save(newUser);
-            try {
+            if(u.getImage() == null){
+                try {
                 newUser.setImage(editImage(user.getImage(),u.getUserId()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println("newUser"+newUser);
             return update(newUser,u.getUserId()) ;
-//            return userRepository.save(newUser);
+            }else  return userRepository.save(newUser);
         }
     }
 
@@ -208,8 +208,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (userRepository.findByUserId(id).getDepartment().getChefDep() == id) {
             departmentService.removeChefDep(userRepository.findByUserId(id).getDepartment().getDepId());
         }
-        File file = new File(userRepository.findByUserId(id).getImage()[0]);
-        file.delete();
+        User user = userRepository.findByUserId(id);
+        if(user.getImage().length != 0){
+            File file = new File(user.getImage()[0]);
+            file.delete();
+        }
+
         userRepository.deleteById(id);
 
     }

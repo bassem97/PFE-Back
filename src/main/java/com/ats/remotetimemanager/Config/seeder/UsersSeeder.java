@@ -46,10 +46,10 @@ public class UsersSeeder {
         System.out.println(user.toString());
     }
     public void seed(){
-        String[] img1 = new String[]{"C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-BACK\\src\\main\\resources\\Images\\","1.jpg"};
-        String[] img2 = new String[]{"C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-BACK\\src\\main\\resources\\Images\\","2.png"};
-        String[] img3 = new String[]{"C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-BACK\\src\\main\\resources\\Images\\","3.jpg"};
-        String[] img4 = new String[]{"C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-BACK\\src\\main\\resources\\Images\\","4.png };                   "};
+        String[] img1 = new String[]{"src/main/resources/Images/1.jpg","1.jpg"};
+        String[] img2 = new String[]{"src/main/resources/Images/2.png","2.png"};
+        String[] img3 = new String[]{"src/main/resources/Images/3.jpg","3.jpg"};
+        String[] img4 = new String[]{"src/main/resources/Images/4.png","4.png"};
 
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",

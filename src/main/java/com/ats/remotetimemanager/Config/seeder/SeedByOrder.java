@@ -5,6 +5,8 @@ import com.ats.remotetimemanager.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+
 
 @Component
 public class SeedByOrder {
@@ -29,6 +31,7 @@ public class SeedByOrder {
     private UserService userService;
 
     public void init()  {
+
 
         departmentSeeder.seed();
         roleSeeder.seed();

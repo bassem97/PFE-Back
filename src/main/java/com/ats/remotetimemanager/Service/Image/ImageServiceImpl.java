@@ -12,10 +12,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -34,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
     public ResponseEntity uploadImage(MultipartFile file, long id) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
         String name = file.getContentType().replaceAll("image/", id+".");
-        String path = "C:\\Users\\Bassem's PC\\Desktop\\PFE\\PFE-back\\src\\main\\resources\\Images\\"+ name;
+        String path = "src/main/resources/Images/"+ name;
         File filePath = new File(path);
         file.transferTo(filePath);
         User  user = userRepository.findByUserId(id);
@@ -47,8 +44,11 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image getImage(long id) throws IOException {
         User user = userRepository.findByUserId(id);
-        File filePath = new  File(user.getImage()[0]+user.getImage()[1]);
-        FileInputStream input = new FileInputStream(filePath);
+        String path = "src/main/resources/Images/" + user.getImage()[1];
+        File filePath = new  File(path);
+        FileInputStream input = new FileInputStream(user.getImage()[0]);
+//        BufferedInputStream bf = new BufferedInputStream(input);
+//        IOUtils.toByteArray()
         String type = filePath.getName().substring(filePath.getName().lastIndexOf(".")+1);
         MultipartFile file = new MockMultipartFile("file", filePath.getName(),type, IOUtils.toByteArray(input));
         return new Image (user.getImage()[1],file.getContentType(),file.getBytes());
