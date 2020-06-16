@@ -8,22 +8,18 @@ import com.ats.remotetimemanager.Repository.PostRepository;
 import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
-import com.ats.remotetimemanager.Service.Notification.NotificationService;
+import com.ats.remotetimemanager.Service.NotificationMail.NotificationMailService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -55,7 +51,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PasswordEncoder bcryptEncoder;
 
     @Autowired
-    private NotificationService notificationService;
+    private NotificationMailService notificationMailService;
+
     private final Path root = Paths.get("Images");
 
     @Override
@@ -103,6 +100,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
             newUser.setImage(user.getImage());
+            newUser.setNotifications(user.getNotifications());
             //password
             String generatedPassword = randomPassword();
             newUser.setPassword(bcryptEncoder.encode(generatedPassword));
@@ -124,7 +122,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                departmentService.update(dep,dep.getDepId());
             // send notification
             try{
-                notificationService.sendNotification(newUser, generatedPassword);
+                notificationMailService.sendNotification(newUser, generatedPassword);
             }catch (MailException ex){
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: "+ex.getMessage());
             }

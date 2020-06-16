@@ -1,13 +1,11 @@
 package com.ats.remotetimemanager.Service.Notification;
 
-import com.ats.remotetimemanager.Model.User;
-import org.springframework.mail.MailException;
-
-import javax.xml.crypto.Data;
+import com.ats.remotetimemanager.Model.Notification;
 
 public interface NotificationService {
 
-    public void sendNotification(User user, String password) throws MailException;
-    public void sendFeedback(Data data);
-}
+    Notification add(Notification notification);
+    Notification update(Notification notification, Long id);
+    Notification findByUserId(long id);
 
+}

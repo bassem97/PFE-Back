@@ -83,6 +83,11 @@ public class User  {
     @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
     private List<UserConfigs> userConfigs = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
+    private List<Notification> notifications = new ArrayList<>();
+
 
 
     public User() {
@@ -234,6 +239,14 @@ public class User  {
         this.image = image;
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -253,6 +266,7 @@ public class User  {
                 ", addresses=" + addresses +
                 ", roles=" + roles +
                 ", userConfigs=" + userConfigs +
+                ", notifications=" + notifications +
                 '}';
     }
 
