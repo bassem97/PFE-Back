@@ -15,7 +15,8 @@ public class SeedByOrder {
     PostSeeder postSeeder;
     @Autowired
     ScheduleSeeder scheduleSeeder;
-    public void init()  {
+
+    public void init() throws Exception {
         departmentSeeder.seed();
         roleSeeder.seed();
         postSeeder.seed();

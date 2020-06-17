@@ -6,11 +6,10 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "notifications")
-public class Notification {
+public class NotificationMessage {
 
 
     @Id
@@ -19,10 +18,11 @@ public class Notification {
     private long notifId;
 
 
-    private String  notifName;
+    private String notifTitle;
     private String  notifDesc;
     private LocalDate notifDate;
     private Boolean isViewed;
+    private Boolean isHovered;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -30,14 +30,16 @@ public class Notification {
     @JsonIgnoreProperties(value = {"notifications"}, allowSetters = true)
     private User user;
 
-    public Notification() {
+    public NotificationMessage() {
     }
 
-    public Notification(String notifName, String notifDesc, LocalDate notifDate, Boolean isViewed) {
-        this.notifName = notifName;
+    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered, User user) {
+        this.notifTitle = notifTitle;
         this.notifDesc = notifDesc;
         this.notifDate = notifDate;
         this.isViewed = isViewed;
+        this.isHovered = isHovered;
+        this.user = user;
     }
 
     public long getNotifId() {
@@ -48,12 +50,12 @@ public class Notification {
         this.notifId = notifId;
     }
 
-    public String getNotifName() {
-        return notifName;
+    public String getNotifTitle() {
+        return notifTitle;
     }
 
-    public void setNotifName(String notifName) {
-        this.notifName = notifName;
+    public void setNotifTitle(String notifTitle) {
+        this.notifTitle = notifTitle;
     }
 
     public String getNotifDesc() {
@@ -88,14 +90,23 @@ public class Notification {
         this.user = user;
     }
 
+    public Boolean getHovered() {
+        return isHovered;
+    }
+
+    public void setHovered(Boolean hovered) {
+        isHovered = hovered;
+    }
+
     @Override
     public String toString() {
-        return "NotificationMail{" +
+        return "NotificationMessage{" +
                 "notifId=" + notifId +
-                ", notifName='" + notifName + '\'' +
+                ", notifTitle='" + notifTitle + '\'' +
                 ", notifDesc='" + notifDesc + '\'' +
                 ", notifDate=" + notifDate +
                 ", isViewed=" + isViewed +
+                ", isHovered=" + isHovered +
                 ", user=" + user +
                 '}';
     }

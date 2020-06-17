@@ -7,7 +7,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -86,7 +85,7 @@ public class User  {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
-    private List<Notification> notifications = new ArrayList<>();
+    private List<NotificationMessage> notificationMessages = new ArrayList<>();
 
 
 
@@ -239,12 +238,12 @@ public class User  {
         this.image = image;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
+    public List<NotificationMessage> getNotificationMessages() {
+        return notificationMessages;
     }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
+    public void setNotificationMessages(List<NotificationMessage> notificationMessages) {
+        this.notificationMessages = notificationMessages;
     }
 
     @Override
@@ -266,7 +265,7 @@ public class User  {
                 ", addresses=" + addresses +
                 ", roles=" + roles +
                 ", userConfigs=" + userConfigs +
-                ", notifications=" + notifications +
+                ", notificationMessages=" + notificationMessages +
                 '}';
     }
 

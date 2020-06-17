@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Service.User;
 
 import com.ats.remotetimemanager.Model.Department;
+import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Model.Role;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
@@ -9,6 +10,7 @@ import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import com.ats.remotetimemanager.Service.NotificationMail.NotificationMailService;
+import com.ats.remotetimemanager.Service.WebSocket.WebSocketService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -36,17 +38,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
-
     @Autowired
     private DepartmentService departmentService;
-
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private PostRepository postRepository;
-
-
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
@@ -54,6 +51,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private NotificationMailService notificationMailService;
 
     private final Path root = Paths.get("Images");
+
+    @Autowired
+    private WebSocketService webSocketService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User add(User user) {
+    public User add(User user) throws Exception {
         Long id =user.getUserId();
         if(userRepository.findById(id).isPresent())
             return null;
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
             newUser.setImage(user.getImage());
-            newUser.setNotifications(user.getNotifications());
+            newUser.setNotificationMessages(user.getNotificationMessages());
             //password
             String generatedPassword = randomPassword();
             newUser.setPassword(bcryptEncoder.encode(generatedPassword));
@@ -123,20 +123,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             // send notification
             try{
                 notificationMailService.sendNotification(newUser, generatedPassword);
-            }catch (MailException ex){
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: "+ex.getMessage());
+            }catch (MailException ex) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
             }
-            //return confirmation
-//            User u = userRepository.save(newUser);
-//            if(u.getImage() == null){
-//                try {
-//                newUser.setImage(editImage(user.getImage();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            System.out.println("newUser"+newUser);
-//            return update(newUser,u.getUserId()) ;
-//            }else
+            System.out.println(newUser);
+            webSocketService.sendWebSocketMessage(new WebSocketMessage("sqdqs"));
             return userRepository.save(newUser);
         }
     }

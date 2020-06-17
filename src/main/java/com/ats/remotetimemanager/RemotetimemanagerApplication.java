@@ -19,32 +19,23 @@ public class RemotetimemanagerApplication  {
     @Autowired
     private SeedByOrder seedByOrder;
 
-//    @Autowired
-//    private ObjectMapper objectMapper;
-
-
     public static void main(String[] args) {
         SpringApplication.run(RemotetimemanagerApplication.class, args);
     }
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
         seedByOrder.init();
     }
 
-//    @Bean
-//    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-//        MappingJackson2HttpMessageConverter converter =
-//                new MappingJackson2HttpMessageConverter(mapper);
-//        return converter;
-//    }
-
-//    @PostConstruct
-//    public void setUp() {
-//        objectMapper.registerModule(new JavaTimeModule());
-//    }
-
-
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer () {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
+                        .allowedOrigins("*");
+            }
+        };
+    }
 }
