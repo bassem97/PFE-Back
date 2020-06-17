@@ -11,7 +11,7 @@ import javax.validation.Valid;
 @CrossOrigin("*")
 @RequestMapping("/notification/")
 public class NotificationMessageController {
-
+ 
     @Autowired
     NotificationMessageService notificationMessageService;
 
