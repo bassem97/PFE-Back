@@ -30,6 +30,11 @@ public class WebSocketMessage {
         this.senderId = id;
         this.theme = theme;
     }
+    public WebSocketMessage(String socketMessage, long id) {
+        this.socketMessage = socketMessage;
+        this.senderId = id;
+        this.theme = theme;
+    }
     public WebSocketMessage(String socketMessage) {
         this.socketMessage = socketMessage;
     }
