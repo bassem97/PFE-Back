@@ -115,14 +115,14 @@ public class UsersSeeder {
             user4.setNotificationMessages(notifs);
             System.out.println(user4);
             userService.add(user4);
-            for (int i=5;i<54;i++) {
-                user4.setImage(i+".jpg");
-                user4.setCin(i+"545485");
-                user4.setEmail("qsd"+i+"@qsdqs.fqs");
-                user4.setPhone("55545"+i);
-                user4.setUserId(user4.getUserId()+1);
-                userService.add(user4);
-            }
+//            for (int i=5;i<54;i++) {
+//                user4.setImage(i+".jpg");
+//                user4.setCin(i+"545485");
+//                user4.setEmail("qsd"+i+"@qsdqs.fqs");
+//                user4.setPhone("55545"+i);
+//                user4.setUserId(user4.getUserId()+1);
+//                userService.add(user4);
+//            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);

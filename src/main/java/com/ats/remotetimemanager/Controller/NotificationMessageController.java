@@ -9,7 +9,7 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/notif/")
+@RequestMapping("/notification/")
 public class NotificationMessageController {
 
     @Autowired

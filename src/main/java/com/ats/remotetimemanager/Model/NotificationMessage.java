@@ -73,11 +73,11 @@ public class NotificationMessage {
         this.notifDate = notifDate;
     }
 
-    public Boolean getViewed() {
+    public Boolean getIsViewed() {
         return isViewed;
     }
 
-    public void setViewed(Boolean viewed) {
+    public void setIsViewed(Boolean viewed) {
         isViewed = viewed;
     }
 
@@ -89,11 +89,11 @@ public class NotificationMessage {
         this.user = user;
     }
 
-    public Boolean getHovered() {
+    public Boolean getIsHovered() {
         return isHovered;
     }
 
-    public void setHovered(Boolean hovered) {
+    public void setIsHovered(Boolean hovered) {
         isHovered = hovered;
     }
 
