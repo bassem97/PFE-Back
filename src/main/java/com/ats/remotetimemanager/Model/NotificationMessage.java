@@ -33,13 +33,12 @@ public class NotificationMessage {
     public NotificationMessage() {
     }
 
-    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered, User user) {
+    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered) {
         this.notifTitle = notifTitle;
         this.notifDesc = notifDesc;
         this.notifDate = notifDate;
         this.isViewed = isViewed;
         this.isHovered = isHovered;
-        this.user = user;
     }
 
     public long getNotifId() {
