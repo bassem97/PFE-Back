@@ -41,13 +41,13 @@ public class UsersSeeder {
                 "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, departmentSeeder.info,"1.jpg");
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
-                "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark,"2.png");
+                "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.chef_department, departmentSeeder.mark,"2.jpg");
         User user3 = new User("test", "test", "female",
                 "2020-03-09","+21620000000",
-                "test@kjk.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security,"3.png");
+                "test@kjk.com", "12345678", "123456",postSeeder.employee, departmentSeeder.security,"3.jpg");
         User user4 = new User("erreur", "test", "erreur",
                 "2020-03-09","+21620500000",
-                "erreru@jkhj.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info,",4.png");
+                "erreru@jkhj.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info,"4.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
