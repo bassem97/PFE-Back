@@ -23,6 +23,8 @@ public class NotificationMessageServiceImpl implements NotificationMessageServic
            notif.setNotifDesc(notificationMessage.getNotifDesc());
            notif.setNotifDate(notificationMessage.getNotifDate());
            notif.setViewed(notificationMessage.getViewed());
+           notif.setHovered(notificationMessage.getHovered());
+
            return notificationRepository.save(notif);
        }return null;
     }

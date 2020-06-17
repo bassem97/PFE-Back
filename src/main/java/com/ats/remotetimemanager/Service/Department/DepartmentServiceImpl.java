@@ -31,6 +31,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         newDep.setSupDep(department.getSupDep());
         newDep.setDepartments(department.getDepartments());
         newDep.setUsers(department.getUsers());
+//        newDep.setPlanning(department.getPlanning());
         return departmentRepository.save(department);
     }
 
