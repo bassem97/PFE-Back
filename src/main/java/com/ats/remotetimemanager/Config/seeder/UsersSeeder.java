@@ -59,14 +59,14 @@ public class UsersSeeder {
             UserConfigs userConfigs3 = new UserConfigs(true , l  );
             UserConfigs userConfigs4 = new UserConfigs(false , l);
 
-            NotificationMessage notif1 = new NotificationMessage("notification name 1","notification description 1", LocalDate.now(),false);
-            NotificationMessage notif2 = new NotificationMessage("notification name 2","notification description 2", LocalDate.now(),false);
-            NotificationMessage notif3 = new NotificationMessage("notification name 3","notification description 3", LocalDate.now(),true);
-            NotificationMessage notif4 = new NotificationMessage("notification name 4","notification description 4", LocalDate.now(),false);
-            NotificationMessage notif5 = new NotificationMessage("notification name 5","notification description 5", LocalDate.now(),false);
-            NotificationMessage notif6 = new NotificationMessage("notification name 6","notification description 6", LocalDate.now(),true);
-            NotificationMessage notif7 = new NotificationMessage("notification name 7","notification description 7", LocalDate.now(),true);
-            NotificationMessage notif8 = new NotificationMessage("notification name 8","notification description 8", LocalDate.now(),false);
+            NotificationMessage notif1 = new NotificationMessage("notification name 1","notification description 1", LocalDate.now(),false,false);
+            NotificationMessage notif2 = new NotificationMessage("notification name 2","notification description 2", LocalDate.now(),false,false);
+            NotificationMessage notif3 = new NotificationMessage("notification name 3","notification description 3", LocalDate.now(),false,false);
+            NotificationMessage notif4 = new NotificationMessage("notification name 4","notification description 4", LocalDate.now(),false,false);
+            NotificationMessage notif5 = new NotificationMessage("notification name 5","notification description 5", LocalDate.now(),false,false);
+            NotificationMessage notif6 = new NotificationMessage("notification name 6","notification description 6", LocalDate.now(),false,false);
+            NotificationMessage notif7 = new NotificationMessage("notification name 7","notification description 7", LocalDate.now(),true,true);
+            NotificationMessage notif8 = new NotificationMessage("notification name 8","notification description 8", LocalDate.now(),true,false);
 
             List<NotificationMessage> notifs = new ArrayList<>();
             notifs.add(notif1);
