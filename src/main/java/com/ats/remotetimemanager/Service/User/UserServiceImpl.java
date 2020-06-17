@@ -147,6 +147,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
             newUser.setImage(user.getImage());
+            newUser.setNotificationMessages(user.getNotificationMessages());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
@@ -188,8 +189,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         File[] list = dir.listFiles();
         for(File file: list){
             if(file.getName().equals(user.getImage())){
-                System.out.println("________________DELETING__________________ :"+ file.getName());
-                file.delete();
+                System.out.println("________________DELETING__________________ :"+ file.getName() +" "+ file.getAbsolutePath() +" "+ file.delete());
+
             }
         }
         userRepository.deleteById(id);
