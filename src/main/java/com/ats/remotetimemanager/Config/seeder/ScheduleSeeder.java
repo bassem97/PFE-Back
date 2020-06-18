@@ -1,17 +1,34 @@
 package com.ats.remotetimemanager.Config.seeder;
 
+import com.ats.remotetimemanager.Model.Department;
 import com.ats.remotetimemanager.Model.Planning;
 import com.ats.remotetimemanager.Model.Schedule;
+import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.ScheduleRepository;
+import com.ats.remotetimemanager.Service.Department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class ScheduleSeeder{
     @Autowired
     private ScheduleRepository scheduleRepository;
+
+    private final Path root = Paths.get("Images");
+
+    @Autowired
+    private DepartmentRepository departmentRepository ;
+
+    @Autowired
+    private DepartmentService departmentService;
 
     String weekDays[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"} ;
     Schedule normalTime = new Schedule(
@@ -51,8 +68,19 @@ public class ScheduleSeeder{
             "btn btn-outline-danger",
             "btn btn-danger",2,"2020-06-20T23:00:00.000Z","2020-07-30T23:00:00.000Z");
 
+    Department mark = new Department("marketing", null, plan4);
+    Department info = new Department("informatique", null, plan1);
+    Department security = new Department("security", info, plan2);
+    Department khra = new Department("Resources humaines", security, plan3);
+
     public void seed(){
        if(scheduleRepository.findAll().isEmpty()){
+           try {
+               if(!Files.exists(root)) Files.createDirectory(root);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
            System.out.println(normalTime);
            System.out.println(saturdayTime);
            List<Planning> l1 = new ArrayList<>();
@@ -65,6 +93,14 @@ public class ScheduleSeeder{
            scheduleRepository.save(normalTime);
            saturdayTime.setPlannings(l2);
            scheduleRepository.save(saturdayTime);
+
+           if(departmentRepository.findAll().isEmpty()){
+               departmentService.add(info);
+               departmentService.add(security );
+               departmentService.add(khra);
+               departmentService.add(mark);
+           }
+
        }
     }
 }

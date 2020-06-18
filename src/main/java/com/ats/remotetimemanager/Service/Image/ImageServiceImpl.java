@@ -62,6 +62,7 @@ public class ImageServiceImpl implements ImageService {
                     input = new FileInputStream(resource.getFile());
                 String type = filename.substring(filename.lastIndexOf(".")+1);
                 MultipartFile filee = new MockMultipartFile("file", filename,type, IOUtils.toByteArray(input));
+                input.close();
                 return new Image (filename,filee.getContentType(),filee.getBytes());
 
             }

@@ -13,12 +13,12 @@ import java.util.List;
 @Entity
 @Table(name = "DEPARTMENTS")
 public class Department {
-//    private static Long count = 0L;
     @Id
     @Column(name = "dep_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long depId;
     private String depName;
+    private long chefDep;
 
     @ManyToOne( fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -26,22 +26,15 @@ public class Department {
     @JsonIgnoreProperties(value ={"departments","users"} , allowSetters = true)
     private Department supDep;
 
-//    mappedBy = "supDep",
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "supDep")
     @JsonIgnoreProperties(value ={"supDep","users"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
 
-
-    private long chefDep;
-
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "dep_id")
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
-
-    ;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -53,10 +46,10 @@ public class Department {
     }
 
 
-    public Department(String depName, Department supDep) {
+    public Department(String depName, Department supDep, Planning planning) {
         this.depName = depName; 
         this.supDep = supDep;
-//        this.depId = ++count;
+        this.planning = planning;
     }
 
     public long getDepId() {
