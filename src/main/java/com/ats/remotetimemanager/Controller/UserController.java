@@ -1,13 +1,18 @@
 package com.ats.remotetimemanager.Controller;
 
+import com.ats.remotetimemanager.Model.NotificationMessage;
 import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.NotificationMessageRepository;
+import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.User.UserService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,6 +25,12 @@ public class UserController {
 
     @Autowired
     WebSocketController webSocketController;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    NotificationMessageRepository notificationMessageRepository;
 
     @GetMapping("list")
     public List<User> getAll(){ return userService.findAll(); }
@@ -46,9 +57,24 @@ public class UserController {
 //        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id) throws Exception {
+    @RequestMapping(value = "/delete/{id}/{idConnectUser}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id, @PathVariable("idConnectUser") Long idConnectUser)  throws Exception {
+        User user = userRepository.findByUserId(id);
+        User userConnected = userRepository.findByUserId(idConnectUser);
+        NotificationMessage notif = new NotificationMessage("DELETING"
+                ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
+                userConnected.getName()+" "+userConnected.getFirstName()
+                , LocalDate.now(), false, false);
         userService.delete(id);
+        for (User us : userRepository.findAll()) {
+            if(us.getUserId() != idConnectUser){
+                List<NotificationMessage> notifs = us.getNotificationMessages();
+                notifs.add(notif);
+                us.setNotificationMessages(notifs);
+                userService.update(us, us.getUserId());
+            }
+        }
+
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 

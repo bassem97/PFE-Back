@@ -189,8 +189,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         File[] list = dir.listFiles();
         for(File file: list){
             if(file.getName().equals(user.getImage())){
-                System.out.println("________________DELETING__________________ :"+ file.getName() +" "+ file.getAbsolutePath() +" "+ file.delete());
-
+                System.out.println("________________DELETING__________________ :"+ file.getName());
+                file.delete();
             }
         }
         userRepository.deleteById(id);
