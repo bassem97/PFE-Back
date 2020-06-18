@@ -36,9 +36,8 @@ public class Department {
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "planning_id")
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "planning_id" )
     @JsonIgnoreProperties(value ={"plannings","departments"} , allowSetters = true)
     private Planning planning;
 
