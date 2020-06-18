@@ -1,7 +1,7 @@
 package com.ats.remotetimemanager.Service.Notification;
 
 import com.ats.remotetimemanager.Model.NotificationMessage;
-import com.ats.remotetimemanager.Repository.NotificationRepository;
+import com.ats.remotetimemanager.Repository.NotificationMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,28 +9,28 @@ import org.springframework.stereotype.Service;
 public class NotificationMessageServiceImpl implements NotificationMessageService {
 
     @Autowired
-    NotificationRepository notificationRepository;
+    NotificationMessageRepository notificationMessageRepository;
     @Override
     public NotificationMessage add(NotificationMessage notificationMessage) {
-        return notificationRepository.save(notificationMessage)   ;
+        return notificationMessageRepository.save(notificationMessage)   ;
     }
 
     @Override
     public NotificationMessage update(NotificationMessage notificationMessage, Long id) {
-       if(notificationRepository.findById(id).isPresent()){
-           NotificationMessage notif = notificationRepository.findById(id).get();
+       if(notificationMessageRepository.findById(id).isPresent()){
+           NotificationMessage notif = notificationMessageRepository.findById(id).get();
            notif.setNotifTitle(notificationMessage.getNotifTitle());
            notif.setNotifDesc(notificationMessage.getNotifDesc());
            notif.setNotifDate(notificationMessage.getNotifDate());
            notif.setIsViewed(notificationMessage.getIsViewed());
            notif.setIsHovered(notificationMessage.getIsHovered());
-           return notificationRepository.save(notif);
+           return notificationMessageRepository.save(notif);
        }return null;
     }
 
     @Override
     public void delete(Long id) {
-        NotificationMessage notif = notificationRepository.findById(id).get();
-        notificationRepository.delete(notif);
+        NotificationMessage notif = notificationMessageRepository.findById(id).get();
+        notificationMessageRepository.delete(notif);
     }
 }

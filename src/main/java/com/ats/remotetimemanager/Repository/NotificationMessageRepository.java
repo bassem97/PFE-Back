@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NotificationRepository extends JpaRepository<NotificationMessage,Long> {
+public interface NotificationMessageRepository extends JpaRepository<NotificationMessage,Long> {
     NotificationMessage findById(long id);
     NotificationMessage findByUser (User user);
 }
