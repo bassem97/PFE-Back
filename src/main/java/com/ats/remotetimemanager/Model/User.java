@@ -44,9 +44,8 @@ public class User  {
 
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "post_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id")
     @JsonIgnoreProperties(value ="users" , allowSetters = true)
     private Post post;
 
