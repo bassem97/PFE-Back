@@ -64,17 +64,18 @@ public class UserController {
         NotificationMessage notif ;
         userService.delete(id);
         User sender = userRepository.findByUserId(idSender);
+        List<NotificationMessage> notifs = new ArrayList<>();
         for (User us : userRepository.findAll()) {
-            if(idSender != us.getUserId()){
-                notif = new NotificationMessage("DELETING"
-                        , user.getName() + " " + user.getFirstName() + " has been deleted from " + user.getDepartment().getDepName() + " department by " +
-                        sender.getName() + " " + sender.getFirstName()
-                        , new Date(), false, false);
-                us.getNotificationMessages().add(notif);
-                userService.update(us, us.getUserId());
+            if(us.getUserId() != idSender){
+                notif= new NotificationMessage("DELETING"
+                        ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
+                        sender.getName()+" "+sender.getFirstName()
+                        , new Date(), false, false,us);
+                notifs.add(notif);
+//                    userService.update(us,us.getUserId());
             }
         }
-
+        notificationMessageRepository.saveAll(notifs);
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 
