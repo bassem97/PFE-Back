@@ -41,7 +41,7 @@ public class NotificationMessage {
         this.isViewed = isViewed;
         this.isHovered = isHovered;
     }
-    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered, User user) {
+    public NotificationMessage(String notifTitle, String notifDesc, Date notifDate, Boolean isViewed, Boolean isHovered, User user) {
         this.notifTitle = notifTitle;
         this.notifDesc = notifDesc;
         this.notifDate = notifDate;
