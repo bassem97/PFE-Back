@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -60,12 +61,12 @@ public class UserController {
     @RequestMapping(value = "/delete/{id}/{idConnectUser}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id, @PathVariable("idConnectUser") Long idConnectUser)  throws Exception {
         User user = userRepository.findByUserId(id);
+        userService.delete(id);
         User userConnected = userRepository.findByUserId(idConnectUser);
         NotificationMessage notif = new NotificationMessage("DELETING"
                 ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
                 userConnected.getName()+" "+userConnected.getFirstName()
-                , LocalDate.now(), false, false);
-        userService.delete(id);
+                , new Date(), false, false);
         for (User us : userRepository.findAll()) {
             if(us.getUserId() != idConnectUser){
                 List<NotificationMessage> notifs = us.getNotificationMessages();

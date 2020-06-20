@@ -27,6 +27,8 @@ public class ScheduleServiceImpl implements ScheduleService {
             sch.setPauseTime(schedule.getPauseTime());
             sch.setPauseStart(schedule.getPauseStart());
             sch.setPauseEnd(schedule.getPauseEnd());
+            System.out.println("________________________________________________________");
+            System.out.println(sch.getPlannings());
             sch.setPlannings(schedule.getPlannings());
             return scheduleRepository.save(sch);
         }else return null;

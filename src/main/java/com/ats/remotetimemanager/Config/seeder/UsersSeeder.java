@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -50,14 +51,14 @@ public class UsersSeeder {
             UserConfigs userConfigs3 = new UserConfigs(true , l  );
             UserConfigs userConfigs4 = new UserConfigs(false , l);
 
-            NotificationMessage notif1 = new NotificationMessage("notification name 1","notification description 1", LocalDate.now(),false,false);
-            NotificationMessage notif2 = new NotificationMessage("notification name 2","notification description 2", LocalDate.now(),false,false);
-            NotificationMessage notif3 = new NotificationMessage("notification name 3","notification description 3", LocalDate.now(),false,false);
-            NotificationMessage notif4 = new NotificationMessage("notification name 4","notification description 4", LocalDate.now(),false,false);
-            NotificationMessage notif5 = new NotificationMessage("notification name 5","notification description 5", LocalDate.now(),false,false);
-            NotificationMessage notif6 = new NotificationMessage("notification name 6","notification description 6", LocalDate.now(),false,false);
-            NotificationMessage notif7 = new NotificationMessage("notification name 7","notification description 7", LocalDate.now(),false,false);
-            NotificationMessage notif8 = new NotificationMessage("notification name 8","notification description 8", LocalDate.now(),false,false);
+            NotificationMessage notif1 = new NotificationMessage("notification name 1","notification description 1", new Date(),false,false);
+            NotificationMessage notif2 = new NotificationMessage("notification name 2","notification description 2", new Date(),false,false);
+            NotificationMessage notif3 = new NotificationMessage("notification name 3","notification description 3", new Date(),false,false);
+            NotificationMessage notif4 = new NotificationMessage("notification name 4","notification description 4", new Date(),false,false);
+            NotificationMessage notif5 = new NotificationMessage("notification name 5","notification description 5", new Date(),false,false);
+            NotificationMessage notif6 = new NotificationMessage("notification name 6","notification description 6", new Date(),false,false);
+            NotificationMessage notif7 = new NotificationMessage("notification name 7","notification description 7", new Date(),false,false);
+            NotificationMessage notif8 = new NotificationMessage("notification name 8","notification description 8", new Date(),false,false);
 
             List<NotificationMessage> notifs = new ArrayList<>();
             notifs.add(notif1);
@@ -106,14 +107,14 @@ public class UsersSeeder {
             user4.setNotificationMessages(notifs);
             System.out.println(user4);
             userService.add(user4);
-            for (int i=5;i<53;i++) {
-                user4.setImage(i+".jpg");
-                user4.setCin(i+"545485");
-                user4.setEmail("qsd"+i+"@qsdqs.fqs");
-                user4.setPhone("55545"+i);
-                user4.setUserId(user4.getUserId()+1);
-                userService.add(user4);
-            }
+//            for (int i=5;i<50;i++) {
+//                user4.setImage(i+".jpg");
+//                user4.setCin(i+"545485");
+//                user4.setEmail("qsd"+i+"@qsdqs.fqs");
+//                user4.setPhone("55545"+i);
+//                user4.setUserId(user4.getUserId()+1);
+//                userService.add(user4);
+//            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);
