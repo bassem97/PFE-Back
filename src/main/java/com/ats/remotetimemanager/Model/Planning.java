@@ -35,7 +35,7 @@ public class Planning {
     @JsonIgnoreProperties(value ={"plannings"} , allowSetters = true)
     private Schedule schedule;
 
-    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
+    @OneToMany(cascade =  {CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinColumn(name = "planning_Id")
     @JsonIgnoreProperties(value ={"planning"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;

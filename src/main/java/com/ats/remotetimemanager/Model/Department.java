@@ -107,14 +107,17 @@ public class Department {
         this.planning = planning;
     }
 
+
+
     @Override
     public String toString() {
         return "Department{" +
                 "depId=" + depId +
                 ", depName='" + depName + '\'' +
-                ", supDep=" + supDep +
-                ", departments=" + departments +
                 ", chefDep=" + chefDep +
+//                ", supDep=" + supDep +
+                ", departments=" + departments +
+//                ", users=" + users +
                 '}';
     }
 }

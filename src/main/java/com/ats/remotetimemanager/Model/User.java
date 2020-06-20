@@ -260,11 +260,11 @@ public class User  {
                 ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
                 ", post=" + post +
-                ", department=" + department +
+//                ", department=" + department +
                 ", addresses=" + addresses +
                 ", roles=" + roles +
                 ", userConfigs=" + userConfigs +
-                ", notificationMessages=" + notificationMessages +
+//                ", notificationMessages=" + notificationMessages +
                 '}';
     }
 

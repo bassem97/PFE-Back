@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -57,24 +58,22 @@ public class UserController {
 //        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
 
-    @RequestMapping(value = "/delete/{id}/{idConnectUser}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id, @PathVariable("idConnectUser") Long idConnectUser)  throws Exception {
+    @RequestMapping(value = "/delete/{id}/{idSender}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id, @PathVariable("idSender") Long idSender)  throws Exception {
         User user = userRepository.findByUserId(id);
-        User userConnected = userRepository.findByUserId(idConnectUser);
-        NotificationMessage notif = new NotificationMessage("DELETING"
-                ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
-                userConnected.getName()+" "+userConnected.getFirstName()
-                , LocalDate.now(), false, false);
+        NotificationMessage notif ;
         userService.delete(id);
+        User sender = userRepository.findByUserId(idSender);
         for (User us : userRepository.findAll()) {
-            if(us.getUserId() != idConnectUser){
-                List<NotificationMessage> notifs = us.getNotificationMessages();
-                notifs.add(notif);
-                us.setNotificationMessages(notifs);
+            if(idSender != us.getUserId()){
+                notif = new NotificationMessage("DELETING"
+                        , user.getName() + " " + user.getFirstName() + " has been deleted from " + user.getDepartment().getDepName() + " department by " +
+                        sender.getName() + " " + sender.getFirstName()
+                        , LocalDate.now(), false, false);
+                us.getNotificationMessages().add(notif);
                 userService.update(us, us.getUserId());
             }
         }
-
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 

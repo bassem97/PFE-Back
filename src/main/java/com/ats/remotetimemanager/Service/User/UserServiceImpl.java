@@ -103,7 +103,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setNotificationMessages(user.getNotificationMessages());
             //password
             String generatedPassword = randomPassword();
-            newUser.setPassword(bcryptEncoder.encode(generatedPassword));
+//            newUser.setPassword(user.getPassword());
+            newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
             newUser.setPost(user.getPost());
@@ -121,11 +122,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                dep.setChefDep(user.getUserId());
 //                departmentService.update(dep,dep.getDepId());
             // send notification
-            try{
-                notificationMailService.sendNotification(newUser, generatedPassword);
-            }catch (MailException ex) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
-            }
+//            try{
+//                notificationMailService.sendNotification(newUser, generatedPassword);
+//            }catch (MailException ex) {
+//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
+//            }
             System.out.println(newUser);
             webSocketService.sendWebSocketMessage(new WebSocketMessage("sqdqs"));
             System.out.println("_____________________________________________________________");
@@ -177,7 +178,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 departmentService.update(dep,dep.getDepId());
             }
             System.out.println("BESH YA3MALLOU SAAAAAAAAAAAAAAAVE");
-            return userRepository.save(newUser);
+            return userRepository.saveAndFlush(newUser);
         }else return null ;
 //        return userRepository.save(user);
     }
