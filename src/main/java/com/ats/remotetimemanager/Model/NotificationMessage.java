@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "notifications")
@@ -20,7 +21,7 @@ public class NotificationMessage {
 
     private String notifTitle;
     private String  notifDesc;
-    private LocalDate notifDate;
+    private Date notifDate;
     private Boolean isViewed;
     private Boolean isHovered;
 
@@ -33,14 +34,14 @@ public class NotificationMessage {
     public NotificationMessage() {
     }
 
-    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered) {
+    public NotificationMessage(String notifTitle, String notifDesc, Date notifDate, Boolean isViewed, Boolean isHovered) {
         this.notifTitle = notifTitle;
         this.notifDesc = notifDesc;
         this.notifDate = notifDate;
         this.isViewed = isViewed;
         this.isHovered = isHovered;
     }
-    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered, User user) {
+    public NotificationMessage(String notifTitle, String notifDesc, Date notifDate, Boolean isViewed, Boolean isHovered, User user) {
         this.notifTitle = notifTitle;
         this.notifDesc = notifDesc;
         this.notifDate = notifDate;
@@ -73,11 +74,11 @@ public class NotificationMessage {
         this.notifDesc = notifDesc;
     }
 
-    public LocalDate getNotifDate() {
+    public Date getNotifDate() {
         return notifDate;
     }
 
-    public void setNotifDate(LocalDate notifDate) {
+    public void setNotifDate(Date notifDate) {
         this.notifDate = notifDate;
     }
 
