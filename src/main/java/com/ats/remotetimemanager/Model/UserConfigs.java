@@ -80,7 +80,6 @@ public class UserConfigs {
                 "configId=" + configId +
                 ", shownPlannings=" + Arrays.toString(shownPlannings) +
                 ", theme=" + theme +
-                ", user=" + user +
                 '}';
     }
 }

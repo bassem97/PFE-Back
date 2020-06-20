@@ -58,20 +58,19 @@ public class UserController {
 //        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
 //    }
 
-    @RequestMapping(value = "/delete/{id}/{idConnectUser}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id, @PathVariable("idConnectUser") Long idConnectUser)  throws Exception {
+    @RequestMapping(value = "/delete/{id}/{idSender}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id, @PathVariable("idSender") Long idSender)  throws Exception {
         User user = userRepository.findByUserId(id);
+        NotificationMessage notif ;
         userService.delete(id);
-        User userConnected = userRepository.findByUserId(idConnectUser);
-        NotificationMessage notif = new NotificationMessage("DELETING"
-                ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
-                userConnected.getName()+" "+userConnected.getFirstName()
-                , new Date(), false, false);
+        User sender = userRepository.findByUserId(idSender);
         for (User us : userRepository.findAll()) {
-            if(us.getUserId() != idConnectUser){
-                List<NotificationMessage> notifs = us.getNotificationMessages();
-                notifs.add(notif);
-                us.setNotificationMessages(notifs);
+            if(idSender != us.getUserId()){
+                notif = new NotificationMessage("DELETING"
+                        , user.getName() + " " + user.getFirstName() + " has been deleted from " + user.getDepartment().getDepName() + " department by " +
+                        sender.getName() + " " + sender.getFirstName()
+                        , new Date(), false, false);
+                us.getNotificationMessages().add(notif);
                 userService.update(us, us.getUserId());
             }
         }

@@ -5,6 +5,8 @@ import com.ats.remotetimemanager.Repository.NotificationMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NotificationMessageServiceImpl implements NotificationMessageService {
 
@@ -26,6 +28,11 @@ public class NotificationMessageServiceImpl implements NotificationMessageServic
            notif.setIsHovered(notificationMessage.getIsHovered());
            return notificationMessageRepository.save(notif);
        }return null;
+    }
+
+    @Override
+    public List<NotificationMessage> findAll() {
+        return notificationMessageRepository.findAll();
     }
 
     @Override

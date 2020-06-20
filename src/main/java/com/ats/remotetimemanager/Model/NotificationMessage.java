@@ -28,7 +28,7 @@ public class NotificationMessage {
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties(value = {"notifications"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"users","notificationMessages"}, allowSetters = true)
     private User user;
 
     public NotificationMessage() {
@@ -40,6 +40,14 @@ public class NotificationMessage {
         this.notifDate = notifDate;
         this.isViewed = isViewed;
         this.isHovered = isHovered;
+    }
+    public NotificationMessage(String notifTitle, String notifDesc, LocalDate notifDate, Boolean isViewed, Boolean isHovered, User user) {
+        this.notifTitle = notifTitle;
+        this.notifDesc = notifDesc;
+        this.notifDate = notifDate;
+        this.isViewed = isViewed;
+        this.isHovered = isHovered;
+        this.user = user;
     }
 
     public long getNotifId() {
