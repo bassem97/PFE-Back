@@ -9,6 +9,7 @@ import com.ats.remotetimemanager.Repository.PostRepository;
 import com.ats.remotetimemanager.Repository.RoleRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Department.DepartmentService;
+import com.ats.remotetimemanager.Service.Image.ImageService;
 import com.ats.remotetimemanager.Service.NotificationMail.NotificationMailService;
 import com.ats.remotetimemanager.Service.WebSocket.WebSocketService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -54,6 +56,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private WebSocketService webSocketService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -150,7 +155,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
             newUser.setUserConfigs(user.getUserConfigs());
-            newUser.setImage(user.getImage());
+//            newUser.setImage(user.getImage());
+            newUser.setAddresses(user.getAddresses());
             newUser.setNotificationMessages(user.getNotificationMessages());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
@@ -189,15 +195,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             departmentService.removeChefDep(userRepository.findByUserId(id).getDepartment().getDepId());
         }
         User user = userRepository.findByUserId(id);
-        File dir = new File(root.toUri());
-        File[] list = dir.listFiles();
-        for(File file: list){
-            if(file.getName().equals(user.getImage())){
-                System.out.println("________________DELETING__________________ :"+ file.getName());
-                file.delete();
+        try {
+            if(imageService.delete(user.getImage())){
+                userRepository.deleteById(id);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        userRepository.deleteById(id);
+
     }
 
 

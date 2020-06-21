@@ -28,13 +28,18 @@ public class ImageController {
         ImageService imageService;
 
         @PostMapping("upload/{id}")
-        public ResponseEntity uploadImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") long id ) throws IOException {
-                return this.imageService.uploadImage(file,id);
+        public ResponseEntity uploadImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") long id) throws IOException {
+                return this.imageService.uploadImage(file, id);
         }
 
         @GetMapping(path = {"load/{name}"})
         public Image load(@PathVariable("name") String name) throws IOException {
                 return imageService.load(name);
+        }
+
+        @DeleteMapping("delete/{imageName}")
+        public Boolean delete(@PathVariable("imageName") String imageName) throws IOException {
+                return imageService.delete(imageName);
         }
 
 }
