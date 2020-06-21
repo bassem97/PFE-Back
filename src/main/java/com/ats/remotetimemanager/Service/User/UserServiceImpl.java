@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setUserConfigs(user.getUserConfigs());
 //            newUser.setImage(user.getImage());
             newUser.setAddresses(user.getAddresses());
-            newUser.setNotificationMessages(user.getNotificationMessages());
+//            newUser.setNotificationMessages(user.getNotificationMessages());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             if(user.getPassword() != null)
