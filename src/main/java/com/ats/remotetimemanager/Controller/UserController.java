@@ -89,7 +89,7 @@ public class UserController {
         } else if (sender == 3) {
             webSocketController.sendMessage(new WebSocketMessage("profile"));
         }
-        return user3;
+        return user3; 
     }
 
     @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
