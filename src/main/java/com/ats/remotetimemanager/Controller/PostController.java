@@ -28,7 +28,7 @@ public class PostController {
         Post post3 = postService.add(post);
         webSocketController.sendMessage(new WebSocketMessage("post"));
         return post3;
-    }
+    } 
 
     @PutMapping("update/{id}")
     public Post update(@PathVariable("id") long id, @Valid @RequestBody Post post) throws Exception {
