@@ -22,8 +22,8 @@ public class PostController {
     @PostMapping("add")
     public Post add(@RequestBody Post post) { return postService.add(post);}
 
-    @PutMapping("update")
-    public Post update(@Valid @RequestBody Post post){ return postService.update(post);}
+    @PutMapping("update/{id}")
+    public Post update(@Valid @RequestBody Post post, @PathVariable("id") Long id){ return postService.update(post,id);}
 
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable("id") long id) { postService.delete(id);}
