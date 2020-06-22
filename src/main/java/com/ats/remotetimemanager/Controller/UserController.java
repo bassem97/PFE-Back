@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -68,43 +67,37 @@ public class UserController {
         List<NotificationMessage> notifs = new ArrayList<>();
         for (User us : userRepository.findAll()) {
             if(us.getUserId() != idSender){
-                notif= new NotificationMessage("DELETING"
-                        ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
+                notif= new NotificationMessage("User deleted"
+                        ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by "+
                         sender.getName()+" "+sender.getFirstName()
                         , new Date(), false, false,us);
                 notifs.add(notif);
 //                    userService.update(us,us.getUserId());
             }
         }
-//        System.out.println("_____________________________________________________________");
-//        System.out.println(notifs);
         notificationMessageRepository.saveAll(notifs);
-//        for (User us : userRepository.findAll()) {
-//            if(idSender != us.getUserId()){
-//                notif = new NotificationMessage("DELETING"
-//                        , user.getName() + " " + user.getFirstName() + " has been deleted from " + user.getDepartment().getDepName() + " department by " +
-//                        sender.getName() + " " + sender.getFirstName()
-//                        , LocalDate.now(), false, false);
-//                us.getNotificationMessages().add(notif);
-//                userService.update(us, us.getUserId());
-//            }
-//        }
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.PUT)
-    public User modify(@RequestBody User user,@PathVariable(value = "id") Long id) throws Exception {
+    @RequestMapping(value="/update/{id}/{sender}", method = RequestMethod.PUT)
+    public User modify(@RequestBody User user, @PathVariable(value = "id") Long id, @PathVariable(value = "sender") Long sender) throws Exception {
         User user3 = userService.update(user,id);
-        webSocketController.sendMessage(new WebSocketMessage("employee"));
+        if (sender == 1) {
+            webSocketController.sendMessage(new WebSocketMessage("employee"));
+        } else if (sender == 2) {
+            webSocketController.sendMessage(new WebSocketMessage("post"));
+        } else if (sender == 3) {
+            webSocketController.sendMessage(new WebSocketMessage("profile"));
+        }
         return user3;
     }
 
     @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
-    public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "CIN") String username){
+    public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "UserCIN") String username){
         return userService.changePassword(user, username);
     }
     @RequestMapping(value = "/userByUserCIN/{UserCIN}", method = RequestMethod.GET)
-    public User findByCIN(@PathVariable(value = "CIN") String us){
+    public User findByCIN(@PathVariable(value = "UserCIN") String us){
         return userService.findByUserCIN(us);
     }
 
