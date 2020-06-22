@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostService {
     Post add(Post post);
-    Post update(Post post);
+    Post update(Long id, Post post);
     void delete(long id);
     List<Post> findAll();
     Post findById(Long id);

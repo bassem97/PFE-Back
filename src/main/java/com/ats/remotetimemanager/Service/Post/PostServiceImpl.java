@@ -30,7 +30,15 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Post update(Post post) { return postRepository.save(post); }
+    public Post update(Long id ,Post post) {
+        if (postRepository.findById(id).isPresent()) {
+            Post newPost = postRepository.findById(id).get();
+            newPost.setPostName(post.getPostName());
+            return postRepository.save(newPost);
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public void delete(long id) { postRepository.deleteById(id);}

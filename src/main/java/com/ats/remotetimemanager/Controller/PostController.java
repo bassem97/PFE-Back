@@ -30,8 +30,12 @@ public class PostController {
         return post3;
     }
 
-    @PutMapping("update")
-    public Post update(@Valid @RequestBody Post post){ return postService.update(post);}
+    @PutMapping("update/{id}")
+    public Post update(@PathVariable("id") long id, @Valid @RequestBody Post post) throws Exception {
+        Post newPost3 = postService.update(id, post);
+        webSocketController.sendMessage(new WebSocketMessage("post"));
+        return newPost3;
+    }
 
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable("id") long id) throws Exception {
