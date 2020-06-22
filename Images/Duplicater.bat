@@ -1,4 +1,8 @@
 @echo off
+
 :duplicate
-for /l %%A in (28,1,50) do copy "C:\Users\khail\Desktop\pfe\PFE-Back\Images\3.jpg" "C:\Users\khail\Desktop\pfe\PFE-Back\Images\%%A.jpg"
+for /l %%A in (1,1,16) do (
+set /a random=%RANDOM% %%16
+ copy "C:\Users\Bassem's PC\Desktop\PFE\PFE-Back\Images\2222222222.jpg" "C:\Users\Bassem's PC\Desktop\PFE\PFE-Back\Images\%random%.jpg"
+)
 goto duplicate
