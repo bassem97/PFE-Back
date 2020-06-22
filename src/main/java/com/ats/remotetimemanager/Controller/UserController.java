@@ -67,8 +67,8 @@ public class UserController {
         List<NotificationMessage> notifs = new ArrayList<>();
         for (User us : userRepository.findAll()) {
             if(us.getUserId() != idSender){
-                notif= new NotificationMessage("DELETING"
-                        ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by"+
+                notif= new NotificationMessage("User deleted"
+                        ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by "+
                         sender.getName()+" "+sender.getFirstName()
                         , new Date(), false, false,us);
                 notifs.add(notif);
@@ -79,10 +79,16 @@ public class UserController {
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.PUT)
-    public User modify(@RequestBody User user,@PathVariable(value = "id") Long id) throws Exception {
+    @RequestMapping(value="/update/{id}/{sender}", method = RequestMethod.PUT)
+    public User modify(@RequestBody User user, @PathVariable(value = "id") Long id, @PathVariable(value = "sender") Long sender) throws Exception {
         User user3 = userService.update(user,id);
-        webSocketController.sendMessage(new WebSocketMessage("employee"));
+        if (sender == 1) {
+            webSocketController.sendMessage(new WebSocketMessage("employee"));
+        } else if (sender == 2) {
+            webSocketController.sendMessage(new WebSocketMessage("post"));
+        } else if (sender == 3) {
+            webSocketController.sendMessage(new WebSocketMessage("profile"));
+        }
         return user3;
     }
 

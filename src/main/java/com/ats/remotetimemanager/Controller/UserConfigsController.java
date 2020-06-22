@@ -23,10 +23,14 @@ public class UserConfigsController {
         return userConfigsService.add(userConfigs);
     }
 
-    @PutMapping("/update/{id}")
-    public UserConfigs update(@RequestBody UserConfigs userConfigs, @PathVariable(value = "id") Long id) throws Exception {
+    @PutMapping("/update/{id}/{sender}")
+    public UserConfigs update(@RequestBody UserConfigs userConfigs, @PathVariable(value = "id") Long id, @PathVariable(value = "sender") Long sender) throws Exception {
         UserConfigs userConfigs3 = userConfigsService.update(userConfigs,id);
-        webSocketController.sendMessage(new WebSocketMessage("userConfig", userConfigs3.getUser().getUserId(), userConfigs3.getTheme()));
+        System.out.println("__________________________________________");
+        System.out.println(sender);
+        if (sender == 2) {
+            webSocketController.sendMessage(new WebSocketMessage("userConfig", userConfigs3.getUser().getUserId(), userConfigs3.getTheme()));
+        }
         return userConfigs3;
 
     }

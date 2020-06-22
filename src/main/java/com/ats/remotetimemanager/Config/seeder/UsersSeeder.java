@@ -39,7 +39,7 @@ public class UsersSeeder {
                 "test@kjk.com", "12345678", "123456",postSeeder.employee, scheduleSeeder.security,"3.jpg");
         User user4 = new User("erreur", "test", "erreur",
                 "2020-03-09","+21620500000",
-                "erreru@jkhj.com", "152345678", "1234556",postSeeder.chef_department, scheduleSeeder.info,"4.jpg");
+                "erreru@jkhj.com", "152345678", "1234556",postSeeder.employee, scheduleSeeder.info,"4.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
@@ -107,7 +107,7 @@ public class UsersSeeder {
             user4.setNotificationMessages(notifs);
             System.out.println(user4);
             userService.add(user4);
-            for (int i=5;i<27;i++) {
+            for (int i=5;i<45;i++) {
                 user4.setImage(i+".jpg");
                 user4.setCin(i+"545485");
                 user4.setEmail("qsd"+i+"@qsdqs.fqs");
