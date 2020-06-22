@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Service.Notification;
 
 import com.ats.remotetimemanager.Model.NotificationMessage;
+import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.NotificationMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class NotificationMessageServiceImpl implements NotificationMessageServic
     @Override
     public List<NotificationMessage> findAll() {
         return notificationMessageRepository.findAll();
+    }
+
+    @Override
+    public List<NotificationMessage> findAllByUser(User user) {
+        return notificationMessageRepository.findAllByUser(user);
     }
 
     @Override

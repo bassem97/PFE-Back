@@ -28,23 +28,21 @@ public class ImageServiceImpl implements ImageService {
     UserRepository userRepository;
     private final Path root = Paths.get("Images");
 
+
+
     @Override
     public ResponseEntity uploadImage(MultipartFile file, long id) {
         String name = file.getContentType().replaceAll("image/", id+".");
         try {
             Files.copy(file.getInputStream(), this.root.resolve(name));
         } catch (IOException e) {
-            throw new RuntimeException("Could not store the file . Error: "+ e.getMessage());
-        }
-        System.out.println("_________________________________________________________________");
-        Path ff = root.resolve("7.jpg");
-        try {
-            Resource resource = new UrlResource(ff.toUri());
-            System.out.println( resource.getURI());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                if(delete(name)){
+                    Files.copy(file.getInputStream(), this.root.resolve(name));
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
         System.out.println("_________________________________________________________________");
         User  user = userRepository.findByUserId(id);
@@ -67,6 +65,19 @@ public class ImageServiceImpl implements ImageService {
 
             }
         return null;
+    }
+
+    @Override
+    public Boolean delete(String imageName) throws IOException {
+        File dir = new File(root.toUri());
+        File[] list = dir.listFiles();
+        for(File file: list){
+            if(file.getName().equals(imageName)){
+                System.out.println("________________DELETING__________________ :"+ file.getName());
+                return file.delete();
+            }
+        }
+        return false;
     }
 
 }

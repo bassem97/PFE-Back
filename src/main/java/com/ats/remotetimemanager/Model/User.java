@@ -66,6 +66,8 @@ public class User  {
 
 
 
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "USER_ROLES", joinColumns = {
             @JoinColumn(name = "user_id") }, inverseJoinColumns = {
