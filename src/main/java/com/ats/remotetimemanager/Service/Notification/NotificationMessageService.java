@@ -12,4 +12,6 @@ public interface NotificationMessageService {
     List<NotificationMessage> findAllByUser(User user);
 
      void delete(Long id);
+
+    List<NotificationMessage> saveAll(List<NotificationMessage> notifs);
 }
