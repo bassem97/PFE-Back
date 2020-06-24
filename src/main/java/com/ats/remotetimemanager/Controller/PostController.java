@@ -32,7 +32,7 @@ public class PostController {
 
     @PutMapping("update/{id}")
     public Post update(@PathVariable("id") long id, @Valid @RequestBody Post post) throws Exception {
-        Post newPost3 = postService.update(id, post);
+        Post newPost3 = postService.update(post,id);
         webSocketController.sendMessage(new WebSocketMessage("post"));
         return newPost3;
     }

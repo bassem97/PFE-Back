@@ -5,9 +5,11 @@ import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.NotificationMessageRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
+import com.ats.remotetimemanager.Service.Notification.NotificationMessageService;
 import com.ats.remotetimemanager.Service.User.UserService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,9 @@ public class UserController {
 
     @Autowired
     NotificationMessageRepository notificationMessageRepository;
+
+    @Autowired
+    private NotificationMessageService notificationMessageService;
 
     @GetMapping("list")
     public List<User> getAll(){ return userService.findAll(); }
@@ -75,7 +80,7 @@ public class UserController {
 //                    userService.update(us,us.getUserId());
             }
         }
-        notificationMessageRepository.saveAll(notifs);
+        notificationMessageService.saveAll(notifs);
         webSocketController.sendMessage(new WebSocketMessage("employee"));
     }
 
@@ -93,11 +98,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
-    public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "CIN") String username){
+    public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "UserCIN") String username){
         return userService.changePassword(user, username);
     }
     @RequestMapping(value = "/userByUserCIN/{UserCIN}", method = RequestMethod.GET)
-    public User findByCIN(@PathVariable(value = "CIN") String us){
+    public User findByCIN(@PathVariable(value = "UserCIN") String us){
         return userService.findByUserCIN(us);
     }
 

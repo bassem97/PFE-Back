@@ -46,4 +46,9 @@ public class NotificationMessageServiceImpl implements NotificationMessageServic
         NotificationMessage notif = notificationMessageRepository.findById(id).get();
         notificationMessageRepository.delete(notif);
     }
+
+    @Override
+    public List<NotificationMessage> saveAll(List<NotificationMessage> notifs) {
+        return notificationMessageRepository.saveAll(notifs);
+    }
 }
