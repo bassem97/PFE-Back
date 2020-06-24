@@ -40,7 +40,7 @@ public class DBAutoBackupController {
         Process runtimeProcess = null;
         try {
             System.out.println("dkhal lil execute ");
-            runtimeProcess = Runtime.getRuntime().exec(String.format( executeCmd));
+            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
         } catch (IOException e) {
             e.printStackTrace();
         }
