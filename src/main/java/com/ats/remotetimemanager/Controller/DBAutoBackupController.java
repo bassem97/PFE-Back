@@ -20,8 +20,6 @@ public class DBAutoBackupController {
 //    @Scheduled(cron = "0 30 1 * * ?")
     @Scheduled(cron = "*/15 * * * * *")
     public void schedule() {
-
-
         System.out.println("Backup Started at " + new Date());
 
         Date backupDate = new Date();
@@ -41,8 +39,6 @@ public class DBAutoBackupController {
 
         Process runtimeProcess = null;
         try {
-            System.out.println("dkhal lil execute ");
-            System.out.println(executeCmd);
             runtimeProcess = Runtime.getRuntime().exec(executeCmd);
         } catch (IOException e) {
             e.printStackTrace();
