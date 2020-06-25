@@ -69,7 +69,7 @@ public class DBAutoBackupController {
             if(!this.customBackup.toFile().exists())
                 folderPath  = Files.createDirectory(this.customBackup);
             else
-                folderPath = customBackup;
+                folderPath = customBackup; 
         }
 
         if (custom == null) {
