@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                     newUser.getRoles().add(roleRepository.findByRoleName(role.getRoleName()));
                 }
             }
-            else{ 
+            else{
                 newUser.getRoles().add(roleRepository.findByRoleName("USER"));
             }
 
