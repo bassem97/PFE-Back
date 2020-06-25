@@ -26,7 +26,7 @@ public class DBAutoBackupController {
     @RequestMapping("dumpDb/{custom}")
     public void customExport(@PathVariable("custom") Long cs) {
         custom = cs;
-        schedule(); 
+        schedule();
     }
 //    @Scheduled(cron = "*/30 * * * * *") // every 30 seconds
     @Scheduled(cron = "0 0 23 * * *") // everyday at 23h
