@@ -17,8 +17,8 @@ import java.util.Date;
 public class DBAutoBackupController {
     private final Path backUp = Paths.get("BackUp");
     private final Path dataBase = Paths.get("Database");
-//    @Scheduled(cron = "0 30 1 * * ?")
-    @Scheduled(cron = "*/15 * * * * *")
+    @Scheduled(cron = "0 30 1 * * ?")
+//    @Scheduled(cron = "*/15 * * * * *")
     public void schedule() {
         System.out.println("Backup Started at " + new Date());
 
