@@ -200,9 +200,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         User user = userRepository.findByUserId(id);
         try {
-            if(imageService.delete(user.getImage())){
-                userRepository.deleteById(id);
-            }
+            imageService.delete(user.getImage());
+            userRepository.deleteById(id);
         } catch (IOException e) {
             e.printStackTrace();
         }
