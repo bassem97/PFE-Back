@@ -1,0 +1,1 @@
+Database\mysql -u root remotetimemanager < dump.sql
