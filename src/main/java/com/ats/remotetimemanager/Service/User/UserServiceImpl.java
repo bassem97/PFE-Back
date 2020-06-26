@@ -159,7 +159,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAddresses(user.getAddresses());
 //            newUser.setNotificationMessages(user.getNotificationMessages());
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
-            newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
+            if (user.getPost() != null) {
+                newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
+            } else {
+                newUser.setPost(null);
+            }
             if(user.getPassword() != null)
                 newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 //            else
@@ -176,13 +180,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
 
 //            if(newUser.getPost().getPostName().equals("CHEF_DEPARTMENT")){
-            if(postRepository.findByPostName(user.getPost().getPostName()) .getPostId()== 3){
-                System.out.println("USER ID L9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH 33333333");
-//                System.out.print(newUser.toString());
-                Department dep=  departmentRepository.findById(user.getDepartment().getDepId());
-                dep.setChefDep(newUser.getUserId());
-                departmentService.update(dep,dep.getDepId());
-            }
+//            if(postRepository.findByPostName(user.getPost().getPostName()) .getPostId()== 3){
+//                System.out.println("USER ID L9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH 33333333");
+////                System.out.print(newUser.toString());
+//                Department dep=  departmentRepository.findById(user.getDepartment().getDepId());
+//                dep.setChefDep(newUser.getUserId());
+//                departmentService.update(dep,dep.getDepId());
+//            }
             System.out.println("BESH YA3MALLOU SAAAAAAAAAAAAAAAVE");
             return userRepository.saveAndFlush(newUser);
         }else return null ;
