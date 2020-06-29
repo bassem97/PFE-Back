@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
-            newUser.setUserConfigs(user.getUserConfigs());
+//            newUser.setUserConfigs(user.getUserConfigs());
 //            newUser.setImage(user.getImage());
             newUser.setAddresses(user.getAddresses());
 //            newUser.setNotificationMessages(user.getNotificationMessages());

@@ -16,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @SpringBootApplication
 public class RemotetimemanagerApplication  {
@@ -28,7 +30,7 @@ public class RemotetimemanagerApplication  {
 
     @PostConstruct
     public void init() throws Exception {
-        seedByOrder.init();
+//        seedByOrder.init();
     }
 
     @Configuration
