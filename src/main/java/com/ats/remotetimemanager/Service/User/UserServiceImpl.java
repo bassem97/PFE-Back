@@ -112,14 +112,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
-            newUser.setPost(user.getPost());
-            if (user.getPost().getPostId() == 3) {
-//            if (postRepository.findByPostName(newUser.getPost().getPostName()).equals("CHEF_DEPARTMENT")) {
-                Department dep = departmentRepository.findById(user.getDepartment().getDepId());
-                dep.setChefDep(user.getUserId());
-                departmentRepository.save(dep);
-
+            if (user.getPost() != null) {
+                newUser.setPost(user.getPost());
             }
+//            if (user.getPost().getPostId() == 3) {
+////            if (postRepository.findByPostName(newUser.getPost().getPostName()).equals("CHEF_DEPARTMENT")) {
+//                Department dep = departmentRepository.findById(user.getDepartment().getDepId());
+//                dep.setChefDep(user.getUserId());
+//                departmentRepository.save(dep);
+//
+//            }
 
 //            if(user.getPost().getPostId() == 3){
 //                System.out.print("ahaaddddddddddddddd ");

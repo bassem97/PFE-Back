@@ -58,6 +58,11 @@ public class UserController {
          return userService.findById(id);
     }
 
+    @RequestMapping(value = "/firstTime", method = RequestMethod.GET)
+    public boolean getFistTime(){
+        return userService.findAll().isEmpty();
+    }
+
 //    @RequestMapping(value = "/auth", method = RequestMethod.GET)
 //    public User getUserByAuth() {
 //        return userService.findByUserCIN(SecurityContextHolder.getContext().getAuthentication().getName());
