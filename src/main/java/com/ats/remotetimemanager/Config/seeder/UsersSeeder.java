@@ -107,7 +107,7 @@ public class UsersSeeder {
             user4.setNotificationMessages(notifs);
             System.out.println(user4);
             userService.add(user4);
-            for (int i=5;i<10;i++) {
+            for (int i=5;i<495;i++) {
                 user4.setImage(i+".jpg");
                 user4.setCin(i+"545485");
                 user4.setEmail("qsd"+i+"@qsdqs.fqs");
