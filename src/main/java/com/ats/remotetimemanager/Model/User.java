@@ -65,8 +65,10 @@ public class User  {
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> attendances = new ArrayList<>() ;
 
-
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value ="user" , allowSetters = true)
+    private List<Absence> absences = new ArrayList<>() ;
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -75,8 +77,6 @@ public class User  {
             @JoinColumn(name = "role_id") })
     @JsonIgnoreProperties("users")
     private List<Role> roles = new ArrayList<>();
-
-
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -254,6 +254,14 @@ public class User  {
 
     public void setAttendances(List<Address> attendances) {
         this.attendances = attendances;
+    }
+
+    public List<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(List<Absence> absences) {
+        this.absences = absences;
     }
 
     @Override

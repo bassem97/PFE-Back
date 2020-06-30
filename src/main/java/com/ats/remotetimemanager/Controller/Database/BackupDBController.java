@@ -77,7 +77,7 @@ public class BackupDBController {
 
         custom = null;
         Path backup = folderPath.resolve(fileName);
-        String executeCmd = mysqldump+ "  -u "+dbUserName+" "+dbName+" -r "+ backup;
+        String executeCmd = mysqldump+ "  -u "+dbUserName+" "+dbName+"  --add-drop-database -r "+ backup;
 
         Process runtimeProcess = null;
         try {
