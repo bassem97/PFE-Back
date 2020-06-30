@@ -55,14 +55,15 @@ public class User  {
     @JsonIgnoreProperties(value ={"users","departments"} , allowSetters = true)
     private Department department;
 
-
-
-
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
     private List<Address> addresses = new ArrayList<>() ;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value ="user" , allowSetters = true)
+    private List<Address> attendances = new ArrayList<>() ;
 
 
 
@@ -245,6 +246,14 @@ public class User  {
 
     public void setNotificationMessages(List<NotificationMessage> notificationMessages) {
         this.notificationMessages = notificationMessages;
+    }
+
+    public List<Address> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Address> attendances) {
+        this.attendances = attendances;
     }
 
     @Override
