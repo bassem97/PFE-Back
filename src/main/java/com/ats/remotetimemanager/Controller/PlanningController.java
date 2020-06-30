@@ -29,10 +29,12 @@ public class PlanningController {
         return pl3;
     }
 
-    @PutMapping("update/{id}")
-    public Planning update(@Valid @RequestBody Planning planning, @PathVariable("id") Long id) throws Exception {
+    @PutMapping("update/{id}/{sender}")
+    public Planning update(@Valid @RequestBody Planning planning, @PathVariable("id") Long id, @PathVariable("sender") Long sender) throws Exception {
         Planning pl3 = planningService.update(planning,id);
-        webSocketController.sendMessage(new WebSocketMessage("timetable"));
+        if (sender != 2) {
+            webSocketController.sendMessage(new WebSocketMessage("timetable"));
+        }
         return pl3;
     }
 

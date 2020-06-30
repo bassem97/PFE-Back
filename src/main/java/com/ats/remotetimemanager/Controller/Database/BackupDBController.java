@@ -18,8 +18,8 @@ import java.util.Date;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/db/")
-//@Configuration
-//@EnableScheduling
+@Configuration
+@EnableScheduling
 public class BackupDBController {
     private final Path backup = Paths.get("Backup");
     private final Path dailyBackup = backup.resolve("DailyBackup");
@@ -35,7 +35,7 @@ public class BackupDBController {
         schedule();
     }
 //    @Scheduled(cron = "*/5 * * * * *") // every 30 seconds
-//    @Scheduled(cron = "0 0 23 * * *") // everyday at 23h
+    @Scheduled(cron = "0 0 23 * * *") // everyday at 23h
     public void schedule() throws IOException {
         System.out.println("Backup Started at " + new Date());
 //        custom = 1L;
