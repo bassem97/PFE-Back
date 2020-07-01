@@ -97,6 +97,12 @@ public class Schedule {
         this.plannings = plannings;
     }
 
+    public int getWorkMinutes(){
+        if(!pauseTime){
+            return endHour-startHour;
+        }else return (endHour-startHour)-(pauseEnd-pauseStart);
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +

@@ -74,8 +74,10 @@ public class UsersSeeder {
 
 
 
-            Attendance att1 = new Attendance("checkIn","finger",495, new Date());
-            Attendance att2 = new Attendance("checkOut","finger",1020, new Date());
+            Attendance att1 = new Attendance("CHECK IN","finger",495, LocalDate.now());
+            Attendance att2 = new Attendance("CHECK OUT","finger",1020, LocalDate.now());
+            Attendance att3 = new Attendance("CHECK IN","finger",495, LocalDate.now().plusDays(3));
+            Attendance att4 = new Attendance("CHECK OUT","finger",1020, LocalDate.now().plusDays(3));
 
 
 
@@ -96,6 +98,8 @@ public class UsersSeeder {
             user1.setNotificationMessages(notifs);
             user1.addAttendance(att1);
             user1.addAttendance(att2);
+            user1.addAttendance(att3);
+            user1.addAttendance(att4);
             System.out.println(user1);
             userService.add(user1);
 
