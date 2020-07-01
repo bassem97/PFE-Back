@@ -32,7 +32,7 @@ public class ScheduleSeeder{
     @Autowired
     private DepartmentService departmentService;
 
-    String weekDays[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"} ;
+    String weekDays[] = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"} ;
     Schedule normalTime = new Schedule(
 
             480,
@@ -89,6 +89,7 @@ public class ScheduleSeeder{
            plan4.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,5)));
            List<Planning> l1 = new ArrayList<>();
            List<Planning> l2 = new ArrayList<>();
+           plan1.setSchedule(normalTime);
            l1.add(plan1);
            l1.add(plan2);
            l2.add(plan3);

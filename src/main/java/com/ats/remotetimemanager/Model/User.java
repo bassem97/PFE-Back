@@ -1,13 +1,16 @@
 package com.ats.remotetimemanager.Model;
 
+import com.ats.remotetimemanager.Repository.ScheduleRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -266,26 +269,27 @@ public class User  {
         this.absences = absences;
     }
 
+    @Autowired
     public void addAttendance(Attendance att){
+
         List<Attendance> attendances = this.getAttendances();
             if(this.department.getPlanning().getPlanningConfigs().get(0) != null && att != null ){
                 if(attendances.size() != 0) {
                     PlanningConfig planConf = this.department.getPlanning().getPlanningConfigs().get(0);
                     Attendance lastAttendance = attendances.get(attendances.size() - 1);
-                    if(lastAttendance.getAttendanceType().equals("CHECK OUT") && att.getAttendanceType().equals("CHECK IN")){
+                    if(lastAttendance.getAttendanceType().equals("CHECK OUT") && att.getAttendanceType().equals("CHECK IN") && absentAllDay(lastAttendance , att) != 0){
                         Long absenceDays = absentAllDay(lastAttendance , att);
-                        System.out.println("_____________________________________________________");
-                        System.out.println(absenceDays);
-                        System.out.println("_____________________________________________________");
-                        if (absenceDays != 0) {
-//                            int workMinutes = department.getPlanning().getSchedule().getWorkMinutes();
-                            for (int i= 1; i<absenceDays; i++ ) {
-                                Absence absence = new Absence(lastAttendance.getAttendanceDate().plusDays(i), "AllDay", "No reason yet");
+                            if(department.getPlanning().getSchedule() != null){
+                                int workMinutes = department.getPlanning().getSchedule().getWorkMinutes();
                                 System.out.println("_____________________________________________________");
-                                System.out.println(department.getPlanning().getSchedule());
-                                System.out.println("_____________________________________________________");
-                                this.getAbsences().add(absence);
-                            }
+                                for (int i= 1; i<absenceDays; i++ ) {
+                                    LocalDate absentDay = lastAttendance.getAttendanceDate().plusDays(i);
+                                    List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
+                                    if(scheduleDays.contains(absentDay.getDayOfWeek().toString())){
+                                        Absence absence = new Absence(absentDay, "AllDay", "No reason yet",workMinutes);
+                                        this.getAbsences().add(absence);
+                                    }
+                                }
                         }
                     }
                 }
