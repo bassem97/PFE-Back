@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -23,7 +24,7 @@ public class Attendance {
 
     private int attendanceTime;
 
-    private Date attendanceDate;
+    private LocalDate attendanceDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -34,7 +35,7 @@ public class Attendance {
     public Attendance() {
     }
 
-    public Attendance(String attendanceType, String inputType, int attendanceTime, Date attendanceDate) {
+    public Attendance(String attendanceType, String inputType, int attendanceTime, LocalDate attendanceDate) {
         this.attendanceType = attendanceType;
         this.inputType = inputType;
         this.attendanceTime = attendanceTime;
@@ -73,11 +74,11 @@ public class Attendance {
         this.attendanceTime = attendanceTime;
     }
 
-    public Date getAttendanceDate() {
+    public LocalDate getAttendanceDate() {
         return attendanceDate;
     }
 
-    public void setAttendanceDate(Date attendanceDate) {
+    public void setAttendanceDate(LocalDate attendanceDate) {
         this.attendanceDate = attendanceDate;
     }
 

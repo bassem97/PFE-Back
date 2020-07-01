@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,10 +16,10 @@ public class Absence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAbsence;
 
-    private Date absenceDate;
+    private LocalDate absenceDate;
     private String absenceType; // retard walla aallday
     private String reason;
-    private int minutesAbsecnce;
+    private int absentMinutes;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -26,12 +27,19 @@ public class Absence {
     @JsonIgnoreProperties(value ={"absences"} , allowSetters = true)
     private User user;
 
-    public Absence(Date absenceDate, String absenceType, String reason, int minutesAbsecnce, User user) {
+    public Absence() {
+    }
+
+    public Absence(LocalDate absenceDate, String absenceType, String reason, int absentMinutes) {
         this.absenceDate = absenceDate;
         this.absenceType = absenceType;
         this.reason = reason;
-        this.minutesAbsecnce = minutesAbsecnce;
-        this.user = user;
+        this.absentMinutes = absentMinutes;
+    }
+    public Absence(LocalDate absenceDate, String absenceType, String reason) {
+        this.absenceDate = absenceDate;
+        this.absenceType = absenceType;
+        this.reason = reason;
     }
 
     public Long getIdAbsence() {
@@ -42,11 +50,11 @@ public class Absence {
         this.idAbsence = idAbsence;
     }
 
-    public Date getAbsenceDate() {
+    public LocalDate getAbsenceDate() {
         return absenceDate;
     }
 
-    public void setAbsenceDate(Date absenceDate) {
+    public void setAbsenceDate(LocalDate absenceDate) {
         this.absenceDate = absenceDate;
     }
 
@@ -66,12 +74,12 @@ public class Absence {
         this.reason = reason;
     }
 
-    public int getMinutesAbsecnce() {
-        return minutesAbsecnce;
+    public int getAbsentMinutes() {
+        return absentMinutes;
     }
 
-    public void setMinutesAbsecnce(int minutesAbsecnce) {
-        this.minutesAbsecnce = minutesAbsecnce;
+    public void setAbsentMinutes(int absentMinutes) {
+        this.absentMinutes = absentMinutes;
     }
 
     public User getUser() {
@@ -80,5 +88,16 @@ public class Absence {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Absence{" +
+                "idAbsence=" + idAbsence +
+                ", absenceDate=" + absenceDate +
+                ", absenceType='" + absenceType + '\'' +
+                ", reason='" + reason + '\'' +
+                ", user=" + user +
+                '}';
     }
 }
