@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setUserConfigs(user.getUserConfigs());
             newUser.setImage(user.getImage());
             newUser.setNotificationMessages(user.getNotificationMessages());
+            newUser.setAttendances(user.getAttendances());
             //password
             String generatedPassword = randomPassword();
 //            newUser.setPassword(user.getPassword());

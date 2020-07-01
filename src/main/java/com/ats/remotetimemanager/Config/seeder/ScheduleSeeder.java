@@ -2,6 +2,7 @@ package com.ats.remotetimemanager.Config.seeder;
 
 import com.ats.remotetimemanager.Model.Department;
 import com.ats.remotetimemanager.Model.Planning;
+import com.ats.remotetimemanager.Model.PlanningConfig;
 import com.ats.remotetimemanager.Model.Schedule;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.ScheduleRepository;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,8 +83,10 @@ public class ScheduleSeeder{
                e.printStackTrace();
            }
 
-           System.out.println(normalTime);
-           System.out.println(saturdayTime);
+           plan1.setPlanningConfigs(Arrays.asList(new PlanningConfig(15,15)));
+           plan2.setPlanningConfigs(Arrays.asList(new PlanningConfig(10,10)));
+           plan3.setPlanningConfigs(Arrays.asList(new PlanningConfig(30,30)));
+           plan4.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,5)));
            List<Planning> l1 = new ArrayList<>();
            List<Planning> l2 = new ArrayList<>();
            l1.add(plan1);

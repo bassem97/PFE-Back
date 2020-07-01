@@ -24,7 +24,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         if(attendanceRepository.findById(id).isPresent()){
             Attendance newAtt = attendanceRepository.findById(id).get();
             newAtt.setAttendanceDate(attendance.getAttendanceDate());
-            newAtt.setAttendanceTime(attendance.getAttendanceTime());
             newAtt.setAttendanceType(attendance.getAttendanceType());
             newAtt.setInputType(attendance.getInputType());
             return attendanceRepository.save(newAtt);

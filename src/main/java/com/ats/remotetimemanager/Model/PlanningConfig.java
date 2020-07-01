@@ -23,7 +23,8 @@ public class PlanningConfig {
     private Planning planning;
 
 
-
+    public PlanningConfig() {
+    }
 
     public PlanningConfig(int checkInDelay, int checkOutDelay) {
         this.checkInDelay = checkInDelay;

@@ -63,7 +63,7 @@ public class User  {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
-    private List<Address> attendances = new ArrayList<>() ;
+    private List<Attendance> attendances = new ArrayList<>() ;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -248,11 +248,11 @@ public class User  {
         this.notificationMessages = notificationMessages;
     }
 
-    public List<Address> getAttendances() {
+    public List<Attendance> getAttendances() {
         return attendances;
     }
 
-    public void setAttendances(List<Address> attendances) {
+    public void setAttendances(List<Attendance> attendances) {
         this.attendances = attendances;
     }
 

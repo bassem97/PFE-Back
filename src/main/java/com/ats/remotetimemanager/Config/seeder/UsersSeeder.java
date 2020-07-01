@@ -5,9 +5,11 @@ import com.ats.remotetimemanager.Repository.AddressRepository;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.User.UserService;
+import javassist.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +72,17 @@ public class UsersSeeder {
             notifs.add(notif7);
             notifs.add(notif8);
 
+
+
+            Attendance att1 = new Attendance("checkIn","finger",495, new Date());
+            Attendance att2 = new Attendance("checkOut","finger",1020, new Date());
+
+            List<Attendance> atts = new ArrayList<>();
+            atts.add(att1);
+            atts.add(att2);
+
+
+
             ArrayList<Role> rolesAdmin = new ArrayList<>();
                 rolesAdmin.add(roleSeeder.admin);
                 ArrayList<Role> rolesUser = new ArrayList<>();
@@ -84,6 +97,7 @@ public class UsersSeeder {
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
+            user1.setAttendances(atts);
             System.out.println(user1);
             userService.add(user1);
 
@@ -91,6 +105,7 @@ public class UsersSeeder {
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
+            user2.setAttendances(atts);
             System.out.println(user2);
             userService.add(user2);
 
@@ -98,6 +113,7 @@ public class UsersSeeder {
             user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
+            user3.setAttendances(atts);
             System.out.println(user3);
             userService.add(user3);
 
@@ -105,16 +121,17 @@ public class UsersSeeder {
             user4.setRoles(rolesUser);
             user4.setUserConfigs(Arrays.asList(userConfigs4));
             user4.setNotificationMessages(notifs);
+            user4.setAttendances(atts);
             System.out.println(user4);
             userService.add(user4);
-            for (int i=5;i<495;i++) {
-                user4.setImage(i+".jpg");
-                user4.setCin(i+"545485");
-                user4.setEmail("qsd"+i+"@qsdqs.fqs");
-                user4.setPhone("55545"+i);
-                user4.setUserId(user4.getUserId()+1);
-                userService.add(user4);
-            }
+//            for (int i=5;i<5;i++) {
+//                user4.setImage(i+".jpg");
+//                user4.setCin(i+"545485");
+//                user4.setEmail("qsd"+i+"@qsdqs.fqs");
+//                user4.setPhone("55545"+i);
+//                user4.setUserId(user4.getUserId()+1);
+//                userService.add(user4);
+//            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);
