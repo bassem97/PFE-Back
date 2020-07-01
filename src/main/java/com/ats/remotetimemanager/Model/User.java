@@ -286,7 +286,6 @@ public class User  {
                         }
                         //save delay minutes
                         calculateDelay(att,planConf,schedule,att.getAttendanceType());
-
                     }
                 }
                 attendances.add(att);
@@ -312,9 +311,6 @@ public class User  {
             }
         }
     }
-
-
-
     private void fetchAbsentDays(Attendance lastAttendance, Attendance att, Schedule schedule) {
         int workMinutes = schedule.getWorkMinutes();
         Long absenceDays = absentAllDay(lastAttendance , att);

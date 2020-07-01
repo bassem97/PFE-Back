@@ -36,11 +36,6 @@ public class Absence {
         this.reason = reason;
         this.absentMinutes = absentMinutes;
     }
-    public Absence(LocalDate absenceDate, String absenceType, String reason) {
-        this.absenceDate = absenceDate;
-        this.absenceType = absenceType;
-        this.reason = reason;
-    }
 
     public Long getIdAbsence() {
         return idAbsence;
