@@ -62,4 +62,14 @@ public class PlanningConfig {
     public void setPlanning(Planning planning) {
         this.planning = planning;
     }
+
+    @Override
+    public String toString() {
+        return "PlanningConfig{" +
+                "PlanConfigId=" + PlanConfigId +
+                ", checkInDelay=" + checkInDelay +
+                ", checkOutDelay=" + checkOutDelay +
+                ", planning=" + planning +
+                '}';
+    }
 }

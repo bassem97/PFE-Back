@@ -77,9 +77,6 @@ public class UsersSeeder {
             Attendance att1 = new Attendance("checkIn","finger",495, new Date());
             Attendance att2 = new Attendance("checkOut","finger",1020, new Date());
 
-            List<Attendance> atts = new ArrayList<>();
-            atts.add(att1);
-            atts.add(att2);
 
 
 
@@ -97,7 +94,8 @@ public class UsersSeeder {
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
-            user1.setAttendances(atts);
+            user1.addAttendance(att1);
+            user1.addAttendance(att2);
             System.out.println(user1);
             userService.add(user1);
 
@@ -105,7 +103,8 @@ public class UsersSeeder {
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
-            user2.setAttendances(atts);
+            user2.addAttendance(att1);
+            user2.addAttendance(att2);
             System.out.println(user2);
             userService.add(user2);
 
@@ -113,7 +112,8 @@ public class UsersSeeder {
             user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
-            user3.setAttendances(atts);
+            user3.addAttendance(att1);
+            user3.addAttendance(att2);
             System.out.println(user3);
             userService.add(user3);
 
@@ -121,7 +121,8 @@ public class UsersSeeder {
             user4.setRoles(rolesUser);
             user4.setUserConfigs(Arrays.asList(userConfigs4));
             user4.setNotificationMessages(notifs);
-            user4.setAttendances(atts);
+            user4.addAttendance(att1);
+            user4.addAttendance(att2);
             System.out.println(user4);
             userService.add(user4);
 //            for (int i=5;i<5;i++) {

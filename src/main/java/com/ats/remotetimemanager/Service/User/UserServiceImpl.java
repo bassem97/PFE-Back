@@ -1,9 +1,6 @@
 package com.ats.remotetimemanager.Service.User;
 
-import com.ats.remotetimemanager.Model.Department;
-import com.ats.remotetimemanager.Model.WebSocketMessage;
-import com.ats.remotetimemanager.Model.Role;
-import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Model.*;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.PostRepository;
 import com.ats.remotetimemanager.Repository.RoleRepository;
@@ -113,6 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
+            newUser.setAbsences(user.getAbsences());
             if (user.getPost() != null) {
                 newUser.setPost(user.getPost());
             }
@@ -143,6 +141,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return userRepository.save(newUser);
         }
     }
+
 
     @Override
     public User update(User user, Long id) {

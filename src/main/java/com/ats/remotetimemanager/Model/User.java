@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -263,6 +264,28 @@ public class User  {
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;
     }
+
+    public void addAttendance(Attendance att){
+        List<Attendance> Attendances = this.getAttendances();
+//            if(this.department.getPlanning().getPlanningConfigs().get(0) != null && att != null){
+//                PlanningConfig planConf = this.department.getPlanning().getPlanningConfigs().get(0);
+//                String Reason = "";
+//                if(isAbsentAllDay(attendances.get(attendances.size()-1),att)) {}
+//
+//
+                attendances.add(att);
+//            }
+//
+
+        System.out.println("_____________________________________________________");
+    }
+
+//    private boolean isAbsentAllDay(Attendance lastAttendance, Attendance att) {
+//        Date lastAttDate = lastAttendance.getAttendanceDate() ;
+//        Date attDate = att.getAttendanceDate();
+//
+//    }
+
 
     @Override
     public String toString() {
