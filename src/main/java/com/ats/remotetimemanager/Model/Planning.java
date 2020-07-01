@@ -40,7 +40,10 @@ public class Planning {
     @JsonIgnoreProperties(value ={"planning"} , allowSetters = true)
     private List<Department> departments = new ArrayList<>() ;
 
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "planning_id")
+    @JsonIgnoreProperties(value ="planning" , allowSetters = true)
+    private List<PlanningConfig> planningConfigs = new ArrayList<>() ;
 
 
 
@@ -159,6 +162,13 @@ public class Planning {
         this.repeatCycle = repeatCycle;
     }
 
+    public List<PlanningConfig> getPlanningConfigs() {
+        return planningConfigs;
+    }
+
+    public void setPlanningConfigs(List<PlanningConfig> planningConfigs) {
+        this.planningConfigs = planningConfigs;
+    }
 
     @Override
     public String toString() {
