@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Controller;
 
+import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Service.Attendance.AttendanceService;
@@ -17,6 +18,9 @@ public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
+
+    @GetMapping("list")
+    public List<Attendance> getAll() { return attendanceService.findAll() ;}
 
     @PostMapping("add")
     public Attendance add(@Valid @RequestBody Attendance attendance){
@@ -38,8 +42,8 @@ public class AttendanceController {
         return attendanceService.findById(id);
     }
 
-//    @GetMapping("findByUser")
-//    List<Attendance> findByUser(User user){
-//        return attendanceService.findByUser(user);
-//    }
+    @GetMapping("findByUser")
+    List<Attendance> findByUser(User user){
+        return attendanceService.findByUser(user);
+    }
 }

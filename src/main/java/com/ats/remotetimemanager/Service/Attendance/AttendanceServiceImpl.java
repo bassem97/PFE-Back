@@ -1,11 +1,13 @@
 package com.ats.remotetimemanager.Service.Attendance;
 
 import com.ats.remotetimemanager.Model.Attendance;
+import com.ats.remotetimemanager.Model.Post;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "attendanceService")
@@ -13,6 +15,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
+
+    @Override
+    public List<Attendance> findAll() {
+        List<Attendance> list = new ArrayList<>();
+        attendanceRepository.findAll().iterator().forEachRemaining(list::add);
+        return list;
+    }
 
     @Override
     public Attendance add(Attendance attendance) {
@@ -42,8 +51,8 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceRepository.findById(id);
     }
 
-//    @Override
-//    public List<Attendance> findByUser(User user) {
-//        return attendanceRepository.findAllByUser(user);
-//    }
+    @Override
+    public List<Attendance> findByUser(User user) {
+        return attendanceRepository.findAllByUser(user);
+    }
 }
