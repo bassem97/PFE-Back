@@ -83,7 +83,7 @@ public class ScheduleSeeder{
                e.printStackTrace();
            }
 
-           plan1.setPlanningConfigs(Arrays.asList(new PlanningConfig(15,15)));
+           plan1.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,15)));
            plan2.setPlanningConfigs(Arrays.asList(new PlanningConfig(10,10)));
            plan3.setPlanningConfigs(Arrays.asList(new PlanningConfig(30,30)));
            plan4.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,5)));

@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Service.Schedule;
 
+import com.ats.remotetimemanager.Model.Planning;
 import com.ats.remotetimemanager.Model.Schedule;
 
 import java.util.List;

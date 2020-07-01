@@ -271,30 +271,61 @@ public class User  {
 
     @Autowired
     public void addAttendance(Attendance att){
-
         List<Attendance> attendances = this.getAttendances();
             if(this.department.getPlanning().getPlanningConfigs().get(0) != null && att != null ){
                 if(attendances.size() != 0) {
-                    PlanningConfig planConf = this.department.getPlanning().getPlanningConfigs().get(0);
-                    Attendance lastAttendance = attendances.get(attendances.size() - 1);
-                    if(lastAttendance.getAttendanceType().equals("CHECK OUT") && att.getAttendanceType().equals("CHECK IN") && absentAllDay(lastAttendance , att) != 0){
-                        Long absenceDays = absentAllDay(lastAttendance , att);
+                    if(this.department.getPlanning().getSchedule() != null){
+                        PlanningConfig planConf = this.department.getPlanning().getPlanningConfigs().get(0);
+                        Schedule schedule = this.department.getPlanning().getSchedule();
+                        Attendance lastAttendance = attendances.get(attendances.size() - 1);
+                        //Search whole days absent
+                        if(lastAttendance.getAttendanceType().equals("CHECK OUT") && att.getAttendanceType().equals("CHECK IN") && absentAllDay(lastAttendance , att) != 0){
                             if(department.getPlanning().getSchedule() != null){
-                                int workMinutes = department.getPlanning().getSchedule().getWorkMinutes();
-                                System.out.println("_____________________________________________________");
-                                for (int i= 1; i<absenceDays; i++ ) {
-                                    LocalDate absentDay = lastAttendance.getAttendanceDate().plusDays(i);
-                                    List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
-                                    if(scheduleDays.contains(absentDay.getDayOfWeek().toString())){
-                                        Absence absence = new Absence(absentDay, "AllDay", "No reason yet",workMinutes);
-                                        this.getAbsences().add(absence);
-                                    }
-                                }
+                                fetchAbsentDays(lastAttendance,att,schedule);
+                            }
                         }
+                        //save delay minutes
+                        calculateDelay(att,planConf,schedule,att.getAttendanceType());
                     }
                 }
                 attendances.add(att);
             }
+    }
+
+    private void calculateDelay(Attendance att, PlanningConfig planConf, Schedule schedule, String type) {
+        if(type.equals("CHECK IN")){
+            int startHour = schedule.getStartHour();
+            int checkIn = att.getAttendanceTime();
+            int checkInDelay = planConf.getCheckInDelay();
+            int delay = checkIn - (checkInDelay + startHour);
+            if(delay > 0){
+                newAbsence(att.getAttendanceDate(),"Late Check in", "No reason yet",delay);
+            }
+        }else {
+            int endHour = schedule.getEndHour();
+            int checkOut = att.getAttendanceTime();
+            int checkOutDelay = planConf.getCheckOutDelay();
+            int delay = (endHour - checkOutDelay) - checkOut;
+            if(delay > 0) {
+                newAbsence(att.getAttendanceDate(),"Early Check out", "No reason yet",delay);
+            }
+        }
+    }
+    private void fetchAbsentDays(Attendance lastAttendance, Attendance att, Schedule schedule) {
+        int workMinutes = schedule.getWorkMinutes();
+        Long absenceDays = absentAllDay(lastAttendance , att);
+        for (int i= 1; i<absenceDays; i++ ) {
+            LocalDate absentDay = lastAttendance.getAttendanceDate().plusDays(i);
+            List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
+            if(scheduleDays.contains(absentDay.getDayOfWeek().toString())){
+                newAbsence(absentDay,"All Day","No reason yet",workMinutes);
+            }
+        }
+    }
+
+    private void newAbsence(LocalDate absentDay, String type, String reason, int workMinutes) {
+        Absence absence = new Absence(absentDay, type, reason,workMinutes);
+        this.getAbsences().add(absence);
     }
 
     private Long absentAllDay(Attendance lastAttendance, Attendance att) {
