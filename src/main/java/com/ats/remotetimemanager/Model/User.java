@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -63,7 +64,7 @@ public class User  {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
-    private List<Address> attendances = new ArrayList<>() ;
+    private List<Attendance> attendances = new ArrayList<>() ;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -248,11 +249,11 @@ public class User  {
         this.notificationMessages = notificationMessages;
     }
 
-    public List<Address> getAttendances() {
+    public List<Attendance> getAttendances() {
         return attendances;
     }
 
-    public void setAttendances(List<Address> attendances) {
+    public void setAttendances(List<Attendance> attendances) {
         this.attendances = attendances;
     }
 
@@ -263,6 +264,28 @@ public class User  {
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;
     }
+
+    public void addAttendance(Attendance att){
+        List<Attendance> Attendances = this.getAttendances();
+//            if(this.department.getPlanning().getPlanningConfigs().get(0) != null && att != null){
+//                PlanningConfig planConf = this.department.getPlanning().getPlanningConfigs().get(0);
+//                String Reason = "";
+//                if(isAbsentAllDay(attendances.get(attendances.size()-1),att)) {}
+//
+//
+                attendances.add(att);
+//            }
+//
+
+        System.out.println("_____________________________________________________");
+    }
+
+//    private boolean isAbsentAllDay(Attendance lastAttendance, Attendance att) {
+//        Date lastAttDate = lastAttendance.getAttendanceDate() ;
+//        Date attDate = att.getAttendanceDate();
+//
+//    }
+
 
     @Override
     public String toString() {

@@ -31,6 +31,9 @@ public class Attendance {
     @JsonIgnoreProperties(value ={"attendances"} , allowSetters = true)
     private User user;
 
+    public Attendance() {
+    }
+
     public Attendance(String attendanceType, String inputType, int attendanceTime, Date attendanceDate) {
         this.attendanceType = attendanceType;
         this.inputType = inputType;

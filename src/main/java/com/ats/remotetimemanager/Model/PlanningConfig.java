@@ -23,7 +23,8 @@ public class PlanningConfig {
     private Planning planning;
 
 
-
+    public PlanningConfig() {
+    }
 
     public PlanningConfig(int checkInDelay, int checkOutDelay) {
         this.checkInDelay = checkInDelay;
@@ -60,5 +61,15 @@ public class PlanningConfig {
 
     public void setPlanning(Planning planning) {
         this.planning = planning;
+    }
+
+    @Override
+    public String toString() {
+        return "PlanningConfig{" +
+                "PlanConfigId=" + PlanConfigId +
+                ", checkInDelay=" + checkInDelay +
+                ", checkOutDelay=" + checkOutDelay +
+                ", planning=" + planning +
+                '}';
     }
 }
