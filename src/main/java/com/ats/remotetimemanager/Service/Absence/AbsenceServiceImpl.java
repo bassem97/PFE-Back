@@ -26,6 +26,11 @@ public class AbsenceServiceImpl implements AbsenceService{
     }
 
     @Override
+    public Absence add(Absence absence) {
+       return absenceRepository.save(absence);
+    }
+
+    @Override
     public void delete(long id) {
         absenceRepository.deleteById(id);
     }

@@ -298,7 +298,7 @@ public class User  {
             int checkIn = att.getAttendanceTime();
             int checkInDelay = planConf.getCheckInDelay();
             int delay = checkIn - (checkInDelay + startHour);
-            if(delay > 0){
+            if(delay > 0) {
                 newAbsence(att.getAttendanceDate(),"Late Check in", "No reason yet",delay);
             }
         }else {
@@ -314,9 +314,9 @@ public class User  {
     private void fetchAbsentDays(Attendance lastAttendance, Attendance att, Schedule schedule) {
         int workMinutes = schedule.getWorkMinutes();
         Long absenceDays = absentAllDay(lastAttendance , att);
+        List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
         for (int i= 1; i<absenceDays; i++ ) {
             LocalDate absentDay = lastAttendance.getAttendanceDate().plusDays(i);
-            List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
             if(scheduleDays.contains(absentDay.getDayOfWeek().toString())){
                 newAbsence(absentDay,"All Day","No reason yet",workMinutes);
             }
@@ -324,7 +324,7 @@ public class User  {
     }
 
     private void newAbsence(LocalDate absentDay, String type, String reason, int workMinutes) {
-        Absence absence = new Absence(absentDay, type, reason,workMinutes);
+        Absence absence = new Absence(absentDay, type, reason,workMinutes, 0);
         this.getAbsences().add(absence);
     }
 

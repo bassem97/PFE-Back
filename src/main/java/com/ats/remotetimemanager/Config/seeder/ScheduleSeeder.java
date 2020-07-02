@@ -41,7 +41,7 @@ public class ScheduleSeeder{
             720,
             840
     );
-    String weekEnd[] = {"Saturday"} ;
+    String weekEnd[] = {"SATURDAY"} ;
     Schedule saturdayTime = new Schedule(
             480,
             780,

@@ -4,6 +4,7 @@ import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.Post;
 import com.ats.remotetimemanager.Model.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AttendanceService {
@@ -13,5 +14,7 @@ public interface AttendanceService {
     void delete(long id);
     Attendance findById(long id);
     List<Attendance> findByUser(User user);
+    List<Attendance> findAttendancesByUser(User user);
+
 
 }

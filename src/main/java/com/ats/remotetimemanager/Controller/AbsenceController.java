@@ -21,7 +21,10 @@ public class AbsenceController {
     Absence update(@Valid @RequestBody Absence absence, @PathVariable("id") Long id){
         return absenceService.update(absence,id);
     }
-
+    @PutMapping("add")
+    Absence add(@Valid @RequestBody Absence absence){
+        return absenceService.add(absence);
+    }
     @DeleteMapping("delete/{id}")
     void delete(@PathVariable("id") long id){
         absenceService.delete(id);

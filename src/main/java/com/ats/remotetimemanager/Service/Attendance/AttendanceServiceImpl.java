@@ -7,8 +7,10 @@ import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service(value = "attendanceService")
 public class AttendanceServiceImpl implements AttendanceService {
@@ -53,5 +55,23 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public List<Attendance> findByUser(User user) {
         return attendanceRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<Attendance> findAttendancesByUser(User user) {
+        System.out.println("_______________________________________________________");
+        System.out.println(attendanceRepository.findAttendancesByUser(user).stream()
+                .filter(attendance -> (attendance.getAttendanceDate().compareTo(LocalDate.now().plusDays(1))) == 0 )
+                .collect(Collectors.toList()));
+        System.out.println("_______________________________________________________");
+        return  attendanceRepository.findAttendancesByUser(user).stream()
+                .filter(attendance -> (attendance.getAttendanceDate().compareTo(LocalDate.now().plusDays(1))) == 0 )
+                .collect(Collectors.toList());
+
+//        for (int i = 0; i< atts.size(); i++) {
+//            if (atts.get(i).getAttendanceDate() != (LocalDate.now().plusDays(1))) {
+//                atts.remove(i);
+//            }
+//        };
     }
 }

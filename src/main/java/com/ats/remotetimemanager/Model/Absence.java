@@ -19,7 +19,16 @@ public class Absence {
     private LocalDate absenceDate;
     private String absenceType; // retard walla aallday
     private String reason;
+    private int reasonStatus;
     private int absentMinutes;
+
+    public int getReasonStatus() {
+        return reasonStatus;
+    }
+
+    public void setReasonStatus(int reasonStatus) {
+        this.reasonStatus = reasonStatus;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -30,11 +39,12 @@ public class Absence {
     public Absence() {
     }
 
-    public Absence(LocalDate absenceDate, String absenceType, String reason, int absentMinutes) {
+    public Absence(LocalDate absenceDate, String absenceType, String reason, int absentMinutes, int reasonStatus) {
         this.absenceDate = absenceDate;
         this.absenceType = absenceType;
         this.reason = reason;
         this.absentMinutes = absentMinutes;
+        this.reasonStatus = reasonStatus;
     }
 
     public Long getIdAbsence() {
