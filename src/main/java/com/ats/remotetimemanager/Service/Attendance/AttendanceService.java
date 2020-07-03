@@ -10,6 +10,6 @@ public interface AttendanceService {
     Attendance update(Attendance attendance, Long id);
     void delete(long id);
     Attendance findById(long id);
-//    List<Attendance> findByUser(User user);
+    List<Attendance> findByUser(User user);
 
 }

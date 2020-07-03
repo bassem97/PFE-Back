@@ -3,10 +3,15 @@ package com.ats.remotetimemanager.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.persistence.*;
 
 @Entity
+@Configuration
+@EnableScheduling
 public class PlanningConfig {
     @Id
     @Column(name= "planning_configurations_id")
@@ -15,6 +20,7 @@ public class PlanningConfig {
 
     private int checkInDelay;
     private int checkOutDelay;
+    private int endCheckin;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -26,9 +32,10 @@ public class PlanningConfig {
     public PlanningConfig() {
     }
 
-    public PlanningConfig(int checkInDelay, int checkOutDelay) {
+    public PlanningConfig(int checkInDelay, int checkOutDelay, int endCheckin) {
         this.checkInDelay = checkInDelay;
         this.checkOutDelay = checkOutDelay;
+        this.endCheckin = endCheckin;
     }
 
     public Long getPlanConfigId() {
@@ -62,6 +69,17 @@ public class PlanningConfig {
     public void setPlanning(Planning planning) {
         this.planning = planning;
     }
+
+    public int getEndCheckin() {
+        return endCheckin;
+    }
+
+    public void setEndCheckin(int endCheckin) {
+        this.endCheckin = endCheckin;
+    }
+
+
+
 
     @Override
     public String toString() {

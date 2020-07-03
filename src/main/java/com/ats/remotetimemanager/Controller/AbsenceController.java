@@ -18,16 +18,17 @@ public class AbsenceController {
     private AbsenceService absenceService;
 
     @PutMapping("update/{id}")
-    Absence update(@Valid @RequestBody Absence absence, @PathVariable("id") Long id){
+    public Absence update(@Valid @RequestBody Absence absence, @PathVariable("id") Long id){
         return absenceService.update(absence,id);
     }
 
     @DeleteMapping("delete/{id}")
-    void delete(@PathVariable("id") long id){
+    public void delete(@PathVariable("id") long id){
         absenceService.delete(id);
     }
+
     @GetMapping("list")
-    List<Absence> findAll(){
+    public List<Absence> findAll(){
         return absenceService.findAll();
     }
 }

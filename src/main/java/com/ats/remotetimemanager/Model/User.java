@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Model;
 
-import com.ats.remotetimemanager.Repository.ScheduleRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "USERS")
@@ -26,24 +26,17 @@ public class User  {
     private String name;
     private String firstName;
     private String gender;
-
     private String birthDate;
-
     private LocalDate hireDay;
-
     @Column(unique = true)
     private String phone;
-
     @Column(unique = true)
     private String email;
-
     @Column(unique = true)
     private String cin;
-
     private String password;
-
     private String image;
-
+    private Boolean isTempUSer;
 
 
 
@@ -99,7 +92,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String image) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String image,Boolean isTempUSer) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -113,6 +106,7 @@ public class User  {
         this.department = department;
         this.image = image;
         this.userId = ++count;
+        this.isTempUSer = isTempUSer;
 
     }
 
@@ -269,6 +263,14 @@ public class User  {
         this.absences = absences;
     }
 
+    public Boolean getTempUSer() {
+        return isTempUSer;
+    }
+
+    public void setTempUSer(Boolean tempUSer) {
+        isTempUSer = tempUSer;
+    }
+
     @Autowired
     public void addAttendance(Attendance att){
         List<Attendance> attendances = this.getAttendances();
@@ -284,10 +286,17 @@ public class User  {
                                 fetchAbsentDays(lastAttendance,att,schedule);
                             }
                         }
+//                        if(att.getAttendanceType().equals("CHECK IN") && att.getAttendanceTime())
+
+
+
                         //save delay minutes
                         calculateDelay(att,planConf,schedule,att.getAttendanceType());
                     }
                 }
+                System.out.println("______________________________________________");
+                System.out.println(getAbsentMinutes());
+                System.out.println("______________________________________________");
                 attendances.add(att);
             }
     }
@@ -333,6 +342,12 @@ public class User  {
         LocalDate attDate = att.getAttendanceDate();
         return ChronoUnit.DAYS.between(lastAttDate,attDate);
     }
+
+    public int getAbsentMinutes(){
+        return this.absences.stream().mapToInt(Absence::getAbsentMinutes).sum();
+    }
+
+
 
 
     @Override

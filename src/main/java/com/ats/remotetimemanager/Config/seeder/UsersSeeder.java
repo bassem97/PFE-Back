@@ -1,15 +1,10 @@
 package com.ats.remotetimemanager.Config.seeder;
 
 import com.ats.remotetimemanager.Model.*;
-import com.ats.remotetimemanager.Repository.AddressRepository;
-import com.ats.remotetimemanager.Repository.DepartmentRepository;
-import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.User.UserService;
-import javassist.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +24,8 @@ public class UsersSeeder {
     private ScheduleSeeder scheduleSeeder;
 
 
-        public void seed() throws Exception {
+
+    public void seed() throws Exception {
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",
                 "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, scheduleSeeder.info,"1.jpg");
@@ -74,11 +70,10 @@ public class UsersSeeder {
 
 
 
-            Attendance att1 = new Attendance("CHECK IN","finger",495, LocalDate.now());
-            Attendance att2 = new Attendance("CHECK OUT","finger",1020, LocalDate.now());
+            Attendance att1 = new Attendance("CHECK IN","finger",495, LocalDate.now().plusDays(1));
+            Attendance att2 = new Attendance("CHECK OUT","finger",1020, LocalDate.now().plusDays(1));
             Attendance att3 = new Attendance("CHECK IN","finger",500, LocalDate.now().plusDays(7));
             Attendance att4 = new Attendance("CHECK OUT","finger",900, LocalDate.now().plusDays(7));
-
 
 
 
@@ -148,6 +143,7 @@ public class UsersSeeder {
 //                    addressRepository.save(ad3);
 //                }
             }
+
 //            user3.setPost(postSeeder.chef_department);
 //            System.out.println("BDEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 //            userService.update(user3,user3.getUserId());

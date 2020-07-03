@@ -3,6 +3,8 @@ package com.ats.remotetimemanager.Service.Absence;
 import com.ats.remotetimemanager.Model.Absence;
 import com.ats.remotetimemanager.Repository.AbsenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class AbsenceServiceImpl implements AbsenceService{
             return absenceRepository.save(newAbsence);
         }else return null;
     }
+
+
 
     @Override
     public void delete(long id) {

@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Attendance findById(long attId);
-//    List<Attendance> findAllByUser(User user);
+    List<Attendance> findAllByUser(User user);
 
 }
