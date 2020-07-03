@@ -19,14 +19,23 @@ public class Absence {
     private LocalDate absenceDate;
     private String absenceType; // retard walla aallday
     private String reason;
-    private int reasonStatus;
+    private String reasonStatus;
+    private String revisedBy;
     private int absentMinutes;
 
-    public int getReasonStatus() {
+    public String getRevisedBy() {
+        return revisedBy;
+    }
+
+    public void setRevisedBy(String revisedBy) {
+        this.revisedBy = revisedBy;
+    }
+
+    public String getReasonStatus() {
         return reasonStatus;
     }
 
-    public void setReasonStatus(int reasonStatus) {
+    public void setReasonStatus(String reasonStatus) {
         this.reasonStatus = reasonStatus;
     }
 
@@ -39,12 +48,13 @@ public class Absence {
     public Absence() {
     }
 
-    public Absence(LocalDate absenceDate, String absenceType, String reason, int absentMinutes, int reasonStatus) {
+    public Absence(LocalDate absenceDate, String absenceType, String reason, int absentMinutes, String reasonStatus, String revisedBy) {
         this.absenceDate = absenceDate;
         this.absenceType = absenceType;
         this.reason = reason;
         this.absentMinutes = absentMinutes;
         this.reasonStatus = reasonStatus;
+        this.revisedBy = revisedBy;
     }
 
     public Long getIdAbsence() {

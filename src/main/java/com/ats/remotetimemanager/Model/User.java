@@ -324,7 +324,7 @@ public class User  {
     }
 
     private void newAbsence(LocalDate absentDay, String type, String reason, int workMinutes) {
-        Absence absence = new Absence(absentDay, type, reason,workMinutes, 0);
+        Absence absence = new Absence(absentDay, type, reason,workMinutes, "yellow", null);
         this.getAbsences().add(absence);
     }
 

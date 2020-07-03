@@ -21,6 +21,8 @@ public class AbsenceServiceImpl implements AbsenceService{
             newAbsence.setAbsenceType(absence.getAbsenceType());
             newAbsence.setAbsentMinutes(absence.getAbsentMinutes());
             newAbsence.setReason(absence.getReason());
+            newAbsence.setReasonStatus(absence.getReasonStatus());
+            newAbsence.setRevisedBy(absence.getRevisedBy());
             return absenceRepository.save(newAbsence);
         }else return null;
     }
