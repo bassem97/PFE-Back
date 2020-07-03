@@ -29,6 +29,7 @@ public class AbsenceServiceImpl implements AbsenceService{
 
     @Override
     public Absence add(Absence absence) {
+        absence.setAbsenceDate(absence.getAbsenceDate().plusDays(1));
        return absenceRepository.save(absence);
     }
 
