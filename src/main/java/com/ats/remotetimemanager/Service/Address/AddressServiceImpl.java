@@ -39,7 +39,8 @@ public class AddressServiceImpl implements AddressService {
             ad.setStreetNumber(address.getStreetNumber());
             ad.setZipCode(address.getZipCode());
             return addressRepository.save(ad);
-        }else return null;
+        }
+        return null;
     }
 
     @Override

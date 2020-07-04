@@ -105,8 +105,8 @@ public class UsersSeeder {
             userService.add(user2);
 
 
-        user3.setRoles(rolesUser);
-        user3.setAddresses(Arrays.asList(ad3));
+            user3.setRoles(rolesUser);
+            user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
             System.out.println(user3);
