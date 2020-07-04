@@ -27,20 +27,21 @@ public class UsersSeeder {
     public void seed() throws Exception {
         User user1= new User("bassem", "jadoui", "male",
                 "1997-05-05","+21655135774",
-                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.employer, scheduleSeeder.info,"1.jpg");
+                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.chef_department, scheduleSeeder.info,"1.jpg");
         User user2 = new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
-                "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.chef_department, scheduleSeeder.mark,"2.jpg");
-        User user3 = new User("test", "test", "female",
+                "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.designer, scheduleSeeder.mark,"2.jpg");
+        User user3 = new User("manai", "karim", "female",
                 "2020-03-09","+21620000000",
-                "test@kjk.com", "12345678", "123456",postSeeder.employee, scheduleSeeder.security,"3.jpg");
-        User user4 = new User("erreur", "test", "erreur",
+                "test@kjk.com", "12345678", "123456",postSeeder.tester, scheduleSeeder.security,"3.jpg");
+        User user4 = new User("zaroui", "montassar", "erreur",
                 "2020-03-09","+21620500000",
-                "erreru@jkhj.com", "152345678", "1234556",postSeeder.employee, scheduleSeeder.info,"4.jpg");
+                "erreru@jkhj.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.info,"4.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
             Address ad3 = new Address("test","203","test","test", 1111);
+            Address ad4 = new Address("solidarité","214","ariena","borj louzir", 1325);
 
             int[] l = {1,2,3,4};
             UserConfigs userConfigs1 = new UserConfigs(true ,l );
@@ -79,6 +80,8 @@ public class UsersSeeder {
 
             ArrayList<Role> rolesAdmin = new ArrayList<>();
                 rolesAdmin.add(roleSeeder.admin);
+            ArrayList<Role> rolesChefDep = new ArrayList<>();
+            rolesChefDep.add(roleSeeder.chef_department);
                 ArrayList<Role> rolesUser = new ArrayList<>();
                 rolesUser.add(roleSeeder.user);
 //            ArrayList<Role> rolesBoth = new ArrayList<>();
@@ -87,7 +90,7 @@ public class UsersSeeder {
 
 
 
-            user1.setRoles(rolesAdmin);
+            user1.setRoles(rolesChefDep);
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
@@ -108,7 +111,8 @@ public class UsersSeeder {
             userService.add(user2);
 
 
-            user3.setAddresses(Arrays.asList(ad3));
+        user3.setRoles(rolesUser);
+        user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
             user3.addAttendance(att1);
@@ -118,7 +122,8 @@ public class UsersSeeder {
 
 
             user4.setRoles(rolesUser);
-            user4.setUserConfigs(Arrays.asList(userConfigs4));
+        user4.setAddresses(Arrays.asList(ad4));
+        user4.setUserConfigs(Arrays.asList(userConfigs4));
             user4.setNotificationMessages(notifs);
             user4.addAttendance(att1);
             user4.addAttendance(att2);

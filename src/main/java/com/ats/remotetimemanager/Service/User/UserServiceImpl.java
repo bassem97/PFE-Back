@@ -24,10 +24,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service(value = "userService")
@@ -68,15 +65,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getCin(), user.getPassword(), getAuthority(user));
     }
 
-    private Set<SimpleGrantedAuthority> getAuthority(User user) {
-        return null;
-//        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-//        user.getRoles().forEach(role -> {
-//            //authorities.add(new SimpleGrantedAuthority(role.getName()));
-//            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
-//        });
-//        return authorities;
-//        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    public Set<SimpleGrantedAuthority> getAuthority(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        user.getRoles().forEach(role -> {
+            //authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority("asba"));
+        });
+        return authorities;
     }
     @Override
     public List<User> findAll() {

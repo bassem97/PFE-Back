@@ -334,6 +334,21 @@ public class User {
     }
 
 
+    public boolean isAdmin(){
+        for (Role role:roles) {
+            if(role.getRoleName().equals("ADMIN"))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isChefDep(){
+        for (Role role:roles) {
+            if(role.getRoleName().equals("CHEF_DEPARTMENT"))
+                return true;
+        }
+        return false;
+    }
 
 
     @Override

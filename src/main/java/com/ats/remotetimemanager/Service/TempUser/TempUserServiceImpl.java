@@ -28,29 +28,28 @@ public class TempUserServiceImpl implements TempUserService {
     }
 
     @Override
-    public TempUser findByUserCIN(String cin) {
-        return tempUserRepository.findByCin(cin);
+    public TempUser findById(long id) {
+        return tempUserRepository.findByUserId(id);
     }
 
     @Override
     public User acceptRequest(TempUser tempUser, String action) throws Exception {
-        if(action.equals("add")){
             User user = new User(tempUser.getName(),tempUser.getFirstName(),tempUser.getGender(),tempUser.getBirthDate(),
                     tempUser.getPhone(),tempUser.getEmail(),tempUser.getCin(),
                     null,tempUser.getPost(),tempUser.getDepartment(),tempUser.getImage());
-            tempUserRepository.deleteById(tempUser.getUserId());
+            user.setAddresses(tempUser.getAddresses());
+            delete(tempUser.getUserId());
+        if(action.equals("add")){
             return userService.add(user);
         }else if(action.equals("update")){
-            User user = new User(tempUser.getName(),tempUser.getFirstName(),tempUser.getGender(),tempUser.getBirthDate(),
-                    tempUser.getPhone(),tempUser.getEmail(),tempUser.getCin(),
-                    null,tempUser.getPost(),tempUser.getDepartment(),tempUser.getImage());
-            tempUserRepository.deleteById(tempUser.getUserId());
             return userService.update(user,tempUser.getUserId());
         }return null;
     }
 
     @Override
-    public User declineRequest(TempUser tempUser, String action) {
-        return null;
+    public TempUser declineRequest(long id) {
+        TempUser tmp = tempUserRepository.findByUserId(id);
+         tempUserRepository.deleteById(id);
+         return tmp;
     }
 }

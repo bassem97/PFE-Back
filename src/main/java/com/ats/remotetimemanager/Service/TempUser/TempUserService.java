@@ -8,8 +8,9 @@ import java.util.List;
 public interface TempUserService {
     TempUser add(TempUser tempUser) ;
     void delete(long id);
-    TempUser findByUserCIN(String cin);
+    TempUser findById(long id);
     User acceptRequest(TempUser tempUser, String action) throws Exception;
-    User declineRequest(TempUser tempUser, String action);
+    TempUser declineRequest(long id);
+
 
 }

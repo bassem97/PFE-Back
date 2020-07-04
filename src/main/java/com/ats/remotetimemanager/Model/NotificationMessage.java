@@ -24,6 +24,7 @@ public class NotificationMessage {
     private Date notifDate;
     private Boolean isViewed;
     private Boolean isHovered;
+    private long idTarget;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -49,6 +50,16 @@ public class NotificationMessage {
         this.isHovered = isHovered;
         this.user = user;
     }
+    public NotificationMessage(String notifTitle, String notifDesc, Date notifDate, Boolean isViewed, Boolean isHovered, User user, long idTarget) {
+        this.notifTitle = notifTitle;
+        this.notifDesc = notifDesc;
+        this.notifDate = notifDate;
+        this.isViewed = isViewed;
+        this.isHovered = isHovered;
+        this.user = user;
+        this.idTarget = idTarget;
+    }
+
 
     public long getNotifId() {
         return notifId;
@@ -104,6 +115,14 @@ public class NotificationMessage {
 
     public void setIsHovered(Boolean hovered) {
         isHovered = hovered;
+    }
+
+    public long getIdTarget() {
+        return idTarget;
+    }
+
+    public void setIdTarget(long idTarget) {
+        this.idTarget = idTarget;
     }
 
     @Override

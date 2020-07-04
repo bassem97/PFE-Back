@@ -15,7 +15,7 @@ public class TempUser {
 
     private static Long count = 0L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "temp_user_id")
     private long userId;
     private String name;
@@ -34,13 +34,13 @@ public class TempUser {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
-    @JsonIgnoreProperties(value ="tempUsers" , allowSetters = true)
+    @JsonIgnoreProperties(value ={"tempUsers","users"} , allowSetters = true)
     private Post post;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "dep_id")
-    @JsonIgnoreProperties(value ={"tempUsers","departments"} , allowSetters = true)
+    @JsonIgnoreProperties(value ={"tempUsers","departments","users"} , allowSetters = true)
     private Department department;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

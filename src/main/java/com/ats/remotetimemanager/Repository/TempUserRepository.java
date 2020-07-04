@@ -8,4 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Repository
 public interface TempUserRepository extends JpaRepository<TempUser,Long> {
     TempUser findByCin(String cin);
+    TempUser findByUserId(long id);
 }
