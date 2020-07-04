@@ -26,7 +26,7 @@ public class BackupDBController {
     private final Path customBackup = backup.resolve("CustomBackup");
     private final Path dataBase = Paths.get("Database");
     private Path folderPath = dailyBackup;
-    private Long custom = null;
+    private Long custom = 0L;
     String fileName;
 
     @RequestMapping("dumpDb/{custom}")
@@ -55,7 +55,7 @@ public class BackupDBController {
         if(!this.backup.toFile().exists())
             Files.createDirectory(this.backup);
 
-        if (custom == null) {
+        if (custom == 0) {
             if (!this.dailyBackup.toFile().exists()){
                 System.out.println("CHEMDAKHEL ZOK OMMOU!");
                 folderPath = Files.createDirectory(this.dailyBackup);
@@ -69,13 +69,13 @@ public class BackupDBController {
                 folderPath = customBackup;
         }
 
-        if (custom == null) {
+        if (custom == 0) {
             fileName  = "Daily_DB_Backup_" + backupDate + ".sql";
         } else {
             fileName = "Custom_DB_Backup"+backupDate+"_"+backupTime+".sql";
         }
 
-        custom = null;
+        custom = 0L;
         Path backup = folderPath.resolve(fileName);
         String executeCmd = mysqldump+ "  -u "+dbUserName+" "+dbName+"  --add-drop-database -r "+ backup;
 
