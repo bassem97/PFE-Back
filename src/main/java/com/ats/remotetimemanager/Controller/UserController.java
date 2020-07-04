@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,6 +102,12 @@ public class UserController {
         }
         return user3;
     }
+
+    @PutMapping("requestUpdate/{id}")
+    public User requestUpdate(@Valid @RequestBody User user, @PathVariable("id") Long id) {
+        return userService.requestUpdate(user,id);
+    }
+
 
     @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
     public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "UserCIN") String username){

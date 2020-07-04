@@ -1,28 +1,27 @@
 package com.ats.remotetimemanager.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.jfr.Enabled;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "USERS")
-public class User  {
+public class User {
 
     private static Long count = 0L;
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "user_id")
-        private long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long userId;
     private String name;
     private String firstName;
     private String gender;
@@ -36,11 +35,6 @@ public class User  {
     private String cin;
     private String password;
     private String image;
-    private Boolean isTempUSer;
-
-
-
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
@@ -56,7 +50,7 @@ public class User  {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
-    private List<Address> addresses = new ArrayList<>() ;
+    private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -92,7 +86,7 @@ public class User  {
     public User() {
     }
 
-    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String image,Boolean isTempUSer) {
+    public User(String name, String firstName, String gender, String birthDate, String phone, String email, String cin, String password, Post post, Department department, String image) {
         this.name = name;
         this.firstName = firstName;
         this.gender = gender;
@@ -106,7 +100,6 @@ public class User  {
         this.department = department;
         this.image = image;
         this.userId = ++count;
-        this.isTempUSer = isTempUSer;
 
     }
 
@@ -263,13 +256,6 @@ public class User  {
         this.absences = absences;
     }
 
-    public Boolean getTempUSer() {
-        return isTempUSer;
-    }
-
-    public void setTempUSer(Boolean tempUSer) {
-        isTempUSer = tempUSer;
-    }
 
     @Autowired
     public void addAttendance(Attendance att){
@@ -307,7 +293,7 @@ public class User  {
             int checkIn = att.getAttendanceTime();
             int checkInDelay = planConf.getCheckInDelay();
             int delay = checkIn - (checkInDelay + startHour);
-            if(delay > 0){
+            if(delay > 0) {
                 newAbsence(att.getAttendanceDate(),"Late Check in", "No reason yet",delay);
             }
         }else {
@@ -323,9 +309,9 @@ public class User  {
     private void fetchAbsentDays(Attendance lastAttendance, Attendance att, Schedule schedule) {
         int workMinutes = schedule.getWorkMinutes();
         Long absenceDays = absentAllDay(lastAttendance , att);
+        List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
         for (int i= 1; i<absenceDays; i++ ) {
             LocalDate absentDay = lastAttendance.getAttendanceDate().plusDays(i);
-            List<String> scheduleDays = Arrays.asList(department.getPlanning().getScheduleDays());
             if(scheduleDays.contains(absentDay.getDayOfWeek().toString())){
                 newAbsence(absentDay,"All Day","No reason yet",workMinutes);
             }
@@ -333,7 +319,7 @@ public class User  {
     }
 
     private void newAbsence(LocalDate absentDay, String type, String reason, int workMinutes) {
-        Absence absence = new Absence(absentDay, type, reason,workMinutes);
+        Absence absence = new Absence(absentDay, type, reason,workMinutes, "yellow", null);
         this.getAbsences().add(absence);
     }
 

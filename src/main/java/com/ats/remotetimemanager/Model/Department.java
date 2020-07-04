@@ -36,6 +36,11 @@ public class Department {
     @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "dep_id")
+    @JsonIgnoreProperties(value ={"department"} , allowSetters = true)
+    private List<TempUser> tempUsers = new ArrayList<>() ;
+
     @ManyToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "planning_id" )
     @JsonIgnoreProperties(value ={"plannings","departments"} , allowSetters = true)
@@ -107,7 +112,13 @@ public class Department {
         this.planning = planning;
     }
 
+    public List<TempUser> getTempUsers() {
+        return tempUsers;
+    }
 
+    public void setTempUsers(List<TempUser> tempUsers) {
+        this.tempUsers = tempUsers;
+    }
 
     @Override
     public String toString() {

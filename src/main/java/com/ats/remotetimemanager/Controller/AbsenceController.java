@@ -2,6 +2,9 @@ package com.ats.remotetimemanager.Controller;
 
 
 import com.ats.remotetimemanager.Model.Absence;
+import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.AbsenceRepository;
+import com.ats.remotetimemanager.Repository.UserRepository;
 import com.ats.remotetimemanager.Service.Absence.AbsenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +20,21 @@ public class AbsenceController {
     @Autowired
     private AbsenceService absenceService;
 
+    @Autowired
+    private AbsenceRepository absenceRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @PutMapping("update/{id}")
     public Absence update(@Valid @RequestBody Absence absence, @PathVariable("id") Long id){
         return absenceService.update(absence,id);
+    }
+    @PutMapping("add")
+    Absence add(@Valid @RequestBody Absence absence){
+        System.out.println("_______sdsdsdsdsd_________________________________");
+        System.out.println(absence);
+        return absenceService.add(absence);
     }
 
     @DeleteMapping("delete/{id}")
@@ -30,5 +45,10 @@ public class AbsenceController {
     @GetMapping("list")
     public List<Absence> findAll(){
         return absenceService.findAll();
+    }
+
+    @GetMapping("listByUser/{id}")
+    List<Absence> listByUser(@PathVariable("id") Long id){
+        return absenceRepository.findAllByUser(userRepository.findByUserId(id));
     }
 }

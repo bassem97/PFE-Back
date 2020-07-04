@@ -1,13 +1,14 @@
 package com.ats.remotetimemanager.Controller;
 
+import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Service.Attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,11 +22,16 @@ public class AttendanceController {
     @Autowired
     private AttendanceService attendanceService;
 
+    @GetMapping("list")
+    public List<Attendance> getAll() {
+        return attendanceService.findAll();
+    }
+
     @Autowired
     private AttendanceRepository attendanceRepository;
 
     @PostMapping("add")
-    public Attendance add(@Valid @RequestBody Attendance attendance){
+    public Attendance add(@Valid @RequestBody Attendance attendance) {
         return attendanceService.add(attendance);
     }
 

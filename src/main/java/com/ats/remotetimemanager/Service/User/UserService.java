@@ -15,4 +15,6 @@ public interface UserService {
     User findByUserCIN(String CIN);
     User findById(Long id);
      boolean changePassword(ChangePasswordVM vm, String CIN);
+     User requestUpdate(User user, Long id);
+     User acceptUpdate(User user, Long id);
 }

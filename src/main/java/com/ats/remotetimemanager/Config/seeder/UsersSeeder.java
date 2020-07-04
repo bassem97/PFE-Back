@@ -1,7 +1,6 @@
 package com.ats.remotetimemanager.Config.seeder;
 
-import com.ats.remotetimemanager.Model.*;
-import com.ats.remotetimemanager.Service.User.UserService;
+import com.ats.remotetimemanager.Model.*;import com.ats.remotetimemanager.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,8 +71,9 @@ public class UsersSeeder {
 
             Attendance att1 = new Attendance("CHECK IN","finger",495, LocalDate.now().plusDays(1));
             Attendance att2 = new Attendance("CHECK OUT","finger",1020, LocalDate.now().plusDays(1));
-            Attendance att3 = new Attendance("CHECK IN","finger",500, LocalDate.now().plusDays(7));
-            Attendance att4 = new Attendance("CHECK OUT","finger",900, LocalDate.now().plusDays(7));
+            Attendance att3 = new Attendance("CHECK IN","finger",500, LocalDate.now().plusDays(1));
+            Attendance att4 = new Attendance("CHECK OUT","finger",900, LocalDate.now().plusDays(1));
+
 
 
 
@@ -143,7 +143,6 @@ public class UsersSeeder {
 //                    addressRepository.save(ad3);
 //                }
             }
-
 //            user3.setPost(postSeeder.chef_department);
 //            System.out.println("BDEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 //            userService.update(user3,user3.getUserId());

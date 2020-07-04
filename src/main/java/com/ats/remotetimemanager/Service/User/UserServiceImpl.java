@@ -25,8 +25,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -78,9 +80,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     @Override
     public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(list::add);
-        return list;
+        return userRepository.findAll();
     }
 
     @Override
@@ -111,6 +111,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAddresses(user.getAddresses());
             newUser.setDepartment(user.getDepartment());
             newUser.setAbsences(user.getAbsences());
+            newUser.setRoles(user.getRoles());
             if (user.getPost() != null) {
                 newUser.setPost(user.getPost());
             }
@@ -142,6 +143,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    @Override
+    public User requestUpdate(User user, Long id) {
+//        if(userRepository.findById(id).isPresent()){
+            User oldUser = userRepository.findById(id).get();
+            List<User> tempUsers = new ArrayList<>();
+            tempUsers.add(user);
+
+            return update(oldUser,id);
+        }
+
+    @Override
+    public User acceptUpdate(User user, Long id) {
+        return null;
+    }
 
     @Override
     public User update(User user, Long id) {
@@ -171,15 +186,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //            else
 //                newUser.setPassword(user.getPassword());
 //            newUser.setAddresses(user.getAddresses());
-            if( user.getRoles() != null){
-
-                for (Role role: user.getRoles()) {
-                    newUser.getRoles().add(roleRepository.findByRoleName(role.getRoleName()));
-                }
-            }
-            else{
-                newUser.getRoles().add(roleRepository.findByRoleName("USER"));
-            }
+//            if( user.getRoles() != null){
+//
+//                for (Role role: user.getRoles()) {
+//                    newUser.getRoles().add(roleRepository.findByRoleName(role.getRoleName()));
+//                }
+//            }
+//            else{
+//                newUser.getRoles().add(roleRepository.findByRoleName("USER"));
+//            }
 
 //            if(newUser.getPost().getPostName().equals("CHEF_DEPARTMENT")){
 //            if(postRepository.findByPostName(user.getPost().getPostName()) .getPostId()== 3){
@@ -235,6 +250,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         else return false;
 
     }
+
 
     // function to generate a random string of length n
     static String randomPassword()

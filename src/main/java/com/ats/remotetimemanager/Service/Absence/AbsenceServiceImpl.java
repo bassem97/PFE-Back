@@ -23,11 +23,19 @@ public class AbsenceServiceImpl implements AbsenceService{
             newAbsence.setAbsenceType(absence.getAbsenceType());
             newAbsence.setAbsentMinutes(absence.getAbsentMinutes());
             newAbsence.setReason(absence.getReason());
+            newAbsence.setReasonStatus(absence.getReasonStatus());
+            newAbsence.setRevisedBy(absence.getRevisedBy());
             return absenceRepository.save(newAbsence);
         }else return null;
     }
 
 
+
+    @Override
+    public Absence add(Absence absence) {
+        absence.setAbsenceDate(absence.getAbsenceDate().plusDays(1));
+       return absenceRepository.save(absence);
+    }
 
     @Override
     public void delete(long id) {

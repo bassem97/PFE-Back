@@ -27,6 +27,12 @@ public class Post {
     @JsonIgnoreProperties(value ="post" , allowSetters = true)
     private List<User> users = new ArrayList<>() ;
 
+    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties(value ="post" , allowSetters = true)
+    private List<TempUser> tempUsers = new ArrayList<>() ;
+
     public Post() {
     }
 
@@ -65,5 +71,13 @@ public class Post {
                 "postId=" + postId +
                 ", postName='" + postName + '\'' +
                 '}';
+    }
+
+    public List<TempUser> getTempUsers() {
+        return tempUsers;
+    }
+
+    public void setTempUsers(List<TempUser> tempUsers) {
+        this.tempUsers = tempUsers;
     }
 }
