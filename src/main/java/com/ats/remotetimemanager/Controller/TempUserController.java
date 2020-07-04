@@ -62,7 +62,7 @@ public class TempUserController {
         return tempUserService.findById(id);
     }
 
-    @PostMapping("acceptRequest/{action}}")
+    @PostMapping("acceptRequest/{action}")
     public User acceptRequest(@Valid @RequestBody TempUser tempUser, @PathVariable("action") String action) throws Exception {
         User userAdded = tempUserService.acceptRequest(tempUser, action);
         NotificationMessage notif;
