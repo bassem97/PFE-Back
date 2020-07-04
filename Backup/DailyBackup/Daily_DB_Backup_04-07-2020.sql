@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: remotetimemanager
 -- ------------------------------------------------------
--- Server version	10.4.8-MariaDB
+-- Server version	10.4.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,7 +34,7 @@ CREATE TABLE `absence` (
   PRIMARY KEY (`absence_id`),
   KEY `FKoprc4p9oqk4oyoa0j2p5o8oji` (`user_id`),
   CONSTRAINT `FKoprc4p9oqk4oyoa0j2p5o8oji` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `absence` (
 
 LOCK TABLES `absence` WRITE;
 /*!40000 ALTER TABLE `absence` DISABLE KEYS */;
-INSERT INTO `absence` VALUES (1,'2020-07-01','All day',0,NULL,NULL,NULL,1),(2,'2020-06-30','Late check-in',15,'Cicrulation','btn btn-danger','Khaili  Med Amine ',1),(30,'2020-07-03','All day',0,NULL,NULL,NULL,1);
+INSERT INTO `absence` VALUES (1,'2020-07-04','All day',0,'joujonkj','btn btn-warning','Khaili  Med Amine ',2),(2,'2020-07-04','All day',0,'fghjk','btn btn-danger','karim manai',3);
 /*!40000 ALTER TABLE `absence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,11 +61,14 @@ CREATE TABLE `addresses` (
   `street_name` varchar(255) DEFAULT NULL,
   `street_number` varchar(255) DEFAULT NULL,
   `zip_code` bigint(20) NOT NULL,
+  `temp_user_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`address_id`),
+  KEY `FK78rs2krkm9a6uw7ui0j2b2y2` (`temp_user_id`),
   KEY `FK1fa36y2oqhao3wgg2rw1pi459` (`user_id`),
-  CONSTRAINT `FK1fa36y2oqhao3wgg2rw1pi459` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `FK1fa36y2oqhao3wgg2rw1pi459` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `FK78rs2krkm9a6uw7ui0j2b2y2` FOREIGN KEY (`temp_user_id`) REFERENCES `temp_user` (`temp_user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +77,7 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (1,'borj louzir','ariena','kalaa kebira','30',2036,1),(2,'hedi nouira','ariena','nahj  za3ter','b254',2037,2),(3,'test','test','test','203',1111,3);
+INSERT INTO `addresses` VALUES (1,'borj louzir','ariena','kalaa kebira','30',2036,NULL,1),(2,'hedi nouira','ariena','nahj  za3ter','b254',2037,NULL,2),(3,'test','test','test','203',1111,NULL,3),(4,'borj louzir','ariena','solidaritÃ©','214',1325,NULL,4);
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +98,7 @@ CREATE TABLE `attendance` (
   PRIMARY KEY (`attendance_id`),
   KEY `FKjcaqd29v2qy723owsdah2t8vx` (`user_id`),
   CONSTRAINT `FKjcaqd29v2qy723owsdah2t8vx` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +107,6 @@ CREATE TABLE `attendance` (
 
 LOCK TABLES `attendance` WRITE;
 /*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
-INSERT INTO `attendance` VALUES (3,'2020-07-03',495,'CHECK IN','finger',2),(4,'2020-07-03',1020,'CHECK OUT','finger',2),(5,'2020-07-03',495,'CHECK IN','finger',3),(6,'2020-07-03',1020,'CHECK OUT','finger',3),(7,'2020-07-03',495,'CHECK IN','finger',4),(8,'2020-07-03',1020,'CHECK OUT','finger',4);
 /*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +159,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (7),(7);
+INSERT INTO `hibernate_sequence` VALUES (5),(5);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,6 +197,7 @@ DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notifications` (
   `notif_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_target` bigint(20) NOT NULL,
   `is_hovered` bit(1) DEFAULT NULL,
   `is_viewed` bit(1) DEFAULT NULL,
   `notif_date` datetime DEFAULT NULL,
@@ -213,7 +216,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,'\0','\0','2020-07-03 01:00:24','notification description 1','notification name 1',1),(2,'\0','\0','2020-07-03 01:00:24','notification description 2','notification name 2',1),(3,'\0','\0','2020-07-03 01:00:24','notification description 3','notification name 3',1),(4,'\0','\0','2020-07-03 01:00:24','notification description 4','notification name 4',1),(5,'\0','\0','2020-07-03 01:00:24','notification description 5','notification name 5',1),(6,'\0','\0','2020-07-03 01:00:24','notification description 6','notification name 6',1),(7,'\0','\0','2020-07-03 01:00:24','notification description 7','notification name 7',1),(8,'\0','\0','2020-07-03 01:00:24','notification description 8','notification name 8',1),(9,'\0','\0','2020-07-03 01:00:24','notification description 1','notification name 1',2),(10,'\0','\0','2020-07-03 01:00:24','notification description 2','notification name 2',2),(11,'\0','\0','2020-07-03 01:00:24','notification description 3','notification name 3',2),(12,'\0','\0','2020-07-03 01:00:24','notification description 4','notification name 4',2),(13,'\0','\0','2020-07-03 01:00:24','notification description 5','notification name 5',2),(14,'\0','\0','2020-07-03 01:00:24','notification description 6','notification name 6',2),(15,'\0','\0','2020-07-03 01:00:24','notification description 7','notification name 7',2),(16,'\0','\0','2020-07-03 01:00:24','notification description 8','notification name 8',2),(17,'\0','\0','2020-07-03 01:00:24','notification description 1','notification name 1',3),(18,'\0','\0','2020-07-03 01:00:24','notification description 2','notification name 2',3),(19,'\0','\0','2020-07-03 01:00:24','notification description 3','notification name 3',3),(20,'\0','\0','2020-07-03 01:00:24','notification description 4','notification name 4',3),(21,'\0','\0','2020-07-03 01:00:24','notification description 5','notification name 5',3),(22,'\0','\0','2020-07-03 01:00:24','notification description 6','notification name 6',3),(23,'\0','\0','2020-07-03 01:00:24','notification description 7','notification name 7',3),(24,'\0','\0','2020-07-03 01:00:24','notification description 8','notification name 8',3),(25,'\0','\0','2020-07-03 01:00:24','notification description 1','notification name 1',4),(26,'\0','\0','2020-07-03 01:00:24','notification description 2','notification name 2',4),(27,'\0','\0','2020-07-03 01:00:24','notification description 3','notification name 3',4),(28,'\0','\0','2020-07-03 01:00:24','notification description 4','notification name 4',4),(29,'\0','\0','2020-07-03 01:00:24','notification description 5','notification name 5',4),(30,'\0','\0','2020-07-03 01:00:24','notification description 6','notification name 6',4),(31,'\0','\0','2020-07-03 01:00:24','notification description 7','notification name 7',4),(32,'\0','\0','2020-07-03 01:00:24','notification description 8','notification name 8',4);
+INSERT INTO `notifications` VALUES (1,0,'\0','\0','2020-07-04 19:30:41','notification description 1','notification name 1',1),(2,0,'\0','\0','2020-07-04 19:30:41','notification description 2','notification name 2',1),(3,0,'\0','\0','2020-07-04 19:30:41','notification description 3','notification name 3',1),(4,0,'\0','\0','2020-07-04 19:30:41','notification description 4','notification name 4',1),(5,0,'\0','\0','2020-07-04 19:30:41','notification description 5','notification name 5',1),(6,0,'\0','\0','2020-07-04 19:30:41','notification description 6','notification name 6',1),(7,0,'\0','\0','2020-07-04 19:30:41','notification description 7','notification name 7',1),(8,0,'\0','\0','2020-07-04 19:30:41','notification description 8','notification name 8',1),(9,0,'\0','\0','2020-07-04 19:30:41','notification description 1','notification name 1',2),(10,0,'\0','\0','2020-07-04 19:30:41','notification description 2','notification name 2',2),(11,0,'\0','\0','2020-07-04 19:30:41','notification description 3','notification name 3',2),(12,0,'\0','\0','2020-07-04 19:30:41','notification description 4','notification name 4',2),(13,0,'\0','\0','2020-07-04 19:30:41','notification description 5','notification name 5',2),(14,0,'\0','\0','2020-07-04 19:30:41','notification description 6','notification name 6',2),(15,0,'\0','\0','2020-07-04 19:30:41','notification description 7','notification name 7',2),(16,0,'\0','\0','2020-07-04 19:30:41','notification description 8','notification name 8',2),(17,0,'\0','\0','2020-07-04 19:30:41','notification description 1','notification name 1',3),(18,0,'\0','\0','2020-07-04 19:30:41','notification description 2','notification name 2',3),(19,0,'\0','\0','2020-07-04 19:30:41','notification description 3','notification name 3',3),(20,0,'\0','\0','2020-07-04 19:30:41','notification description 4','notification name 4',3),(21,0,'\0','\0','2020-07-04 19:30:41','notification description 5','notification name 5',3),(22,0,'\0','\0','2020-07-04 19:30:41','notification description 6','notification name 6',3),(23,0,'\0','\0','2020-07-04 19:30:41','notification description 7','notification name 7',3),(24,0,'\0','\0','2020-07-04 19:30:41','notification description 8','notification name 8',3),(25,0,'\0','\0','2020-07-04 19:30:41','notification description 1','notification name 1',4),(26,0,'\0','\0','2020-07-04 19:30:41','notification description 2','notification name 2',4),(27,0,'\0','\0','2020-07-04 19:30:41','notification description 3','notification name 3',4),(28,0,'\0','\0','2020-07-04 19:30:41','notification description 4','notification name 4',4),(29,0,'\0','\0','2020-07-04 19:30:41','notification description 5','notification name 5',4),(30,0,'\0','\0','2020-07-04 19:30:41','notification description 6','notification name 6',4),(31,0,'\0','\0','2020-07-04 19:30:41','notification description 7','notification name 7',4),(32,0,'\0','\0','2020-07-04 19:30:41','notification description 8','notification name 8',4);
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +242,7 @@ CREATE TABLE `planning` (
   PRIMARY KEY (`planning_id`),
   KEY `FKi53mhetd126t8dehcxdl4oegi` (`schedule_id`),
   CONSTRAINT `FKi53mhetd126t8dehcxdl4oegi` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`schedule_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +251,7 @@ CREATE TABLE `planning` (
 
 LOCK TABLES `planning` WRITE;
 /*!40000 ALTER TABLE `planning` DISABLE KEYS */;
-INSERT INTO `planning` VALUES (1,'btn btn-success','btn btn-outline-success','2020-06-25T23:00:00.000Z','Normal time monday to friday','NORMAL TIME',5,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0MONDAYt\0TUESDAYt\0	WEDNESDAYt\0THURSDAYt\0FRIDAY','','2020-06-20T23:00:00.000Z',1),(2,'btn btn-info','btn btn-outline-info','2020-06-30T23:00:00.000Z','only on saturday','SATURDAY TIME',5,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','\0','2020-06-20T23:00:00.000Z',1),(3,'btn btn-dark','btn btn-outline-dark','2020-07-10T23:00:00.000Z','only on saturday','SATURDAY TIME',2,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','','2020-06-20T23:00:00.000Z',2),(4,'btn btn-danger','btn btn-outline-danger','2020-07-30T23:00:00.000Z','Normal time monday to friday','NORMAL TIME',2,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','\0','2020-06-20T23:00:00.000Z',2),(5,'btn btn-info','btn btn-outline-info','2020-07-30T23:00:00.000Z','qsdqsd','qsd',1,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0TUESDAYt\0FRIDAY','','2020-07-04T23:00:00.000Z',1);
+INSERT INTO `planning` VALUES (1,'btn btn-success','btn btn-outline-success','2020-06-25T23:00:00.000Z','Normal time monday to friday','NORMAL TIME',5,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0MONDAYt\0TUESDAYt\0	WEDNESDAYt\0THURSDAYt\0FRIDAY','','2020-06-20T23:00:00.000Z',1),(2,'btn btn-info','btn btn-outline-info','2020-06-30T23:00:00.000Z','only on saturday','SATURDAY TIME',5,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','\0','2020-06-20T23:00:00.000Z',1),(3,'btn btn-dark','btn btn-outline-dark','2020-07-10T23:00:00.000Z','only on saturday','SATURDAY TIME',2,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','','2020-06-20T23:00:00.000Z',2),(4,'btn btn-danger','btn btn-outline-danger','2020-07-30T23:00:00.000Z','Normal time monday to friday','NORMAL TIME',2,'¬í\0ur\0[Ljava.lang.String;­ÒVçé{G\0\0xp\0\0\0t\0SATURDAY','\0','2020-06-20T23:00:00.000Z',2);
 /*!40000 ALTER TABLE `planning` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,6 +266,7 @@ CREATE TABLE `planning_config` (
   `planning_configurations_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `check_in_delay` int(11) NOT NULL,
   `check_out_delay` int(11) NOT NULL,
+  `end_checkin` int(11) NOT NULL,
   `planning_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`planning_configurations_id`),
   KEY `FKf8h9qypri3ywm4qwqhyqi1lxq` (`planning_id`),
@@ -276,7 +280,7 @@ CREATE TABLE `planning_config` (
 
 LOCK TABLES `planning_config` WRITE;
 /*!40000 ALTER TABLE `planning_config` DISABLE KEYS */;
-INSERT INTO `planning_config` VALUES (1,5,15,NULL),(2,10,10,NULL),(3,30,30,NULL),(4,5,5,NULL);
+INSERT INTO `planning_config` VALUES (1,5,15,540,1),(2,10,10,540,2),(3,30,30,540,3),(4,5,5,540,4);
 /*!40000 ALTER TABLE `planning_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +295,7 @@ CREATE TABLE `posts` (
   `post_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `post_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +304,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'EMPLOYEE'),(2,'EMPLOYER'),(3,'CHEF_DEPARTMENT');
+INSERT INTO `posts` VALUES (1,'Tester'),(2,'Web developer'),(3,'Designer'),(4,'CHEF_DEPARTMENT');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,10 +316,10 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
-  `role_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +328,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (5,'ADMIN'),(6,'USER');
+INSERT INTO `role` VALUES (1,'ADMIN'),(2,'CHEF_DEPARTMENT'),(3,'USER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,8 +356,49 @@ CREATE TABLE `schedules` (
 
 LOCK TABLES `schedules` WRITE;
 /*!40000 ALTER TABLE `schedules` DISABLE KEYS */;
-INSERT INTO `schedules` VALUES (1,1020,840,720,'',247),(2,780,0,0,'\0',240);
+INSERT INTO `schedules` VALUES (1,1020,840,720,'',480),(2,780,0,0,'\0',480);
 /*!40000 ALTER TABLE `schedules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `temp_user`
+--
+
+DROP TABLE IF EXISTS `temp_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `temp_user` (
+  `temp_user_id` bigint(20) NOT NULL,
+  `birth_date` varchar(255) DEFAULT NULL,
+  `cin` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `hire_day` date DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `dep_id` bigint(20) DEFAULT NULL,
+  `post_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`temp_user_id`),
+  UNIQUE KEY `UK_2aerjhw69pxdyn591m2mxbkm4` (`cin`),
+  UNIQUE KEY `UK_7e9qkhmp8428ridi9uewpdmgo` (`email`),
+  UNIQUE KEY `UK_dys38owmoswxrgb6gpxw9wumx` (`phone`),
+  KEY `FK2vi0ogyp6xvg82kv6f7qoyq97` (`dep_id`),
+  KEY `FKnxl4bsvhhw2jk260eha0tphq7` (`post_id`),
+  CONSTRAINT `FK2vi0ogyp6xvg82kv6f7qoyq97` FOREIGN KEY (`dep_id`) REFERENCES `departments` (`dep_id`),
+  CONSTRAINT `FKnxl4bsvhhw2jk260eha0tphq7` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `temp_user`
+--
+
+LOCK TABLES `temp_user` WRITE;
+/*!40000 ALTER TABLE `temp_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `temp_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -380,7 +425,7 @@ CREATE TABLE `user_configs` (
 
 LOCK TABLES `user_configs` WRITE;
 /*!40000 ALTER TABLE `user_configs` DISABLE KEYS */;
-INSERT INTO `user_configs` VALUES (1,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','',1),(2,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','\0',2),(3,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','',3),(4,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','\0',4);
+INSERT INTO `user_configs` VALUES (1,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','',1),(2,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','\0',2),(3,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','',3),(4,'¬í\0ur\0[IMº`&vê²¥\0\0xp\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0','\0',4);
 /*!40000 ALTER TABLE `user_configs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,6 +452,7 @@ CREATE TABLE `user_roles` (
 
 LOCK TABLES `user_roles` WRITE;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
+INSERT INTO `user_roles` VALUES (1,2),(2,1),(3,3),(4,3);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,7 +494,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'1997-05-05','07496483','bassemjadoui1996@gmail.com','jadoui','male','2020-07-02','1.jpg','bassem','$2a$10$/Xp6pUyBguBvL7LOY7kc7eDUBUhFOOa.6CByyuHOtQUgztgHQ9LEu','+21655135774',1,2),(2,'1997-02-04','07492487','khaili.amine@hotmail.fr','Khaili','male','2020-07-02','2.jpg',' Med Amine ','$2a$10$twaBIIhQRKA53ofGibOAeeV/qVHd6qtV5Lg6lkKJJnPI.cyWZCaQC','+21624222365',4,3),(3,'2020-03-09','12345678','test@kjk.com','test','female','2020-07-02','3.jpg','test','$2a$10$OYqwNTm1d0.bOY1lG9howe.Ktwosgow8GXaarF9f1O..5R9TRO1Z2','+21620000000',2,1),(4,'2020-03-09','152345678','erreru@jkhj.com','test','erreur','2020-07-02','4.jpg','erreur','$2a$10$di.DLywyCapvjLszZalqV.wRALHCgKFL5kd8khNZBk20te6tNZVNS','+21620500000',1,1);
+INSERT INTO `users` VALUES (1,'1997-05-05','07496483','bassemjadoui1996@gmail.com','jadoui','male','2020-07-03','1.jpg','bassem','$2a$10$Q/hr83ggKwH6mrmyoKIyBu6sguv41Ig1bsEPW/e5fKiGNu7in11q.','+21655135774',1,4),(2,'1997-02-04','07492487','khaili.amine@hotmail.fr','Khaili','male','2020-07-03','2.jpg',' Med Amine ','$2a$10$Zlg6ihxk9aNsafw.NHADYOC2cSof2eJAMSrUNBMxT9b2bqsMlPHdi','+21624222365',4,2),(3,'2020-03-09','12345678','test@kjk.com','karim','female','2020-07-03','3.jpg','manai','$2a$10$yFr9nIRTvA2C2loOQapjQ.cuosNJkLn9jIvkFAhElTdl.44qAmlEa','+21620000000',2,1),(4,'2020-03-09','152345678','erreru@jkhj.com','montassar','erreur','2020-07-03','4.jpg','zaroui','$2a$10$aw00aJoW1pjdPpSUhyBd1ua6PGV4UkQqQiPZRwfMeA1QYkqp/nNkm','+21620500000',1,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -461,4 +507,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-04  8:52:41
+-- Dump completed on 2020-07-04 23:00:00
