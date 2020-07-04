@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class TokenProvider {
 
     private long tokenHours;
-    private String SECRET_KEY= "wecode";
+    private String SECRET_KEY= "randomhashedpassword";
 
     public long validityTime(){
         return 1000*60*180* this.tokenHours;

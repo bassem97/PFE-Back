@@ -94,10 +94,6 @@ public class UsersSeeder {
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
-            user1.addAttendance(att1);
-            user1.addAttendance(att2);
-            user1.addAttendance(att3);
-            user1.addAttendance(att4);
             System.out.println(user1);
             userService.add(user1);
 
@@ -105,8 +101,6 @@ public class UsersSeeder {
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
-            user2.addAttendance(att1);
-            user2.addAttendance(att2);
             System.out.println(user2);
             userService.add(user2);
 
@@ -115,8 +109,6 @@ public class UsersSeeder {
         user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
-            user3.addAttendance(att1);
-            user3.addAttendance(att2);
             System.out.println(user3);
             userService.add(user3);
 
@@ -125,8 +117,6 @@ public class UsersSeeder {
         user4.setAddresses(Arrays.asList(ad4));
         user4.setUserConfigs(Arrays.asList(userConfigs4));
             user4.setNotificationMessages(notifs);
-            user4.addAttendance(att1);
-            user4.addAttendance(att2);
             System.out.println(user4);
             userService.add(user4);
 //            for (int i=5;i<5;i++) {
