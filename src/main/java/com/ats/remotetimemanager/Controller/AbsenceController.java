@@ -32,8 +32,6 @@ public class AbsenceController {
     }
     @PutMapping("add")
     Absence add(@Valid @RequestBody Absence absence){
-        System.out.println("_______sdsdsdsdsd_________________________________");
-        System.out.println(absence);
         return absenceService.add(absence);
     }
 
