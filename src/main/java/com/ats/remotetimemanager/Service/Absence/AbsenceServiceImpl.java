@@ -19,7 +19,7 @@ public class AbsenceServiceImpl implements AbsenceService{
     public Absence update(Absence absence, Long id) {
         if(absenceRepository.findById(id).isPresent()){
             Absence newAbsence = absenceRepository.findById(id).get();
-            newAbsence.setAbsenceDate(absence.getAbsenceDate());
+            newAbsence.setAbsenceDate(absence.getAbsenceDate().plusDays(1));
             newAbsence.setAbsenceType(absence.getAbsenceType());
             newAbsence.setAbsentMinutes(absence.getAbsentMinutes());
             newAbsence.setReason(absence.getReason());

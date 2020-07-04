@@ -42,13 +42,13 @@ public class TempUserController {
         for (User user : userRepository.findAll()) {
             if (user.isAdmin()) {
                 notif = new NotificationMessage("Add request"
-                        , sender.getName() + " " + sender.getFirstName() + " wants to add an employee "
+                        , sender.getName() + " " + sender.getFirstName() + " wants to add a new employee "
                         , new Date(), false, false, user, tempUser.getUserId());
                 notifs.add(notif);
             }
         }
         notificationMessageService.saveAll(notifs);
-        webSocketController.sendMessage(new WebSocketMessage("employee"));
+        webSocketController.sendMessage(new WebSocketMessage("tempUser"));
         return tmp;
     }
 
@@ -67,15 +67,15 @@ public class TempUserController {
         User userAdded = tempUserService.acceptRequest(tempUser, action);
         NotificationMessage notif;
         for (User user: userRepository.findAll()) {
-            if(user.getDepartment().getDepId() == userAdded.getDepartment().getDepId() && user.isChefDep()){
+            if(user.getDepartment().getDepId() == tempUser.getDepartment().getDepId() && user.isChefDep()){
                 notif = new NotificationMessage("Add request accepted"
-                        ,  "And admin approved your request to add "+userAdded.getName()+" "+userAdded.getFirstName()
+                        ,  "Request to add "+tempUser.getName()+" "+tempUser.getFirstName()+" "+" has been accepted"
                         , new Date(), false, false, user);
                 notificationMessageService.add(notif);
                 break;
             }
         }
-        webSocketController.sendMessage(new WebSocketMessage("employee"));
+        webSocketController.sendMessage(new WebSocketMessage("tempUserAdded"));
         return userAdded;
     }
 
@@ -85,14 +85,14 @@ public class TempUserController {
         NotificationMessage notif;
         for (User user: userRepository.findAll()) {
             if (user.getDepartment().getDepId() == userDeclined.getDepartment().getDepId() && user.isChefDep()) {
-                notif = new NotificationMessage("Add request declines"
-                        , "And admin declined your request to add " + userDeclined.getName() + " " + userDeclined.getFirstName()
+                notif = new NotificationMessage("Add request declined"
+                        , "Your request to add " + userDeclined.getName() + " " + userDeclined.getFirstName()+" has been declined"
                         , new Date(), false, false, user);
                 notificationMessageService.add(notif);
                 break;
             }
         }
-        webSocketController.sendMessage(new WebSocketMessage("employee"));
+        webSocketController.sendMessage(new WebSocketMessage("tempUser"));
         return userDeclined;
     }
 }
