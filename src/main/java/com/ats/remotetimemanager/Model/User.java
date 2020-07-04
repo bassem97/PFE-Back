@@ -1,53 +1,40 @@
 package com.ats.remotetimemanager.Model;
 
-import com.ats.remotetimemanager.Repository.ScheduleRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.jfr.Enabled;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "USERS")
-public class User  {
+public class User {
 
     private static Long count = 0L;
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "user_id")
-        private long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long userId;
     private String name;
     private String firstName;
     private String gender;
-
     private String birthDate;
-
     private LocalDate hireDay;
-
     @Column(unique = true)
     private String phone;
-
     @Column(unique = true)
     private String email;
-
     @Column(unique = true)
     private String cin;
-
     private String password;
-
     private String image;
-
-
-
-
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
@@ -63,7 +50,7 @@ public class User  {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value ="user" , allowSetters = true)
-    private List<Address> addresses = new ArrayList<>() ;
+    private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -269,6 +256,7 @@ public class User  {
         this.absences = absences;
     }
 
+
     @Autowired
     public void addAttendance(Attendance att){
         List<Attendance> attendances = this.getAttendances();
@@ -284,10 +272,17 @@ public class User  {
                                 fetchAbsentDays(lastAttendance,att,schedule);
                             }
                         }
+//                        if(att.getAttendanceType().equals("CHECK IN") && att.getAttendanceTime())
+
+
+
                         //save delay minutes
                         calculateDelay(att,planConf,schedule,att.getAttendanceType());
                     }
                 }
+                System.out.println("______________________________________________");
+                System.out.println(getAbsentMinutes());
+                System.out.println("______________________________________________");
                 attendances.add(att);
             }
     }
@@ -332,6 +327,27 @@ public class User  {
         LocalDate lastAttDate = lastAttendance.getAttendanceDate() ;
         LocalDate attDate = att.getAttendanceDate();
         return ChronoUnit.DAYS.between(lastAttDate,attDate);
+    }
+
+    public int getAbsentMinutes(){
+        return this.absences.stream().mapToInt(Absence::getAbsentMinutes).sum();
+    }
+
+
+    public boolean isAdmin(){
+        for (Role role:roles) {
+            if(role.getRoleName().equals("ADMIN"))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isChefDep(){
+        for (Role role:roles) {
+            if(role.getRoleName().equals("CHEF_DEPARTMENT"))
+                return true;
+        }
+        return false;
     }
 
 

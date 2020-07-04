@@ -12,11 +12,13 @@ public class RoleSeeder {
     private RoleRepository roleRepository;
 
     Role admin = new Role("ADMIN");
+    Role chef_department = new Role("CHEF_DEPARTMENT");
     Role user = new Role("USER");
     public  void seed(){
 
         if(roleRepository.findAll().isEmpty()){
             roleRepository.save(admin);
+            roleRepository.save(chef_department);
             roleRepository.save(user);
         }
     }

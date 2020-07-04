@@ -3,14 +3,16 @@ package com.ats.remotetimemanager.Controller;
 import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.AttendanceRepository;
+import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Service.Attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -25,34 +27,39 @@ public class AttendanceController {
         return attendanceService.findAll();
     }
 
+    @Autowired
+    private AttendanceRepository attendanceRepository;
+
     @PostMapping("add")
     public Attendance add(@Valid @RequestBody Attendance attendance) {
         return attendanceService.add(attendance);
     }
 
     @PutMapping("update/{id}")
-    Attendance update(@Valid @RequestBody Attendance attendance, @PathVariable("id") Long id) {
+    public Attendance update(@Valid @RequestBody Attendance attendance,@PathVariable("id") Long id){
         return attendanceService.update(attendance, id);
     }
 
     @DeleteMapping("delete/{id}")
-    void delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("id") long id){
         attendanceService.delete(id);
     }
 
     @GetMapping("findById/{id}")
-    Attendance findById(@PathVariable("id") long id) {
+    public Attendance findById(@PathVariable("id") long id){
         return attendanceService.findById(id);
     }
 
     @GetMapping("findByUser")
-    public List<Attendance> findByUser(User user) {
+    public List<Attendance> findByUser(@Valid @RequestBody User user){
         return attendanceService.findByUser(user);
     }
 
-    @GetMapping("findByUserAndDate")
-    public List<Attendance> findAttendancesByUser(@Valid @RequestBody User user) {
-        return attendanceService.findAttendancesByUser(user);
+    @GetMapping("find")
+    public List<Attendance> get(@RequestBody User user){
+        return attendanceRepository.findAllByUser(user)
+                .stream()
+                .filter(attendance -> attendance.getAttendanceDate().compareTo(LocalDate.now()) == 0)
+                .collect(Collectors.toList());
     }
-
 }

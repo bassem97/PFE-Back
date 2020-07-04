@@ -10,13 +10,16 @@ import com.ats.remotetimemanager.Service.User.UserService;
 import com.ats.remotetimemanager.utill.ChangePasswordVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -102,6 +105,12 @@ public class UserController {
         return user3;
     }
 
+    @PutMapping("requestUpdate/{id}")
+    public User requestUpdate(@Valid @RequestBody User user, @PathVariable("id") Long id) {
+        return userService.requestUpdate(user,id);
+    }
+
+
     @RequestMapping(value = "changePassword/{UserCIN}", method = RequestMethod.POST)
     public Boolean changePassword(@RequestBody ChangePasswordVM user, @PathVariable(value = "UserCIN") String username){
         return userService.changePassword(user, username);
@@ -110,6 +119,12 @@ public class UserController {
     public User findByCIN(@PathVariable(value = "UserCIN") String us){
         return userService.findByUserCIN(us);
     }
+
+    @GetMapping("role")
+    public Set<SimpleGrantedAuthority> getAuthority(@RequestBody User user){
+        return userService.getAuthority(user);
+    }
+
 
 
 }
