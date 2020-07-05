@@ -3,6 +3,7 @@ package com.ats.remotetimemanager.Controller;
 import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Model.WebSocketMessage;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Service.Attendance.AttendanceService;
@@ -30,9 +31,14 @@ public class AttendanceController {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
+    @Autowired
+    WebSocketController webSocketController;
+
     @PostMapping("add")
-    public Attendance add(@Valid @RequestBody Attendance attendance) {
-        return attendanceService.add(attendance);
+    public Attendance add(@Valid @RequestBody Attendance attendance) throws Exception {
+        Attendance att =  attendanceService.add(attendance);
+        webSocketController.sendMessage(new WebSocketMessage("att"));
+        return att;
     }
 
     @PutMapping("update/{id}")
