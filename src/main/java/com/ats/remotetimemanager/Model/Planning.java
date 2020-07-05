@@ -185,6 +185,7 @@ public class Planning {
                 ", colorIcon='" + colorIcon + '\'' +
                 ", schedule=" + schedule +
                 ", departments=" + departments +
+                ", planningConfigs=" + planningConfigs +
                 '}';
     }
 }

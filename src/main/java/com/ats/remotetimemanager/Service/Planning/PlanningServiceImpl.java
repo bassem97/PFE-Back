@@ -33,6 +33,9 @@ public class PlanningServiceImpl implements PlanningService {
             plan.setScheduleDays(planning.getScheduleDays());
             plan.setSchedule(planning.getSchedule());
             plan.setDepartments(planning.getDepartments());
+            System.out.println("______________________________________________________________");
+            System.out.println(planning.getPlanningConfigs());
+            System.out.println("______________________________________________________________");
             plan.setPlanningConfigs(planning.getPlanningConfigs());
             return planningRepository.save(plan);
         }else return null;
