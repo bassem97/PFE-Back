@@ -112,8 +112,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAbsences(user.getAbsences());
             if(userRepository.findAll().isEmpty()){
                 newUser.getRoles().add(roleSeeder.admin);
-            }else newUser.getRoles().add(roleSeeder.user);
-
+            }else{
+                System.out.println("_____________________________________________________");
+                System.out.println(departmentRepository.findAll());
+                System.out.println("_____________________________________________________");
+                if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
+                    newUser.getRoles().add(roleSeeder.chef_department);
+                }else {
+                    newUser.getRoles().add(roleSeeder.user);
+                }
+            }
             newUser.setDepartment(user.getDepartment());
 
             if (user.getPost() != null) {
@@ -126,7 +134,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //            }catch (MailException ex) {
 //                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
 //            }
-            return userRepository.save(newUser);
+            User u =  userRepository.save(newUser);
+            if(newUser.getRoles().get(0).getRoleName().equals("CHEF_DEPARTMENT")){
+                Department dep = departmentRepository.findById(newUser.getDepartment().getDepId());
+                dep.setChefDep(u.getUserId());
+                departmentService.update(dep,dep.getDepId());
+            }
+            return u;
         }
     }
 
