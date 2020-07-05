@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager;
 
+import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.ats.remotetimemanager.Config.seeder.SeedByOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -24,12 +25,16 @@ public class RemotetimemanagerApplication  {
     @Autowired
     private SeedByOrder seedByOrder;
 
+    @Autowired
+    RoleSeeder roleSeeder;
+
     public static void main(String[] args) {
         SpringApplication.run(RemotetimemanagerApplication.class, args);
     }
 
     @PostConstruct
     public void init() throws Exception {
+        roleSeeder.seed();
 //        seedByOrder.init();
     }
 

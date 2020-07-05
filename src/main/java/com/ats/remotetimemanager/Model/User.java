@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Model;
 
+import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jdk.jfr.Enabled;
 import org.hibernate.annotations.OnDelete;
@@ -255,6 +256,7 @@ public class User {
     public void setAbsences(List<Absence> absences) {
         this.absences = absences;
     }
+
     public boolean isAdmin(){
         for (Role role:roles) {
             if(role.getRoleName().equals("ADMIN"))
@@ -269,6 +271,12 @@ public class User {
                 return true;
         }
         return false;
+    }
+
+
+    public void setUser(){
+        roles.clear();
+        roles.add(new RoleSeeder().user);
     }
 
 

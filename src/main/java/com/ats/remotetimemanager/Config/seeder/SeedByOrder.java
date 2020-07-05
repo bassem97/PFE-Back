@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SeedByOrder {
-    @Autowired
-    RoleSeeder roleSeeder;
+
     @Autowired
     UsersSeeder usersSeeder;
     @Autowired
@@ -16,7 +15,6 @@ public class SeedByOrder {
 
     public void init() throws Exception {
         scheduleSeeder.seed();
-        roleSeeder.seed();
         postSeeder.seed();
         usersSeeder.seed();
     }

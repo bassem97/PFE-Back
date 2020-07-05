@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Service.User;
 
+import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.ats.remotetimemanager.Model.*;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.PostRepository;
@@ -44,6 +45,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PostRepository postRepository;
     @Autowired
     private PasswordEncoder bcryptEncoder;
+    @Autowired
+    private RoleSeeder roleSeeder;
 
     @Autowired
     private NotificationMailService notificationMailService;
@@ -104,35 +107,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //            newUser.setPassword(user.getPassword());
             newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
-            newUser.setDepartment(user.getDepartment());
             newUser.setAbsences(user.getAbsences());
-            newUser.setRoles(user.getRoles());
+            if(userRepository.findAll().isEmpty()){
+                newUser.getRoles().add(roleSeeder.admin);
+            }else newUser.getRoles().add(roleSeeder.user);
+
+            newUser.setDepartment(user.getDepartment());
+
             if (user.getPost() != null) {
                 newUser.setPost(user.getPost());
             }
-//            if (user.getPost().getPostId() == 3) {
-////            if (postRepository.findByPostName(newUser.getPost().getPostName()).equals("CHEF_DEPARTMENT")) {
-//                Department dep = departmentRepository.findById(user.getDepartment().getDepId());
-//                dep.setChefDep(user.getUserId());
-//                departmentRepository.save(dep);
-//
-//            }
 
-//            if(user.getPost().getPostId() == 3){
-//                System.out.print("ahaaddddddddddddddd ");
-//                Department dep=  user.getDepartment();
-//                dep.setChefDep(user.getUserId());
-//                departmentService.update(dep,dep.getDepId());
             // send notification
 //            try{
 //                notificationMailService.sendNotification(newUser, generatedPassword);
 //            }catch (MailException ex) {
 //                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
 //            }
-            System.out.println(newUser);
-            System.out.println("_____________________________________________________________");
-            System.out.println(newUser);
-            System.out.println("_____________________________________________________________");
             return userRepository.save(newUser);
         }
     }
@@ -154,6 +145,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User update(User user, Long id) {
+        System.out.println("UPDATE");
         if(userRepository.findById(id).isPresent()){
             User newUser =userRepository.findById(id).get();
 //            newUser.setUserId(user.getUserId());
