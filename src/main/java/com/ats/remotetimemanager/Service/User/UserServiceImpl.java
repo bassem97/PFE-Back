@@ -130,7 +130,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
 //            }
             System.out.println(newUser);
-            webSocketService.sendWebSocketMessage(new WebSocketMessage("sqdqs"));
             System.out.println("_____________________________________________________________");
             System.out.println(newUser);
             System.out.println("_____________________________________________________________");
