@@ -278,7 +278,10 @@ public class User {
         roles.clear();
         roles.add(new RoleSeeder().user);
     }
-
+    public void setAdmin(){
+        roles.clear();
+        roles.add(new RoleSeeder().admin);
+    }
 
     @Override
     public String toString() {

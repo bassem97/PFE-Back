@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ScheduleService {
     Schedule add(Schedule schedule);
-    Schedule update(Schedule schedule, Long id);
+    Schedule update(Schedule schedule, Long id, Long sender);
     void delete(long id);
     List<Schedule> findAll();
     Schedule findById(Long id);

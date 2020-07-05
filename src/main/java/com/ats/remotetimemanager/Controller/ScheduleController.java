@@ -28,9 +28,9 @@ public class ScheduleController {
         return sch3;
     }
 
-    @PutMapping("update/{id}")
-    public Schedule update(@Valid @RequestBody Schedule schedule, @PathVariable("id") Long id) throws Exception {
-        Schedule sch3 = scheduleService.update(schedule,id);
+    @PutMapping("update/{id}/{sender}")
+    public Schedule update(@Valid @RequestBody Schedule schedule, @PathVariable("id") Long id, @PathVariable("sender") Long sender) throws Exception {
+        Schedule sch3 = scheduleService.update(schedule,id, sender);
         webSocketController.sendMessage(new WebSocketMessage("timetable"));
         return sch3;
     }
