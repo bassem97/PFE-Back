@@ -108,17 +108,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setAbsences(user.getAbsences());
+            Boolean saveChefDep = false;
             if(user.getRoles().isEmpty()){
                 if(userRepository.findAll().isEmpty()){
                     newUser.getRoles().add(roleSeeder.admin);
-                }else{
-                    if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
-                        newUser.getRoles().add(roleSeeder.chef_department);
-                    }else {
-                        newUser.getRoles().add(roleSeeder.user);
-                    }
+                    saveChefDep = true;
+
+                } else if(user.getDepartment().getUsers().isEmpty()) {
+                    newUser.getRoles().add(roleSeeder.chef_department);
+                    saveChefDep = true;
+                } else {
+                    newUser.getRoles().add(roleSeeder.user);
                 }
-            }else newUser.setRoles(user.getRoles());
+            } else newUser.setRoles(user.getRoles());
 
             newUser.setDepartment(user.getDepartment());
 
@@ -133,10 +135,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
 //            }
             User u =  userRepository.save(newUser);
-            if(newUser.getRoles().get(0).getRoleName().equals("CHEF_DEPARTMENT")){
-                Department dep = departmentRepository.findById(newUser.getDepartment().getDepId());
+            if (saveChefDep) {
+                Department dep = departmentRepository.findById(u.getDepartment().getDepId());
                 dep.setChefDep(u.getUserId());
-                departmentService.update(dep,dep.getDepId());
+                departmentRepository.save(dep);
             }
             return u;
         }

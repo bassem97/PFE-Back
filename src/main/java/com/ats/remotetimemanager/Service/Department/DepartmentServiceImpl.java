@@ -53,15 +53,19 @@ public class DepartmentServiceImpl implements DepartmentService {
             if(dep.getChefDep() != department.getChefDep()){
                 if(department.getChefDep() != 0){
                     User user = userRepository.findByUserId(department.getChefDep());
-                    user.getRoles().clear();
-                    user.getRoles().add(roleRepository.findByRoleName("CHEF_DEPARTMENT"));
-                    userService.update(user,user.getUserId());
+                    if (!user.getRoles().contains(roleRepository.findByRoleName("ADMIN"))) {
+                        user.getRoles().clear();
+                        user.getRoles().add(roleRepository.findByRoleName("CHEF_DEPARTMENT"));
+                        userService.update(user, user.getUserId());
+                    }
                 }
                 if(dep.getChefDep() != 0){
                     User user = userRepository.findByUserId(dep.getChefDep());
-                    user.getRoles().clear();
-                    user.getRoles().add(roleRepository.findByRoleName("USER"));
-                    userService.update(user,user.getUserId());
+                    if (!user.getRoles().contains(roleRepository.findByRoleName("ADMIN"))) {
+                        user.getRoles().clear();
+                        user.getRoles().add(roleRepository.findByRoleName("USER"));
+                        userService.update(user, user.getUserId());
+                    }
                 }
             }
             dep.setChefDep(department.getChefDep());
