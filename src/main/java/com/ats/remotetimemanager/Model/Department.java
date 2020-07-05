@@ -127,7 +127,7 @@ public class Department {
                 ", depName='" + depName + '\'' +
                 ", chefDep=" + chefDep +
 //                ", supDep=" + supDep +
-                ", departments=" + departments +
+//                ", departments=" + departments +
 //                ", users=" + users +
                 '}';
     }

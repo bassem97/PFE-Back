@@ -33,21 +33,26 @@ public class UsersSeeder {
                 "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.designer, scheduleSeeder.mark,"2.jpg");
         User user3 = new User("manai", "karim", "female",
                 "2020-03-09","+21620000000",
-                "test@kjk.com", "12345678", "123456",postSeeder.tester, scheduleSeeder.security,"3.jpg");
-        User user4 = new User("zaroui", "montassar", "erreur",
+                "manai@gmail.com", "12345678", "123456",postSeeder.tester, scheduleSeeder.security,"3.jpg");
+        User user4 = new User("zaroui", "montassar", "male",
                 "2020-03-09","+21620500000",
-                "erreru@jkhj.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.info,"4.jpg");
+                "tatay@gmail.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.khra,"4.jpg");
+        User user5 = new User("degla", "malek", "male",
+                "2020-03-09","+21620500021",
+                "degla@gmail.com", "01234567", "1234556",postSeeder.tester, scheduleSeeder.khra,"5.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
             Address ad3 = new Address("test","203","test","test", 1111);
             Address ad4 = new Address("solidarité","214","ariena","borj louzir", 1325);
+            Address ad5 = new Address("hdid","145","fouchena","tunis", 1023);
 
             int[] l = {1,2,3,4};
             UserConfigs userConfigs1 = new UserConfigs(true ,l );
             UserConfigs userConfigs2 = new UserConfigs(false , l );
             UserConfigs userConfigs3 = new UserConfigs(true , l  );
             UserConfigs userConfigs4 = new UserConfigs(false , l);
+            UserConfigs userConfigs5 = new UserConfigs(false , l);
 
             NotificationMessage notif1 = new NotificationMessage("notification name 1","notification description 1", new Date(),false,false);
             NotificationMessage notif2 = new NotificationMessage("notification name 2","notification description 2", new Date(),false,false);
@@ -74,6 +79,7 @@ public class UsersSeeder {
             Attendance att2 = new Attendance("CHECK OUT","finger",1020, LocalDate.now().plusDays(1));
             Attendance att3 = new Attendance("CHECK IN","finger",500, LocalDate.now().plusDays(1));
             Attendance att4 = new Attendance("CHECK OUT","finger",900, LocalDate.now().plusDays(1));
+            Attendance att5 = new Attendance("CHECK OUT","finger",900, LocalDate.now().plusDays(1));
 
 
 
@@ -90,14 +96,14 @@ public class UsersSeeder {
 
 
 
-            user1.setRoles(rolesChefDep);
+//            user1.setRoles(rolesChefDep);
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
             System.out.println(user1);
             userService.add(user1);
 
-            user2.setRoles(rolesAdmin);
+//            user2.setRoles(rolesAdmin);
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
@@ -105,7 +111,7 @@ public class UsersSeeder {
             userService.add(user2);
 
 
-            user3.setRoles(rolesUser);
+//            user3.setRoles(rolesUser);
             user3.setAddresses(Arrays.asList(ad3));
             user3.setUserConfigs(Arrays.asList(userConfigs3));
             user3.setNotificationMessages(notifs);
@@ -113,13 +119,19 @@ public class UsersSeeder {
             userService.add(user3);
 
 
-            user4.setRoles(rolesUser);
-        user4.setAddresses(Arrays.asList(ad4));
-        user4.setUserConfigs(Arrays.asList(userConfigs4));
+//            user4.setRoles(rolesUser);
+            user4.setAddresses(Arrays.asList(ad4));
+            user4.setUserConfigs(Arrays.asList(userConfigs4));
             user4.setNotificationMessages(notifs);
             System.out.println(user4);
             userService.add(user4);
-//            for (int i=5;i<5;i++) {
+
+        user5.setAddresses(Arrays.asList(ad5));
+        user5.setUserConfigs(Arrays.asList(userConfigs5));
+        user5.setNotificationMessages(notifs);
+        System.out.println(user4);
+        userService.add(user5);
+//            for (int i=5;i<10;i++) {
 //                user4.setImage(i+".jpg");
 //                user4.setCin(i+"545485");
 //                user4.setEmail("qsd"+i+"@qsdqs.fqs");

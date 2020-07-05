@@ -11,9 +11,9 @@ public class RoleSeeder {
     @Autowired
     private RoleRepository roleRepository;
 
-    Role admin = new Role("ADMIN");
-    Role chef_department = new Role("CHEF_DEPARTMENT");
-    Role user = new Role("USER");
+    public Role admin = new Role("ADMIN");
+    public Role chef_department = new Role("CHEF_DEPARTMENT");
+    public Role user = new Role("USER");
     public  void seed(){
 
         if(roleRepository.findAll().isEmpty()){
