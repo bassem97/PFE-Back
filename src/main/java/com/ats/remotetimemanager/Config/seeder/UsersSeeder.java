@@ -37,9 +37,9 @@ public class UsersSeeder {
         User user4 = new User("zaroui", "montassar", "male",
                 "2020-03-09","+21620500000",
                 "tatay@gmail.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.khra,"4.jpg");
-//        User user5 = new User("degla", "malek", "male",
-//                "2020-03-09","+21620500021",
-//                "degla@gmail.com", "01234567", "1234556",postSeeder.tester, scheduleSeeder.khra,"5.jpg");
+        User user5 = new User("degla", "malek", "male",
+                "2020-03-09","+21620500021",
+                "degla@gmail.com", "01234567", "1234556",postSeeder.tester, scheduleSeeder.khra,"5.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
@@ -126,11 +126,12 @@ public class UsersSeeder {
             System.out.println(user4);
             userService.add(user4);
 
-//        user5.setAddresses(Arrays.asList(ad5));
-//        user5.setUserConfigs(Arrays.asList(userConfigs5));
-//        user5.setNotificationMessages(notifs);
-//        System.out.println(user4);
-//        userService.add(user5);
+            user5.setRoles(rolesUser);
+        user5.setAddresses(Arrays.asList(ad5));
+        user5.setUserConfigs(Arrays.asList(userConfigs5));
+        user5.setNotificationMessages(notifs);
+        System.out.println(user4);
+        userService.add(user5);
 //            for (int i=5;i<10;i++) {
 //                user4.setImage(i+".jpg");
 //                user4.setCin(i+"545485");

@@ -110,18 +110,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setAbsences(user.getAbsences());
-            if(userRepository.findAll().isEmpty()){
-                newUser.getRoles().add(roleSeeder.admin);
-            }else{
-                System.out.println("_____________________________________________________");
-                System.out.println(departmentRepository.findAll());
-                System.out.println("_____________________________________________________");
-                if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
-                    newUser.getRoles().add(roleSeeder.chef_department);
-                }else {
-                    newUser.getRoles().add(roleSeeder.user);
+            if(user.getRoles().isEmpty()){
+                if(userRepository.findAll().isEmpty()){
+                    newUser.getRoles().add(roleSeeder.admin);
+                }else{
+                    if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
+                        newUser.getRoles().add(roleSeeder.chef_department);
+                    }else {
+                        newUser.getRoles().add(roleSeeder.user);
+                    }
                 }
-            }
+            }else newUser.setRoles(user.getRoles());
+
             newUser.setDepartment(user.getDepartment());
 
             if (user.getPost() != null) {
