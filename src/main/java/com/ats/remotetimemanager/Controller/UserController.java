@@ -44,6 +44,11 @@ public class UserController {
     @GetMapping("list")
     public List<User> getAll(){ return userService.findAll(); }
 
+    @GetMapping("makeRevokeAdmin/{id}/{role}")
+    public User makeRemoveAdmin(@PathVariable(value = "id") Long id, @PathVariable(value = "role") Long role)
+    { return userService.makeRevokeAdmin(id, role); }
+
+
     @PostMapping("add")
     public User add(@RequestBody User user) throws Exception {
         User user1 = userService.add(user);

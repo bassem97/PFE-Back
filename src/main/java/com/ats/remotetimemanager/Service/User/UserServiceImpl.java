@@ -252,6 +252,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User makeRevokeAdmin(Long id, Long role) {
+        User user = userRepository.findByUserId(id);
+        if (role == 1) {
+            user.getRoles().clear();
+            user.getRoles().add(roleSeeder.admin);
+        } else {
+            Department dep = departmentRepository.findById(user.getDepartment().getDepId());
+            if (dep.getChefDep() == user.getUserId()) {
+                user.getRoles().clear();
+                user.getRoles().add(roleSeeder.chef_department);
+            } else {
+                user.getRoles().clear();
+                user.getRoles().add(roleSeeder.user);
+            }
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
     public boolean changePassword(ChangePasswordVM vm , String userCIN){
         User user = findByUserCIN(userCIN);
         System.out.println("----------------"+ bcryptEncoder.encode(vm.getOldPassword()) + "--------------------" + user.getPassword());

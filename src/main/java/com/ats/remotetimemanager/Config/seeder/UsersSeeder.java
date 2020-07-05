@@ -103,7 +103,7 @@ public class UsersSeeder {
             System.out.println(user1);
             userService.add(user1);
 
-//            user2.setRoles(rolesAdmin);
+            user2.setRoles(rolesAdmin);
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
