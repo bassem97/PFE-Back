@@ -83,8 +83,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User add(User user) throws Exception {
-        System.out.println("ADD");
-
         Long id =user.getUserId();
         if(userRepository.findById(id).isPresent())
             return null;

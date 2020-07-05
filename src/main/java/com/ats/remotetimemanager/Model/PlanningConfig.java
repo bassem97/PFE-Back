@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.persistence.*;
 
@@ -16,7 +15,7 @@ public class PlanningConfig {
     @Id
     @Column(name= "planning_configurations_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PlanConfigId;
+    private Long planConfigId;
 
     private int checkInDelay;
     private int checkOutDelay;
@@ -39,11 +38,11 @@ public class PlanningConfig {
     }
 
     public Long getPlanConfigId() {
-        return PlanConfigId;
+        return planConfigId;
     }
 
     public void setPlanConfigId(Long planConfigId) {
-        PlanConfigId = planConfigId;
+        this.planConfigId = planConfigId;
     }
 
     public int getCheckInDelay() {
@@ -84,7 +83,7 @@ public class PlanningConfig {
     @Override
     public String toString() {
         return "PlanningConfig{" +
-                "PlanConfigId=" + PlanConfigId +
+                "PlanConfigId=" + planConfigId +
                 ", checkInDelay=" + checkInDelay +
                 ", checkOutDelay=" + checkOutDelay +
                 ", planning=" + planning +

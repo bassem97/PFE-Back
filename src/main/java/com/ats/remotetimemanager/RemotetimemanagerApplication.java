@@ -35,7 +35,7 @@ public class RemotetimemanagerApplication  {
     @PostConstruct
     public void init() throws Exception {
         roleSeeder.seed();
-        seedByOrder.init();
+//        seedByOrder.init();
     }
 
     @Configuration
