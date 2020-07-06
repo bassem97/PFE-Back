@@ -37,6 +37,7 @@ public class AttendanceController {
     @PostMapping("add")
     public Attendance add(@Valid @RequestBody Attendance attendance) throws Exception {
         Attendance att =  attendanceService.add(attendance);
+        if(att != null)
         webSocketController.sendMessage(new WebSocketMessage("att"));
         return att;
     }

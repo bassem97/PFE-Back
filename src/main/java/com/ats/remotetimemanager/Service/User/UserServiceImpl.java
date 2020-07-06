@@ -171,18 +171,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setPhone(user.getPhone());
             newUser.setEmail(user.getEmail());
             newUser.setCin(user.getCin());
+            Boolean saveDep = false;
+            Department dep = null;
 //            newUser.setUserConfigs(user.getUserConfigs());
 //            newUser.setImage(user.getImage());
             newUser.setAddresses(user.getAddresses());
 //            newUser.setNotificationMessages(user.getNotificationMessages());
+            if (newUser.getDepartment().getDepId() != user.getDepartment().getDepId() && newUser.getDepartment().getChefDep() == newUser.getUserId()) {
+                if (!newUser.isAdmin()) {
+                    newUser.getRoles().clear();
+                    newUser.getRoles().add(roleSeeder.user);
+                }
+                dep = departmentRepository.findById(newUser.getDepartment().getDepId());
+                dep.setChefDep(0);
+                saveDep = true;
+            }
             newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
             if (user.getPost() != null) {
                 newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             } else {
                 newUser.setPost(null);
             }
-            if(user.getPassword() != null)
-                newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 //            else
 //                newUser.setPassword(user.getPassword());
 //            newUser.setAddresses(user.getAddresses());
@@ -205,7 +214,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                departmentService.update(dep,dep.getDepId());
 //            }
             System.out.println("BESH YA3MALLOU SAAAAAAAAAAAAAAAVE");
-            return userRepository.saveAndFlush(newUser);
+            User r = userRepository.saveAndFlush(newUser);
+            if(saveDep) {
+                departmentRepository.save(dep);
+            }
+            return r;
         }else return null ;
 //        return userRepository.save(user);
     }
@@ -234,6 +247,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findById(Long id) {
         return userRepository.findById(id).isPresent()?
          userRepository.findById(id).get() : null;
+    }
+
+    @Override
+    public User makeRevokeAdmin(Long id, Long role) {
+        User user = userRepository.findByUserId(id);
+        if (role == 1) {
+            user.getRoles().clear();
+            user.getRoles().add(roleSeeder.admin);
+        } else {
+            Department dep = departmentRepository.findById(user.getDepartment().getDepId());
+            if (dep.getChefDep() == user.getUserId()) {
+                user.getRoles().clear();
+                user.getRoles().add(roleSeeder.chef_department);
+            } else {
+                user.getRoles().clear();
+                user.getRoles().add(roleSeeder.user);
+            }
+        }
+        return userRepository.save(user);
     }
 
     @Override

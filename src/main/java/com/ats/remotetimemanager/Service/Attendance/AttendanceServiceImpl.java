@@ -4,6 +4,8 @@ import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.Post;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
+import com.ats.remotetimemanager.Repository.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +24,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Attendance> findAll() {
         List<Attendance> list = new ArrayList<>();
@@ -30,7 +36,18 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Attendance add(Attendance attendance) {
-        return attendanceRepository.save(attendance);
+        User userAtt =  userRepository.findByUserId(attendance.getUser().getUserId());
+        String attType = attendance.getAttendanceType();
+        if(
+                userAtt.getAttendances().
+                        stream().
+                        noneMatch(
+                                attendance1 -> attendance1.getAttendanceDate().compareTo(LocalDate.now()) == 0  && attendance1.getAttendanceType().equals(attType)))
+        {
+            attendance.setAttendanceDate(LocalDate.now().plusDays(1));
+            return attendanceRepository.save(attendance);
+        }
+        return null;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Attendance {
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties(value ={"attendances"} , allowSetters = true)
+    @JsonIgnoreProperties(value ={"attendances","department","notificationMessages"} , allowSetters = true)
     private User user;
 
     public Attendance() {

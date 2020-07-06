@@ -16,6 +16,7 @@ public interface UserService {
     List<User> findAll();
     User findByUserCIN(String CIN);
     User findById(Long id);
+    User makeRevokeAdmin(Long id, Long role);
      boolean changePassword(ChangePasswordVM vm, String CIN);
      User requestUpdate(User user, Long id);
      User acceptUpdate(User user, Long id);

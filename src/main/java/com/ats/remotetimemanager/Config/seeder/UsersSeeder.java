@@ -97,13 +97,14 @@ public class UsersSeeder {
 
 
 //            user1.setRoles(rolesChefDep);
+//            user1.setAttendances(Arrays.asList(att1));
             user1.setAddresses(Arrays.asList(ad1));
             user1.setUserConfigs(Arrays.asList(userConfigs1));
             user1.setNotificationMessages(notifs);
             System.out.println(user1);
             userService.add(user1);
 
-//            user2.setRoles(rolesAdmin);
+            user2.setRoles(rolesAdmin);
             user2.setAddresses(Arrays.asList(ad2));
             user2.setUserConfigs(Arrays.asList(userConfigs2));
             user2.setNotificationMessages(notifs);
@@ -131,7 +132,7 @@ public class UsersSeeder {
         user5.setUserConfigs(Arrays.asList(userConfigs5));
         user5.setNotificationMessages(notifs);
         userService.add(user5);
-            for (int i=5;i<100;i++) {
+            for (int i=5;i<10;i++) {
                 user5.setImage(i+".jpg");
                 user5.setCin(i+"545485");
                 user4.setEmail("qsd"+i+"@qsdqs.fqs");
