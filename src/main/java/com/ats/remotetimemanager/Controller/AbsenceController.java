@@ -32,6 +32,7 @@ public class AbsenceController {
     }
     @PutMapping("add")
     Absence add(@Valid @RequestBody Absence absence){
+
         return absenceService.add(absence);
     }
 

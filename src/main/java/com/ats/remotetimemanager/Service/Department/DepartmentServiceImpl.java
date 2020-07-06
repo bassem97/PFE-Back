@@ -73,17 +73,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         }else return null;
     }
 
-    @Override
-    public Department removeChefDep(Long id) {
-        if(departmentRepository.findById(id).isPresent()){
-            Department dep = departmentRepository.findById(id).get();
-            User chefDep = userRepository.findByUserId(dep.getDepId());
-            chefDep.setUser();
-            userService.update(chefDep,chefDep.getUserId());
-            dep.setChefDep(0);
-            return departmentRepository.save(dep);
-        }else return null;
-    }
 
     @Override
     public void delete(long id) { departmentRepository.deleteById(id);}
