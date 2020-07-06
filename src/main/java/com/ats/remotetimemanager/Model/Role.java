@@ -13,6 +13,7 @@ public class Role {
     @Column(name = "role_id")
     private long roleId;
 
+    @Column(unique = true)
     private String roleName;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
