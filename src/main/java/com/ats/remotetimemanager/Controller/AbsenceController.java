@@ -69,6 +69,22 @@ public class AbsenceController {
     }
     @PutMapping("add")
     Absence add(@Valid @RequestBody Absence absence) throws Exception {
+        String notifMsg = "";
+        String notifTitle = "";
+        if (absence.getAbsenceType().equals("All day")) {
+            notifMsg = "You have been marked absent ("+absence.getAbsenceDate()+")";
+            notifTitle = "Absent";
+        } else if (absence.getAbsenceType().equals("Early check-out")) {
+            notifMsg = "Early check-out at "+absence.getAbsenceDate()+" marked.";
+            notifTitle = "Early check-out";
+        } else if (absence.getAbsenceType().equals("Late check-in")) {
+            notifMsg = "Late check-in at " + absence.getAbsenceDate() + " marked.";
+            notifTitle = "Late check-in";
+        }
+            NotificationMessage notif = new NotificationMessage(notifTitle
+                , notifMsg, new Date(), false, false, userRepository.findByUserId(absence.getUser().getUserId()));
+        notificationMessageRepository.save(notif);
+        webSocketController.sendMessage(new WebSocketMessage("absence"));
         return  absenceService.add(absence);
 
     }
