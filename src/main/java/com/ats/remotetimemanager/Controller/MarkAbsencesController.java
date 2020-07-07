@@ -7,15 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+
+@RestController
+@CrossOrigin("*")
+@RequestMapping("/absence/")
 @Configuration
 @EnableScheduling
 public class MarkAbsencesController {
+    public Boolean reloadSocket = true;
     @Autowired
     UserRepository userRepository;
 
@@ -40,32 +50,45 @@ public class MarkAbsencesController {
     @Autowired
     private AbsenceController absenceController;
 
+    @RequestMapping("markAbsences")
+    public void markFromRequest() throws Exception {
+        reloadSocket = false;
+        markAbsence();
+    }
+
             @Scheduled(cron = "0 */30 * * * *") // every 30mn
 //    @Scheduled(cron = "*/60 * * * * *") // every 30 seconds
-    public void markAbsence() throws Exception {
-        List<User> users = userRepository.findAll()
-                .stream()
-                .filter(user -> Arrays.asList(user.getDepartment().getPlanning().getScheduleDays()).contains(LocalDate.now().getDayOfWeek().toString().toUpperCase()))
-                .collect(Collectors.toList());
+    public boolean markAbsence() throws Exception {
+        try {
+            List<User> users = userRepository.findAll()
+                    .stream()
+                    .filter(user -> Arrays.asList(user.getDepartment().getPlanning().getScheduleDays()).contains(LocalDate.now().getDayOfWeek().toString().toUpperCase()))
+                    .collect(Collectors.toList());
 
 
-        users.forEach(user -> {
-            user.setAbsences(absenceRepository.findAllByUser(user));
-            user.setAttendances(attendanceRepository.findAllByUser(user));
-            user.getDepartment().getPlanning().setPlanningConfigs(planningConfigRepository.findAllByPlanning(user.getDepartment().getPlanning()));
-            List<Absence> abs = new ArrayList<>();
-            if (!user.getAbsences().isEmpty()) {
-                user.getAbsences().forEach(absence -> {
-                    if (absence.getAbsenceDate().compareTo(LocalDate.now()) == 0) {
-                        abs.add(absence);
-                    }
-                });
-            }
-            user.setAbsences(abs);
-            getStatus("CHECK IN", user);
-            getStatus("CHECK OUT", user);
-        });
-        webSocketController.sendMessage(new WebSocketMessage("att"));
+            users.forEach(user -> {
+                user.setAbsences(absenceRepository.findAllByUser(user));
+                user.setAttendances(attendanceRepository.findAllByUser(user));
+                user.getDepartment().getPlanning().setPlanningConfigs(planningConfigRepository.findAllByPlanning(user.getDepartment().getPlanning()));
+                List<Absence> abs = new ArrayList<>();
+                if (!user.getAbsences().isEmpty()) {
+                    user.getAbsences().forEach(absence -> {
+                        if (absence.getAbsenceDate().compareTo(LocalDate.now()) == 0) {
+                            abs.add(absence);
+                        }
+                    });
+                }
+                user.setAbsences(abs);
+                getStatus("CHECK IN", user);
+                getStatus("CHECK OUT", user);
+            });
+        } finally {
+        if (reloadSocket) {
+            webSocketController.sendMessage(new WebSocketMessage("att"));
+        }
+            reloadSocket = true;
+        }
+        return true;
     }
 
     private void getStatus(String type, User emp) {

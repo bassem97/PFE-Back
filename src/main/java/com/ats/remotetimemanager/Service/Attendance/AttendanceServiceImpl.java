@@ -49,8 +49,10 @@ public class AttendanceServiceImpl implements AttendanceService {
                                 attendance1 -> attendance1.getAttendanceDate().compareTo(LocalDate.now()) == 0  && attendance1.getAttendanceType().equals(attType)))
         {
             attendance.setAttendanceDate(LocalDate.now().plusDays(1));
-            markAbsencesController.markAbsence();
-            return attendanceRepository.save(attendance);
+            Attendance att = attendanceRepository.save(attendance);
+            if (markAbsencesController.markAbsence()) {
+                return att;
+            }
         }
         return null;
     }
