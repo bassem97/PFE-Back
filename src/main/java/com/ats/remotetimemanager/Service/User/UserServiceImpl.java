@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAbsences(user.getAbsences());
             if(user.getRoles().isEmpty()){
                 if(userRepository.findAll().isEmpty()){
-                    newUser.getRoles().add(roleSeeder.admin);
+                    newUser.getRoles().add(roleSeeder.superAdmin);
                 }else{
                     if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
                         newUser.getRoles().add(roleSeeder.chef_department);
@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAddresses(user.getAddresses());
 //            newUser.setNotificationMessages(user.getNotificationMessages());
             if (newUser.getDepartment().getDepId() != user.getDepartment().getDepId() && newUser.getDepartment().getChefDep() == newUser.getUserId()) {
-                if (!newUser.isAdmin()) {
+                if (!newUser.isAdmin() ) {
                     newUser.getRoles().clear();
                     newUser.getRoles().add(roleSeeder.user);
                 }

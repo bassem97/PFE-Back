@@ -48,7 +48,7 @@ public class AbsenceController {
             Department department = userRepository.findByUserId(absenceRepository.findById(id).get().getUser().getUserId()).getDepartment();
             List<NotificationMessage> notifs = new ArrayList<>();
             for (User us : userRepository.findAll()) {
-                if((us.isAdmin() || us.getUserId() == department.getChefDep()) && us.getUserId() != user.getUserId()){
+                if((us.isAdmin() || us.isSuperAdmin() || us.getUserId() == department.getChefDep()) && us.getUserId() != user.getUserId()){
                     notif = new NotificationMessage("Absence reason"
                             ,user.getName()+" "+user.getFirstName()+" has provided a reason for "+abs.getAbsenceDate()+" absence"
                             , new Date(), false, false, us);
@@ -100,7 +100,7 @@ public class AbsenceController {
     }
 
     @GetMapping("listByUser/{id}")
-    List<Absence> listByUser(@PathVariable("id") Long id){
+    public List<Absence> listByUser(@PathVariable("id") Long id){
         return absenceRepository.findAllByUser(userRepository.findByUserId(id));
     }
 }

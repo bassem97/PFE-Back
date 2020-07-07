@@ -84,7 +84,7 @@ public class UserController {
         User sender = userRepository.findByUserId(idSender);
         List<NotificationMessage> notifs = new ArrayList<>();
         for (User us : userRepository.findAll()) {
-            if(us.getUserId() != idSender && (us.isAdmin() || us.isChefDep())){
+            if(us.getUserId() != idSender && (us.isAdmin() || us.isChefDep() || us.isSuperAdmin())){
                 notif= new NotificationMessage("User deleted"
                         ,user.getName()+" "+ user.getFirstName()+ " has been deleted from "+ user.getDepartment().getDepName() + " department by "+
                         sender.getName()+" "+sender.getFirstName()

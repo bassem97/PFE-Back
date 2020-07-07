@@ -265,6 +265,14 @@ public class User {
         return false;
     }
 
+    public boolean isSuperAdmin(){
+        for (Role role:roles) {
+            if(role.getRoleName().equals("SUPER_ADMIN"))
+                return true;
+        }
+        return false;
+    }
+
     public boolean isChefDep(){
         for (Role role:roles) {
             if(role.getRoleName().equals("CHEF_DEPARTMENT"))

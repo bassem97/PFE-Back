@@ -40,7 +40,7 @@ public class TempUserController {
         NotificationMessage notif;
         List<NotificationMessage> notifs = new ArrayList<>();
         for (User user : userRepository.findAll()) {
-            if (user.isAdmin()) {
+            if (user.isAdmin() || user.isSuperAdmin()) {
                 notif = new NotificationMessage("Add request"
                         , sender.getName() + " " + sender.getFirstName() + " wants to add a new employee "
                         , new Date(), false, false, user, tempUser.getUserId());
