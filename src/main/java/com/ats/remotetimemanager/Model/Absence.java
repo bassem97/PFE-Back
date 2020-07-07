@@ -23,6 +23,13 @@ public class Absence {
     private String revisedBy;
     private int absentMinutes;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value ={"absences"} , allowSetters = true)
+    private User user;
+
+
     public String getRevisedBy() {
         return revisedBy;
     }
@@ -39,11 +46,6 @@ public class Absence {
         this.reasonStatus = reasonStatus;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties(value ={"absences"} , allowSetters = true)
-    private User user;
 
     public Absence() {
     }
@@ -112,7 +114,7 @@ public class Absence {
                 ", absenceDate=" + absenceDate +
                 ", absenceType='" + absenceType + '\'' +
                 ", reason='" + reason + '\'' +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }

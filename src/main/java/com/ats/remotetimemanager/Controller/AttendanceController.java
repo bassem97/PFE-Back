@@ -1,10 +1,8 @@
 package com.ats.remotetimemanager.Controller;
 
-import com.ats.remotetimemanager.Model.Address;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.User;
 import com.ats.remotetimemanager.Model.WebSocketMessage;
-import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Repository.AttendanceRepository;
 import com.ats.remotetimemanager.Service.Attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +32,12 @@ public class AttendanceController {
     @Autowired
     WebSocketController webSocketController;
 
+    @Autowired
+    MarkAbsencesController markAbsencesController;
+
     @PostMapping("add")
     public Attendance add(@Valid @RequestBody Attendance attendance) throws Exception {
         Attendance att =  attendanceService.add(attendance);
-        if(att != null)
-        webSocketController.sendMessage(new WebSocketMessage("att"));
         return att;
     }
 

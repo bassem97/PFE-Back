@@ -307,9 +307,9 @@ public class User {
                 ", image='" + image + '\'' +
                 ", post=" + post +
 //                ", department=" + department +
-                ", addresses=" + addresses +
-                ", roles=" + roles +
-                ", userConfigs=" + userConfigs +
+//                ", addresses=" + addresses +
+//                ", roles=" + roles +
+//                ", userConfigs=" + userConfigs +
 //                ", notificationMessages=" + notificationMessages +
                 '}';
     }

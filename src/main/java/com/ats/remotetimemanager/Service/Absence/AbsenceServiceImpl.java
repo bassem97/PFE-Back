@@ -34,7 +34,10 @@ public class AbsenceServiceImpl implements AbsenceService{
     @Override
     public Absence add(Absence absence) {
         absence.setAbsenceDate(absence.getAbsenceDate().plusDays(1));
-       return absenceRepository.save(absence);
+        Absence att = absenceRepository.save(absence);
+        System.out.println(att.getUser());
+
+        return att;
     }
 
     @Override

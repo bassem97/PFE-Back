@@ -1,5 +1,6 @@
 package com.ats.remotetimemanager.Service.Attendance;
 
+import com.ats.remotetimemanager.Controller.MarkAbsencesController;
 import com.ats.remotetimemanager.Model.Attendance;
 import com.ats.remotetimemanager.Model.Post;
 import com.ats.remotetimemanager.Model.User;
@@ -27,6 +28,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MarkAbsencesController markAbsencesController;
+
     @Override
     public List<Attendance> findAll() {
         List<Attendance> list = new ArrayList<>();
@@ -35,7 +39,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Attendance add(Attendance attendance) {
+    public Attendance add(Attendance attendance) throws Exception {
         User userAtt =  userRepository.findByUserId(attendance.getUser().getUserId());
         String attType = attendance.getAttendanceType();
         if(
@@ -45,6 +49,7 @@ public class AttendanceServiceImpl implements AttendanceService {
                                 attendance1 -> attendance1.getAttendanceDate().compareTo(LocalDate.now()) == 0  && attendance1.getAttendanceType().equals(attType)))
         {
             attendance.setAttendanceDate(LocalDate.now().plusDays(1));
+            markAbsencesController.markAbsence();
             return attendanceRepository.save(attendance);
         }
         return null;

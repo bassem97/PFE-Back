@@ -174,7 +174,7 @@ public class Planning {
     public String toString() {
         return "Planning{" +
                 "planningId=" + planningId +
-                ", scheduleDays=" + Arrays.toString(scheduleDays) +
+//                ", scheduleDays=" + Arrays.toString(scheduleDays) +
                 ", planningName='" + planningName + '\'' +
                 ", planningDescription='" + planningDescription + '\'' +
                 ", showPl=" + showPl +
@@ -184,8 +184,8 @@ public class Planning {
                 ", color='" + color + '\'' +
                 ", colorIcon='" + colorIcon + '\'' +
                 ", schedule=" + schedule +
-                ", departments=" + departments +
-                ", planningConfigs=" + planningConfigs +
+//                ", departments=" + departments +
+//                ", planningConfigs=" + planningConfigs +
                 '}';
     }
 }

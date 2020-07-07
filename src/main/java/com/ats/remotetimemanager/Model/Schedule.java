@@ -112,7 +112,7 @@ public class Schedule {
                 ", pauseTime=" + pauseTime +
                 ", pauseStart=" + pauseStart +
                 ", pauseEnd=" + pauseEnd +
-                ", plannings=" + plannings +
+//                ", plannings=" + plannings +
                 '}';
     }
 }

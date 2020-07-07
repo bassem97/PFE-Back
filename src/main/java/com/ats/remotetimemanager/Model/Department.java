@@ -120,15 +120,15 @@ public class Department {
         this.tempUsers = tempUsers;
     }
 
-    @Override
-    public String toString() {
-        return "Department{" +
-                "depId=" + depId +
-                ", depName='" + depName + '\'' +
-                ", chefDep=" + chefDep +
-//                ", supDep=" + supDep +
-//                ", departments=" + departments +
-//                ", users=" + users +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Department{" +
+//                "depId=" + depId +
+//                ", depName='" + depName + '\'' +
+//                ", chefDep=" + chefDep +
+////                ", supDep=" + supDep +
+////                ", departments=" + departments +
+////                ", users=" + users +
+//                '}';
+//    }
 }
