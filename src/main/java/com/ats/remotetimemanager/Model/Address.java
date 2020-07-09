@@ -34,6 +34,13 @@ public class Address {
     private TempUser tempUser;
 
 
+    public TempUser getTempUser() {
+        return tempUser;
+    }
+
+    public void setTempUser(TempUser tempUser) {
+        this.tempUser = tempUser;
+    }
 
     public Address() {
 

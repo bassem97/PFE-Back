@@ -2,9 +2,9 @@ package com.ats.remotetimemanager.Service.TempUser;
 
 import com.ats.remotetimemanager.Model.TempUser;
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.AddressRepository;
 import com.ats.remotetimemanager.Repository.TempUserRepository;
 import com.ats.remotetimemanager.Service.User.UserService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,11 @@ public class TempUserServiceImpl implements TempUserService {
     TempUserRepository tempUserRepository;
 
     @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
     UserService userService;
+
 
     @Override
     public TempUser add(TempUser tempUser){
@@ -34,10 +38,17 @@ public class TempUserServiceImpl implements TempUserService {
 
     @Override
     public User acceptRequest(TempUser tempUser, String action) throws Exception {
-            User user = new User(tempUser.getName(),tempUser.getFirstName(),tempUser.getGender(),tempUser.getBirthDate(),
+        User user = new User(tempUser.getName(),tempUser.getFirstName(),tempUser.getGender(),tempUser.getBirthDate(),
                     tempUser.getPhone(),tempUser.getEmail(),tempUser.getCin(),
                     null,tempUser.getPost(),tempUser.getDepartment(),tempUser.getImage());
             user.setAddresses(tempUser.getAddresses());
+            user.getAddresses().forEach(address -> {
+                addressRepository.delete(address);
+                address.setTempUser(null);
+                address.setAddressId(0);
+            });
+            user.getRoles().clear();
+            user.setUserId(0);
             delete(tempUser.getUserId());
         if(action.equals("add")){
             return userService.add(user);

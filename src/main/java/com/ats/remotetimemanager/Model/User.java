@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Model;
 
-import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jdk.jfr.Enabled;
 import org.hibernate.annotations.OnDelete;
@@ -279,16 +278,6 @@ public class User {
                 return true;
         }
         return false;
-    }
-
-
-    public void setUser(){
-        roles.clear();
-        roles.add(new RoleSeeder().user);
-    }
-    public void setAdmin(){
-        roles.clear();
-        roles.add(new RoleSeeder().admin);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Service.User;
 
-import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.ats.remotetimemanager.Model.*;
 import com.ats.remotetimemanager.Repository.DepartmentRepository;
 import com.ats.remotetimemanager.Repository.PostRepository;
@@ -45,8 +44,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PostRepository postRepository;
     @Autowired
     private PasswordEncoder bcryptEncoder;
-    @Autowired
-    private RoleSeeder roleSeeder;
 
     @Autowired
     private NotificationMailService notificationMailService;
@@ -58,6 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private ImageService imageService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -110,12 +108,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAbsences(user.getAbsences());
             if(user.getRoles().isEmpty()){
                 if(userRepository.findAll().isEmpty()){
-                    newUser.getRoles().add(roleSeeder.superAdmin);
+                    System.out.println("supaddddddd");
+                    newUser.getRoles().add(roleRepository.findByRoleName("SUPER_ADMIN"));
                 }else{
-                    if(user.getDepartment().getUsers().isEmpty() || (user.getDepartment().getUsers().size() == 1 && user.getDepartment().getUsers().get(0).isAdmin()) ) {
-                        newUser.getRoles().add(roleSeeder.chef_department);
+                    List<User> depUsers;
+                    depUsers = userRepository.findAllByDepartment(user.getDepartment());
+                    if(depUsers.isEmpty()) {
+                        System.out.println("chefdeppppppp");
+                        newUser.getRoles().add(roleRepository.findByRoleName("CHEF_DEPARTMENT"));
                     }else {
-                        newUser.getRoles().add(roleSeeder.user);
+                        System.out.println("userrrrrrrrr");
+                        newUser.getRoles().add(roleRepository.findByRoleName("user"));
                     }
                 }
             }else newUser.setRoles(user.getRoles());
@@ -133,6 +136,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
 //            }
             User u =  userRepository.save(newUser);
+            System.out.println(u);
             if(newUser.getRoles().get(0).getRoleName().equals("CHEF_DEPARTMENT")){
                 Department dep = departmentRepository.findById(newUser.getDepartment().getDepId());
                 dep.setChefDep(u.getUserId());
@@ -180,7 +184,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if (newUser.getDepartment().getDepId() != user.getDepartment().getDepId() && newUser.getDepartment().getChefDep() == newUser.getUserId()) {
                 if (!newUser.isAdmin() ) {
                     newUser.getRoles().clear();
-                    newUser.getRoles().add(roleSeeder.user);
+                    newUser.getRoles().add(roleRepository.findByRoleName("USER"));
                 }
                 dep = departmentRepository.findById(newUser.getDepartment().getDepId());
                 dep.setChefDep(0);
@@ -256,15 +260,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepository.findByUserId(id);
         if (role == 1) {
             user.getRoles().clear();
-            user.getRoles().add(roleSeeder.admin);
+            user.getRoles().add(roleRepository.findByRoleName("ADMIN"));
         } else {
             Department dep = departmentRepository.findById(user.getDepartment().getDepId());
             if (dep.getChefDep() == user.getUserId()) {
                 user.getRoles().clear();
-                user.getRoles().add(roleSeeder.chef_department);
+                user.getRoles().add(roleRepository.findByRoleName("CHEF_DEPARTMENT"));
             } else {
                 user.getRoles().clear();
-                user.getRoles().add(roleSeeder.user);
+                user.getRoles().add(roleRepository.findByRoleName("USER"));
             }
         }
         return userRepository.save(user);

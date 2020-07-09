@@ -1,6 +1,5 @@
 package com.ats.remotetimemanager.Service.Department;
 
-import com.ats.remotetimemanager.Config.seeder.RoleSeeder;
 import com.ats.remotetimemanager.Model.Department;
 
 import com.ats.remotetimemanager.Model.User;

@@ -25,12 +25,12 @@ public class UsersSeeder {
 
 
     public void seed() throws Exception {
-        User user1= new User("bassem", "jadoui", "male",
-                "1997-05-05","+21655135774",
-                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.chef_department, scheduleSeeder.info,"1.jpg");
-        User user2 = new User(" Med Amine ", "Khaili", "male",
+        User user1= new User(" Med Amine ", "Khaili", "male",
                 "1997-02-04","+21624222365",
                 "khaili.amine@hotmail.fr", "07492487", "123456",postSeeder.designer, scheduleSeeder.mark,"2.jpg");
+        User user2 = new User("bassem", "jadoui", "male",
+                "1997-05-05","+21655135774",
+                "bassemjadoui1996@gmail.com", "07496483", "123456",postSeeder.chef_department, scheduleSeeder.info,"1.jpg");
         User user3 = new User("manai", "karim", "female",
                 "2020-03-09","+21620000000",
                 "manai@gmail.com", "12345678", "123456",postSeeder.tester, scheduleSeeder.security,"3.jpg");
