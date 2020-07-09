@@ -12,4 +12,5 @@ public interface NotificationMessageRepository extends JpaRepository<Notificatio
     NotificationMessage findById(long id);
     NotificationMessage findByUser (User user);
     List<NotificationMessage> findAllByUser(User user);
+    List<NotificationMessage> findAllByIdTarget(Long id);
 }

@@ -19,17 +19,33 @@ public class NotificationMessageServiceImpl implements NotificationMessageServic
     }
 
     @Override
-    public NotificationMessage update(NotificationMessage notificationMessage, Long id) {
-       if(notificationMessageRepository.findById(id).isPresent()){
-           NotificationMessage notif = notificationMessageRepository.findById(id).get();
-           notif.setNotifTitle(notificationMessage.getNotifTitle());
-           notif.setNotifDesc(notificationMessage.getNotifDesc());
-           notif.setNotifDate(notificationMessage.getNotifDate());
-           notif.setIsViewed(notificationMessage.getIsViewed());
-           notif.setIsHovered(notificationMessage.getIsHovered());
-           notif.setIdTarget(notificationMessage.getIdTarget());
-           return notificationMessageRepository.save(notif);
-       }return null;
+    public NotificationMessage update(NotificationMessage notificationMessage, Long id, Long sender) {
+        if (sender == 1) {
+            if (notificationMessageRepository.findById(id).isPresent()) {
+                NotificationMessage notif = notificationMessageRepository.findById(id).get();
+                notif.setNotifTitle(notificationMessage.getNotifTitle());
+                notif.setNotifDesc(notificationMessage.getNotifDesc());
+                notif.setNotifDate(notificationMessage.getNotifDate());
+                notif.setIsViewed(notificationMessage.getIsViewed());
+                notif.setIsHovered(notificationMessage.getIsHovered());
+                notif.setIdTarget(notificationMessage.getIdTarget());
+                return notificationMessageRepository.save(notif);
+            }
+        } else {
+            updateAll(notificationMessage);
+        }
+
+        return null;
+    }
+
+    public List<NotificationMessage> updateAll(NotificationMessage notificationMessage) {
+        List<NotificationMessage> notifs = notificationMessageRepository.findAllByIdTarget(notificationMessage.getIdTarget());
+        notifs.forEach(notificationMessage1 -> {
+            notificationMessage1.setIdTarget(0);
+            notificationMessageRepository.save(notificationMessage1);
+        });
+        notifs = notificationMessageRepository.saveAll(notifs);
+        return notifs;
     }
 
     @Override

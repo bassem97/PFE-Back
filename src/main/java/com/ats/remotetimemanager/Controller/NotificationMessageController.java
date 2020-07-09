@@ -22,9 +22,9 @@ public class NotificationMessageController {
         return notificationMessageService.add(notificationMessage);
     }
 
-    @PutMapping("update/{id}")
-    public NotificationMessage update(@Valid @RequestBody NotificationMessage notificationMessage, @PathVariable("id") Long id) {
-        return notificationMessageService.update(notificationMessage, id);
+    @PutMapping("update/{id}/{sender}")
+    public NotificationMessage update(@Valid @RequestBody NotificationMessage notificationMessage, @PathVariable("id") Long id, @PathVariable("sender") Long sender) {
+        return notificationMessageService.update(notificationMessage, id, sender);
     }
 
     @DeleteMapping("delete/{id}")

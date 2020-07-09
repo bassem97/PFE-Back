@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface NotificationMessageService {
     NotificationMessage add(NotificationMessage notificationMessage);
-    NotificationMessage update(NotificationMessage notificationMessage, Long id);
+    NotificationMessage update(NotificationMessage notificationMessage, Long id, Long sender);
+    List<NotificationMessage> updateAll(NotificationMessage notificationMessage);
     List<NotificationMessage> findAll();
     List<NotificationMessage> findAllByUser(User user);
 

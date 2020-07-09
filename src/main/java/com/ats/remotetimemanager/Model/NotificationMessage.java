@@ -129,6 +129,7 @@ public class NotificationMessage {
     public String toString() {
         return "NotificationMessage{" +
                 "notifId=" + notifId +
+                "targetId=" + idTarget +
                 ", notifTitle='" + notifTitle + '\'' +
                 ", notifDesc='" + notifDesc + '\'' +
                 ", notifDate=" + notifDate +
