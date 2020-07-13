@@ -2,10 +2,13 @@ package com.ats.remotetimemanager.Service.Schedule;
 
 import com.ats.remotetimemanager.Model.Planning;
 import com.ats.remotetimemanager.Model.Schedule;
+import com.ats.remotetimemanager.Repository.PlanningConfigRepository;
+import com.ats.remotetimemanager.Repository.PlanningRepository;
 import com.ats.remotetimemanager.Repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service(value = "scheduleService")
@@ -13,6 +16,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    PlanningRepository planningRepository;
+
+    @Autowired
+    PlanningConfigRepository planningConfigRepository;
+
 
     @Override
     public Schedule add(Schedule schedule) {
@@ -29,6 +39,14 @@ public class ScheduleServiceImpl implements ScheduleService {
             sch.setPauseStart(schedule.getPauseStart());
             sch.setPauseEnd(schedule.getPauseEnd());
             if (sender == 1) {
+                schedule.getPlannings().forEach(planning -> {
+                    if (planning.getPlanningId() != null) {
+                        if (planningRepository.findById(planning.getPlanningId()).isPresent()) {
+                            planning.getPlanningConfigs().clear();
+                            planning.setPlanningConfigs(planningConfigRepository.findAllByPlanning(planning));
+                        }
+                    }
+                });
                 sch.setPlannings(schedule.getPlannings());
             }
             return scheduleRepository.save(sch);
