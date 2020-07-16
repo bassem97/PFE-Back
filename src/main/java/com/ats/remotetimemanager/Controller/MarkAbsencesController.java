@@ -78,9 +78,12 @@ public class MarkAbsencesController {
                         }
                     });
                 }
-                user.setAbsences(abs);
-                getStatus("CHECK IN", user);
-                getStatus("CHECK OUT", user);
+                User newUser = new User();
+                newUser.setAbsences(abs);
+                newUser.setUserId(user.getUserId());
+                newUser.setDepartment(user.getDepartment());
+                getStatus("CHECK IN", newUser);
+                getStatus("CHECK OUT", newUser);
             });
         } finally {
         if (reloadSocket) {
@@ -167,10 +170,6 @@ public class MarkAbsencesController {
                     if (!types.isEmpty()) {
                         if (!types.contains("All day")) {
                             try {
-
-                                System.out.println("_________________________________________________________________");
-                                System.out.println("1st");
-                                System.out.println("_________________________________________________________________");
                                 createAbsence(emp, "All day", finalAbsentMinutes);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -178,10 +177,6 @@ public class MarkAbsencesController {
                         }
                     } else {
                         try {
-
-                            System.out.println("_________________________________________________________________");
-                            System.out.println("2nd");
-                            System.out.println("_________________________________________________________________");
                             createAbsence(emp, "All day", finalAbsentMinutes);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -202,10 +197,6 @@ public class MarkAbsencesController {
                     if (!types.isEmpty()) {
                         if (!types.contains("All day")) {
                             try {
-
-                                System.out.println("_________________________________________________________________");
-                                System.out.println("3rd");
-                                System.out.println("_________________________________________________________________");
                                 createAbsence(emp, "All day", finalAbsentMinutes);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -213,9 +204,6 @@ public class MarkAbsencesController {
                         }
                     } else {
                         try {
-                            System.out.println("_________________________________________________________________");
-                            System.out.println("4th");
-                            System.out.println("_________________________________________________________________");
                             createAbsence(emp, "All day", finalAbsentMinutes);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -230,6 +218,9 @@ public class MarkAbsencesController {
     }
 
     private void createAbsence(User emp, String type, int minutes) throws Exception {
+        System.out.println("____________________________________________________________________");
+        System.out.println(emp);
+        System.out.println("____________________________________________________________________");
         if (type.equals("All day") && !emp.getAbsences().isEmpty()) {
             emp.getAbsences().forEach(absence -> {
                 this.absenceRepository.deleteById(absence.getIdAbsence());
