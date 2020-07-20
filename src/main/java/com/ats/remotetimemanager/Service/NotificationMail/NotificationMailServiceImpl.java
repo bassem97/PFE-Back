@@ -1,6 +1,7 @@
 package com.ats.remotetimemanager.Service.NotificationMail;
 
 import com.ats.remotetimemanager.Model.User;
+import com.ats.remotetimemanager.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,6 +16,9 @@ public class NotificationMailServiceImpl implements NotificationMailService{
     @Autowired
     private JavaMailSender javaMAilSender;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void sendNotification(User user, String password) throws MailException {
         // send mail
@@ -22,7 +26,11 @@ public class NotificationMailServiceImpl implements NotificationMailService{
         mail.setTo(user.getEmail());
         mail.setFrom("no-reply@remoteMonitoring.com");
         mail.setSubject("Remote Monitoring");
-        mail.setText("Hello "+user.getFirstName()+" "+user.getName()+",\n you have been added to "+user.getDepartment().getDepName()+" department by your employer.\n \nHere are your login credentials:\nCIN: "+user.getCin()+"\nPassword: "+password+"\n \n you can change your password once you are logged in.");
+        if (!userRepository.findAll().isEmpty()) {
+            mail.setText("Hello " + user.getFirstName() + " " + user.getName() + ",\n you have been added to " + user.getDepartment().getDepName() + " department by your employer.\n \nHere are your login credentials:\nCIN: " + user.getCin() + "\nPassword: " + password + "\n \n you can change your password once you are logged in.");
+        } else {
+            mail.setText("Hello " + user.getFirstName() + " " + user.getName() + ",\n your application is all set up.\n \nHere are your login credentials:\nCIN: " + user.getCin() + "\nPassword: " + password + "\n \n you can change your password once you are logged in.\n \n Thank you for choosing Remote Monitoring application.");
+        }
         javaMAilSender.send(mail);
     }
 

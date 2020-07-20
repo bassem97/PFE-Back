@@ -1,1 +1,1 @@
-Database\mysql -u root remotetimemanager < Custom_DB_Backup14-07-2020_14-57-45.sql
+Database\mysql -u root remotetimemanager < Daily_DB_Backup_19-07-2020.sql
