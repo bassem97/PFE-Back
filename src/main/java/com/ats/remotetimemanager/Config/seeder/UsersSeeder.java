@@ -132,16 +132,16 @@ public class UsersSeeder {
         user5.setUserConfigs(Arrays.asList(userConfigs5));
         user5.setNotificationMessages(notifs);
         userService.add(user5);
-//            for (int i=5;i<50;i++) {
-//                user5.setName("Test"+i);
-//                user5.setFirstName("Testttt"+i);
-//                user5.setImage(i+".jpg");
-//                user5.setCin(i+"545485");
-//                user5.setEmail("qsd"+i+"@qsdqs.fqs");
-//                user5.setPhone("55545"+i);
-//                user5.setUserId(user5.getUserId()+1);
-//                userService.add(user5);
-//            }
+            for (int i=5;i<50;i++) {
+                user5.setName("Test"+i);
+                user5.setFirstName("Testttt"+i);
+                user5.setImage(i+".jpg");
+                user5.setCin(i+"545485");
+                user5.setEmail("qsd"+i+"@qsdqs.fqs");
+                user5.setPhone("55545"+i);
+                user5.setUserId(user5.getUserId()+1);
+                userService.add(user5);
+            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);

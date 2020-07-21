@@ -36,10 +36,10 @@ public class RemotetimemanagerApplication  {
     public void init() throws Exception {
 
         // Don't Comment !!!!!!!!!!!!!
-//            roleSeeder.seed();
+            roleSeeder.seed();
         // Don't Comment !!!!!!!!!!!!!
 
-//        seedByOrder.init();
+        seedByOrder.init();
     }
 
     @Configuration

@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             //password
             String generatedPassword = randomPassword();
 //            newUser.setPassword(user.getPassword());
-            newUser.setPassword(bcryptEncoder.encode("123456"));
+            newUser.setPassword(bcryptEncoder.encode(generatedPassword));
             newUser.setAddresses(user.getAddresses());
             newUser.setAbsences(user.getAbsences());
             if(user.getRoles().isEmpty()){
@@ -130,11 +130,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
 
             // send notification
-//            try{
-//                notificationMailService.sendNotification(newUser, generatedPassword);
-//            }catch (MailException ex) {
-//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
-//            }
+            try{
+                notificationMailService.sendNotification(newUser, generatedPassword);
+            }catch (MailException ex) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
+            }
             User u =  userRepository.save(newUser);
             System.out.println(u);
             if(newUser.getRoles().get(0).getRoleName().equals("CHEF_DEPARTMENT")){
