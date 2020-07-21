@@ -64,12 +64,10 @@ public class MarkAbsencesController {
                     .stream()
                     .filter(user -> Arrays.asList(user.getDepartment().getPlanning().getScheduleDays()).contains(LocalDate.now().getDayOfWeek().toString().toUpperCase()))
                     .collect(Collectors.toList());
-
-
             users.forEach(user -> {
                 user.setAbsences(absenceRepository.findAllByUser(user));
                 user.setAttendances(attendanceRepository.findAllByUser(user));
-                user.getDepartment().getPlanning().setPlanningConfigs(planningConfigRepository.findAllByPlanning(user.getDepartment().getPlanning()));
+                 user.getDepartment().getPlanning().setPlanningConfigs(planningConfigRepository.findAllByPlanning(user.getDepartment().getPlanning()));
                 List<Absence> abs = new ArrayList<>();
                 if (!user.getAbsences().isEmpty()) {
                     user.getAbsences().forEach(absence -> {
@@ -80,6 +78,7 @@ public class MarkAbsencesController {
                 }
                 User newUser = new User();
                 newUser.setAbsences(abs);
+                newUser.setAttendances(user.getAttendances());
                 newUser.setUserId(user.getUserId());
                 newUser.setDepartment(user.getDepartment());
                 getStatus("CHECK IN", newUser);
@@ -218,9 +217,6 @@ public class MarkAbsencesController {
     }
 
     private void createAbsence(User emp, String type, int minutes) throws Exception {
-        System.out.println("____________________________________________________________________");
-        System.out.println(emp);
-        System.out.println("____________________________________________________________________");
         if (type.equals("All day") && !emp.getAbsences().isEmpty()) {
             emp.getAbsences().forEach(absence -> {
                 this.absenceRepository.deleteById(absence.getIdAbsence());
