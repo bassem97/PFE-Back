@@ -36,10 +36,10 @@ public class UsersSeeder {
                 "manai@gmail.com", "12345678", "123456",postSeeder.tester, scheduleSeeder.security,"3.jpg");
         User user4 = new User("zaroui", "montassar", "male",
                 "2020-03-09","+21620500000",
-                "tatay@gmail.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.khra,"4.jpg");
+                "tatay@gmail.com", "152345678", "1234556",postSeeder.tester, scheduleSeeder.rh,"4.jpg");
         User user5 = new User("degla", "malek", "male",
                 "2020-03-09","+21620500021",
-                "degla@gmail.com", "01234567", "1234556",postSeeder.tester, scheduleSeeder.khra,"5.jpg");
+                "degla@gmail.com", "01234567", "1234556",postSeeder.tester, scheduleSeeder.rh,"5.jpg");
 
             Address ad1 = new Address("kalaa kebira","30","ariena","borj louzir", 2036);
             Address ad2 = new Address("nahj  za3ter","b254","ariena","hedi nouira", 2037);
@@ -132,14 +132,16 @@ public class UsersSeeder {
         user5.setUserConfigs(Arrays.asList(userConfigs5));
         user5.setNotificationMessages(notifs);
         userService.add(user5);
-            for (int i=5;i<10;i++) {
-                user5.setImage(i+".jpg");
-                user5.setCin(i+"545485");
-                user4.setEmail("qsd"+i+"@qsdqs.fqs");
-                user5.setPhone("55545"+i);
-                user5.setUserId(user4.getUserId()+1);
-                userService.add(user5);
-            }
+//            for (int i=5;i<50;i++) {
+//                user5.setName("Test"+i);
+//                user5.setFirstName("Testttt"+i);
+//                user5.setImage(i+".jpg");
+//                user5.setCin(i+"545485");
+//                user5.setEmail("qsd"+i+"@qsdqs.fqs");
+//                user5.setPhone("55545"+i);
+//                user5.setUserId(user5.getUserId()+1);
+//                userService.add(user5);
+//            }
 //                User user4 = new User("erreur", "erreur",
 //                        "2020/03/09",205000000,
 //                        "erreru@gmail.com", "152345678", "1234556",postSeeder.chef_department, departmentSeeder.info);

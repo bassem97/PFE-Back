@@ -102,8 +102,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             newUser.setAttendances(user.getAttendances());
             //password
             String generatedPassword = randomPassword();
-            newUser.setPassword(bcryptEncoder.encode(generatedPassword));
-//            newUser.setPassword(bcryptEncoder.encode("123456"));
+//            newUser.setPassword(user.getPassword());
+            newUser.setPassword(bcryptEncoder.encode("123456"));
             newUser.setAddresses(user.getAddresses());
             newUser.setAbsences(user.getAbsences());
             if(user.getRoles().isEmpty()){
@@ -130,11 +130,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
 
             // send notification
-            try{
-                notificationMailService.sendNotification(newUser, generatedPassword);
-            }catch (MailException ex) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
-            }
+//            try{
+//                notificationMailService.sendNotification(newUser, generatedPassword);
+//            }catch (MailException ex) {
+//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Erreur email: " + ex.getMessage());
+//            }
             User u =  userRepository.save(newUser);
             System.out.println(u);
             if(newUser.getRoles().get(0).getRoleName().equals("CHEF_DEPARTMENT")){
@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 dep.setChefDep(0);
                 saveDep = true;
             }
-            newUser.setDepartment(departmentRepository.findByDepName(user.getDepartment().getDepName()));
+            newUser.setDepartment(departmentRepository.findById(user.getDepartment().getDepId()));
             if (user.getPost() != null) {
                 newUser.setPost(postRepository.findByPostName(user.getPost().getPostName()));
             } else {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Service(value = "departmentService")
@@ -52,18 +53,27 @@ public class DepartmentServiceImpl implements DepartmentService {
             if(dep.getChefDep() != department.getChefDep()){
                 if(department.getChefDep() != 0){
                     User user = userRepository.findByUserId(department.getChefDep());
-                    if (!user.getRoles().contains(roleRepository.findByRoleName("ADMIN"))) {
+                    if (user.getRoles().contains(roleRepository.findByRoleName("ADMIN"))  || user.getRoles().contains(roleRepository.findByRoleName("SUPER_ADMIN"))) {
+                        System.out.println("admin");
+                    } else {
+                        System.out.println("mouch admiiiin donc hotlou");
                         user.getRoles().clear();
                         user.getRoles().add(roleRepository.findByRoleName("CHEF_DEPARTMENT"));
+                        user.setDepartment(department);
                         userService.update(user, user.getUserId());
                     }
                 }
-                if(dep.getChefDep() != 0){
-                    User user = userRepository.findByUserId(dep.getChefDep());
-                    if (!user.getRoles().contains(roleRepository.findByRoleName("ADMIN"))) {
-                        user.getRoles().clear();
-                        user.getRoles().add(roleRepository.findByRoleName("USER"));
-                        userService.update(user, user.getUserId());
+
+                if(dep.getChefDep() != 0) {
+                    User user2 = userRepository.findByUserId(dep.getChefDep());
+                    if (user2.getRoles().contains(roleRepository.findByRoleName("ADMIN")) || user2.getRoles().contains(roleRepository.findByRoleName("SUPER_ADMIN"))) {
+                        System.out.println("admin");
+                    } else {
+                        System.out.println("mouch admiiiin donc nahilou");
+                        user2.getRoles().clear();
+                        user2.getRoles().add(roleRepository.findByRoleName("USER"));
+                        user2.setDepartment(department);
+                        userService.update(user2, user2.getUserId());
                     }
                 }
             }

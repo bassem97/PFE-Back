@@ -53,27 +53,27 @@ public class ScheduleSeeder{
             "Normal time monday to friday",
             true,
             "btn btn-outline-success",
-            "btn btn-success",5,"2020-06-20T23:00:00.000Z","2020-06-25T23:00:00.000Z");
+            "btn btn-success",5,"2020-07-23T23:00:00.000Z","2021-06-25T23:00:00.000Z");
     Planning plan2 = new Planning(weekEnd, "SATURDAY TIME",
             "only on saturday",
             false,
             "btn btn-outline-info",
-            "btn btn-info",5,"2020-06-20T23:00:00.000Z","2020-06-30T23:00:00.000Z");
-    Planning plan3 = new Planning(weekEnd, "SATURDAY TIME",
+            "btn btn-info",5,"2020-07-23T23:00:00.000Z","2021-06-30T23:00:00.000Z");
+    Planning plan3 = new Planning(weekEnd, "Planning 3",
             "only on saturday",
             true,
             "btn btn-outline-dark",
-            "btn btn-dark",2,"2020-06-20T23:00:00.000Z","2020-07-10T23:00:00.000Z");
-    Planning plan4 = new Planning(weekEnd, "NORMAL TIME",
+            "btn btn-dark",2,"2020-07-23T23:00:00.000Z","2021-07-10T23:00:00.000Z");
+    Planning plan4 = new Planning(weekEnd, "Planning 4",
             "Normal time monday to friday",
             false,
             "btn btn-outline-danger",
-            "btn btn-danger",2,"2020-06-20T23:00:00.000Z","2020-07-30T23:00:00.000Z");
+            "btn btn-danger",2,"2020-07-23T23:00:00.000Z","2021-07-30T23:00:00.000Z");
 
-    Department mark = new Department("marketing", null, plan4);
+    Department mark = new Department("marketing", null, plan1);
     Department info = new Department("informatique", null, plan1);
-    Department security = new Department("security", info, plan2);
-    Department khra = new Department("Resources humaines", security, plan3);
+    Department security = new Department("security", info, plan1);
+    Department rh = new Department("Resources humaines", security, plan2);
 
     public void seed(){
        if(scheduleRepository.findAll().isEmpty()){
@@ -83,10 +83,10 @@ public class ScheduleSeeder{
                e.printStackTrace();
            }
 
-           plan1.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,15,540)));
-           plan2.setPlanningConfigs(Arrays.asList(new PlanningConfig(10,10,540)));
-           plan3.setPlanningConfigs(Arrays.asList(new PlanningConfig(30,30,540)));
-           plan4.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,5,540)));
+           plan1.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,15,60)));
+           plan2.setPlanningConfigs(Arrays.asList(new PlanningConfig(10,10,60)));
+           plan3.setPlanningConfigs(Arrays.asList(new PlanningConfig(30,30,60)));
+           plan4.setPlanningConfigs(Arrays.asList(new PlanningConfig(5,5,60)));
            List<Planning> l1 = new ArrayList<>();
            List<Planning> l2 = new ArrayList<>();
            plan1.setSchedule(normalTime);
@@ -102,7 +102,7 @@ public class ScheduleSeeder{
            if(departmentRepository.findAll().isEmpty()){
                departmentService.add(info);
                departmentService.add(security );
-               departmentService.add(khra);
+               departmentService.add(rh);
                departmentService.add(mark);
            }
 
